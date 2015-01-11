@@ -1,0 +1,219 @@
+#!/bin/bash
+
+function usage
+{
+	echo "Usage: $(boldme $me) command [command-params]"
+	echo ''
+	echo "Commands"
+	echo "	$(boldme 'today')		Print the date of today, to use in backlog"
+	echo "		Options"
+	echo "			$(boldme '-r, --revision')		Revision number in the version control system"
+	echo
+	echo "	$(boldme 'create')		Create a new uncommited backlog for today"
+	echo
+	echo "	$(boldme 'commit')		Commit the current uncommited backlogs"
+	echo "		Options"
+	echo "			$(boldme '-r, --revision')		revision 		Revision number in the version control system"
+	echo "			$(boldme '-d, --date-of-commit')	YYYYMMDDHHMMSS 		Use this date, if not present then use current system date and time"	
+	echo ''
+	echo "Common options"
+	echo "	$(boldme '?, -h, --help')		Print this message"
+	echo "	$(boldme '-D, --debug')		Debug output"
+	echo "	$(boldme '-e, --echo-only')		Do not make real changes."
+	echo ''
+	echo "Examples"
+	echo "	$(boldme $me) today [$(boldme '-D')][$(boldme '-r') revision]"
+	echo "	$(boldme $me) create [$(boldme '-e')][$(boldme '-D')]"
+	echo "	$(boldme $me) commit $(boldme '-r') revision [$(boldme '-e')][$(boldme '-D')][$(boldme '-d') date-of-commit]"
+	echo ''
+}
+
+function boldme
+{
+	echo "$bold$1$normal"
+}
+
+function debug
+{
+	if $debug; then
+		echo "$1"
+	fi
+}
+
+#Nombre del script
+me=`basename $0`
+#Formateo de fuentes
+bold=`tput bold`
+normal=`tput sgr0`
+#Debug
+debug=false
+
+
+TODAY=$(date +"%Y%m%d")
+NOW=$(date +"%Y%m%d%H%M%S")
+
+SUFFIX_BACKLOG_FILENAME=-adm.backlog
+WORK_DIR=~/Documentos/Work
+UNCOMMITED_DIR_NAME=uncommited
+COMMITED_DIR_NAME=commited
+TODAY_BACKLOG_FILENAME=$TODAY$SUFFIX_BACKLOG_FILENAME
+
+EXPECTED_ARGS=1
+E_BADARGS=65
+
+date_of_commit=""
+
+#Control de parametros
+while [ "$1" != "" ]; do
+    case $1 in
+	? | -h | --help )
+		usage
+		exit 1
+		;;
+    commit )
+		command="$1"
+		debug "Received comand is $(boldme $command)"
+		;;
+	today )
+		command="$1"
+		debug "Received comand is $(boldme $command)"
+		;;
+	create )
+		command="$1"
+		debug "Received comand is $(boldme $command)"
+		;;
+	-e | --echo-only )
+		echo "$(boldme 'WARN'): 'Only echo' option has been activated!"
+		echo
+		execute=false
+        ;;
+    -d | --date-of-commit )
+		shift
+		debug "Setting $(boldme $1) as date of commit"
+		date_of_commit="$1"
+		;;
+	-r | --revision )
+		shift
+		debug "Setting $(boldme $1) as revision number"
+		revision="$1"
+		;;
+	-D | --debug )
+		echo "Debug mode $(boldme ON)";
+		debug=true
+		;;
+	* )
+		echo "$(boldme Error:) Unknown argument $(boldme $1)"
+		echo
+		usage
+		exit $E_BADARGS
+		;;
+    esac
+    shift
+done
+
+
+
+function commit {
+	if [ "$revision" == "" ] 
+	then
+		echo "$(boldme Error:) A revision number is needed!"
+		exit $E_BADARGS
+	fi
+
+	if [ "$date_of_commit" != "" ]
+	then
+		debug "Setting date of commit to $(boldme '$date_of_commit')"
+		NOW=$date_of_commit
+	fi
+
+	NEW_COMMITED_DIR=$WORK_DIR/$COMMITED_DIR_NAME/$NOW-$revision
+
+	echo "Commiting changes on $(boldme $NOW) (rev. $(boldme $revision)) [ $(boldme $NOW-$revision) ]"
+
+	echo "Making a new directory [$(boldme $NEW_COMMITED_DIR)] for commited backlogs ..."
+	debug "	mkdir $NEW_COMMITED_DIR ..."
+	if $execute; 
+	then
+		mkdir $NEW_COMMITED_DIR
+	fi
+
+	echo "Move uncommited backlogs to a new commited location [$(boldme $NEW_COMMITED_DIR)] ..."
+	debug "	mv $WORK_DIR/$UNCOMMITED_DIR_NAME/* $NEW_COMMITED_DIR/ ..."
+	if $execute; 
+	then
+		mv $WORK_DIR/$UNCOMMITED_DIR_NAME/* $NEW_COMMITED_DIR/
+	fi
+
+	echo "Copying today backlog [$(boldme $TODAY_BACKLOG_FILENAME)] as current uncommited backlog ..."
+	debug "	cp $NEW_COMMITED_DIR/$TODAY_BACKLOG_FILENAME  $WORK_DIR/$UNCOMMITED_DIR_NAME/ ..."
+	if $execute; 
+	then
+		cp $NEW_COMMITED_DIR/$TODAY_BACKLOG_FILENAME  $WORK_DIR/$UNCOMMITED_DIR_NAME/
+	fi	
+}
+
+function today {
+	echo "Today: [ $(boldme $TODAY) ]"
+	if [ "$revision" != "" ]
+	then
+		echo "Today commiting directory: [ $(boldme $NOW-$revision) ]"
+	else
+		echo "Today commiting directory: [ $(boldme $NOW) ]"
+	fi
+	echo "Today commiting backlog file name: [ $(boldme $TODAY_BACKLOG_FILENAME) ]"
+}
+
+function create {
+	echo "Creating a new backlog file on $(boldme $TODAY): [ $(boldme $TODAY_BACKLOG_FILENAME) ]"
+	debug "Calculating previous backlog file name..."
+ 	
+	FILES=`find $WORK_DIR/$UNCOMMITED_DIR_NAME/ -type f -name *.backlog | sort -n -t - -k 1`
+	for filename in $FILES
+	do
+  		debug "	Processing $filename file..."  		
+	done
+
+	if [[ "$filename" == "$WORK_DIR/$UNCOMMITED_DIR_NAME/$TODAY_BACKLOG_FILENAME" ]];
+	then
+		echo "$(boldme 'WARN'): A backlog for today already has been created!"
+	elif [ "$filename" != "" ]
+	then
+		echo "Copying from previous backlog ($filename)..."
+		debug "	cp $filename $WORK_DIR/$UNCOMMITED_DIR_NAME/$TODAY_BACKLOG_FILENAME"
+		if $execute; 
+		then
+			cp $filename $WORK_DIR/$UNCOMMITED_DIR_NAME/$TODAY_BACKLOG_FILENAME
+		fi
+	else
+		echo "There is no previous backlog, creating a new one..."
+		debug " touch $WORK_DIR/$UNCOMMITED_DIR_NAME/$TODAY_BACKLOG_FILENAME"
+		if $execute; 
+		then
+			touch $WORK_DIR/$UNCOMMITED_DIR_NAME/$TODAY_BACKLOG_FILENAME
+		fi
+	fi
+}
+
+echo
+case $command in
+	today )
+		today
+		echo
+		exit 1
+		;;
+	create )
+		create
+		echo
+		exit 1
+		;;
+	commit )
+		commit
+		echo
+		exit 1
+		;;
+	* )
+		usage
+		echo
+		exit $E_BADARGS
+		;;
+esac

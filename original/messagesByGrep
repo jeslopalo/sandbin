@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo $1
+
+echo "dmesg | grep drm"
+dmesg |grep drm
+
+echo "uname -r"
+uname -r
+
+sudo cat /var/log/messages | grep "$1"

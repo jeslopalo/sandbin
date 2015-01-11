@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Eliminando los logs mas antiguos a 13 dias...."
+
+echo "- Directorio /log/intranet/intrapps ..."
+find /log/intranet/intrapps -type f -mtime +13 -exec rm -f {} \;

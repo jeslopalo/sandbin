@@ -1,0 +1,11 @@
+#!/bin/sh
+
+sudo apt-get update
+
+echo "\n\n...actualizando !!! \n\n"
+
+sudo apt-get upgrade
+
+echo "\n\n TODO comprobar si existe la palabra kernel"
+echo "Si hay actualizaciones del kernel recuerda ejecutar....!"
+echo "/opt/kaspersky/script/build !!"

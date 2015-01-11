@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Comprobamos los parámetros de la linea de comandos
+if [[ ! -d $1 ]]
+then
+  echo "Error en los parametros! Uso: $0 <directorio>";
+  exit 1
+fi
+
+# Crea los archivos temporales
+tempfile=`tempfile 2>/dev/null` || tempfile=/tmp/test$$
+trap "rm -f $tempfile" 0 1 2 5 15
+
+# Localiza todos los archivos en el directorio
+find $1 -type f > $tempfile;
+
+# Abre el archivo temporal
+exec 3< $tempfile
+while read -u3 filename
+do
+  # Chequea el tipo de codificacion del archivo
+  typefile=$(file --mime "$filename");
+  if [[ -n $(echo $typefile | grep "text/") ]]
+  then
+    encoding=$(echo $typefile | cut -d'=' -f2);
+    if [[ $encoding != "utf-8" ]]
+    then
+      if [[ -n "$(iconv --list | grep -i $encoding)" ]]
+      then
+        # Cambia la codificacion
+        tempfile2=`tempfile 2>/dev/null` || tempfile2=/tmp/test$$
+        trap "rm -f $tempfile2" 0 1 2 5 15
+        iconv --from-code=$encoding --to-code=utf-8 "$filename" > $tempfile2
+        mv -f $tempfile2 "$filename"
+        echo "$filename: $encoding -> utf8";
+      fi
+    fi
+  fi;
+done;
+
+exec 3<&-
