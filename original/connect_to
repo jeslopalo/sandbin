@@ -2,21 +2,7 @@
 
 # Configuracion
 #EXAMPLE=("name; description; server; username; password; protocol;")
-locations=(" svnflei; Servidor svn Flei (/home/mercantil-i/SVN/); 10.255.254.102; mercantil-i; mercantil-i; ssh; "
-		" intflei; Servidor integracion Flei; 10.255.255.110; webuser; 1_webuser; ssh;"
-		" regprueba; Registro prueba integracion Flei (/aplicaciones/escuchadores/SI_server/registroPrueba); 10.255.255.110; webuser; webuser; ssh;"
-	   " preintra; Servidor prepro Intranet (/datos/intranet/bin/startIntranetServer.sh); 10.255.255.196; root; temporal;ssh; "
-	   " hudson; Servidor para integracion continua; 10.0.145.253; integracion; integracion; telnet; "
-	   "desatrad; Servidor desarrollo Traduccion (/datos/propiedad/bin, /log/propiedad/traduccion/traductor/traductor.log, /log/propiedad/TraducionServer-0.out); 10.255.255.202; webuser; webuser; ssh;"
-	   " winflei; Pruebas flei; 10.0.145.22; jesus.lopez; jesus; rdesktop; CORPME"
-	   " visio001; Visio 001; 10.40.40.250; usuario; usuario; rdesktop; CORPME" 
-	   " visio002; Visio 002; 10.40.40.251; usuario; usuario; rdesktop; CORPME"
-           " visio003; Visio 003; 10.40.40.252; usuario; usuario; rdesktop; CORPME"
-	   " winadm; Active Directory de desarrollo; 10.255.255.33; Administrador; Active2012; rdesktop; desarrollo.es"
-	   " bea03; Servidor de producción bea03; 10.136.30.28; webuser; O!serweb; ssh; "
-	   " bea04; Servidor de producción bea04; 10.136.30.29; webuser; O!serweb; ssh; "
-	   " desaweb; Servidor de desarrollo; desaweb.corpme.es; usuario; usuario; ssh; "
-	   " maqueta; Maqueta de desarrollo; 10.0.105.254; administrador; sistemas; rdesktop; CORPME" 
+locations=(
 	   )
 
 #Nombre del script
