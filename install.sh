@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 set -e
 
 if [ ! -n "$SANDBIN_HOME" ]; then
