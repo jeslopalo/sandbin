@@ -33,6 +33,19 @@ if [ -d "$OM_ZSH_HOME" ]; then
 	done
 fi
 
+function reload_shell_config() {
+	echo -e "\nReloading shell configuration..."
+
+	if test -n "$ZSH_VERSION"; then
+#		env zsh
+		. ~/.zshrc
+		echo "- Sourced ~/.zshrc file again..."
+	elif test -n "$BASH_VERSION"; then
+#		env bash
+		. ~/.bashrc
+		echo "- Sourced ~/.bashrc file again..."
+	fi
+}
 
 function update_path() {
 	local config=$1;
@@ -49,12 +62,6 @@ function update_path() {
 				echo "sandbin directory has been declared in path!"
 			fi
 		fi
-#echo ps -p $$ 
-#
-#		if [[ "$config" == *`ps -p $$`* ]]; then
-#			echo "Sourcing $config file again"
-#			. $config
-#		fi
 	fi
 }
 
@@ -63,3 +70,9 @@ bash_config=~/.bashrc
 
 update_path "$bash_config"
 update_path "$zsh_config"
+
+echo -e "\nPlease, reload your shell session!"
+
+#reload_shell_config
+
+
