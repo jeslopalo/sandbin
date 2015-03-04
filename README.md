@@ -1,4 +1,4 @@
-# sandbin v0.1.0
+# sandbin v0.2.0-SNAPSHOT
 
 Just my own shell scripts for everyday work
 
