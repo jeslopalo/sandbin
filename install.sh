@@ -1,3 +1,4 @@
+#@IgnoreInspection AddShebangLine
 
 set -e
 
