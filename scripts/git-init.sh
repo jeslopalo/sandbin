@@ -20,14 +20,17 @@ git config user.email "$email"
 
 echo -e "Configuring aliases for log command..."
 
-echo -e "New comand: git lol"
+echo -e "New command: git lol"
 git config alias.lol "log --pretty=oneline --abbrev-commit --graph --decorate"
 
 echo -e "New command: git changelog"
-git config alias.changelog "log --pretty=oneline --abbrev-commit"
+#git config alias.changelog "log --pretty=oneline --abbrev-commit --decorate --color"
+git config alias.changelog "log `git describe --tags --abbrev=0`..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges"
 # TODO: See if it's possible to stop in previous release
 #git log v2.1.0...v2.1.1 --pretty=format:'<li> <a href="http://github.com/jeslopalo/<project>/commit/%H">view commit &bull;</a> %s</li> ' --reverse | grep "#changelog"
 
+echo -e "New command: git authors"
+git config alias.authors '!git log --all --format="%aN <%aE>" | sort -u'
 
 echo -e "Configuring aliases for unstage changes..."
 git config alias.unstage "reset HEAD"
