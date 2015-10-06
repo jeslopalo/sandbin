@@ -24,7 +24,7 @@ echo -e "New comand: git lol"
 git config alias.lol "log --pretty=oneline --abbrev-commit --graph --decorate"
 
 echo -e "New command: git changelog"
-git config alias.changelog "log --pretty=oneline --abbrev-commit"
+git config alias.changelog "log --pretty=oneline --abbrev-commit --decorate --color"
 # TODO: See if it's possible to stop in previous release
 #git log v2.1.0...v2.1.1 --pretty=format:'<li> <a href="http://github.com/jeslopalo/<project>/commit/%H">view commit &bull;</a> %s</li> ' --reverse | grep "#changelog"
 
