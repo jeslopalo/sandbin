@@ -8,9 +8,5 @@ Just my own shell scripts for everyday work
 
 ## CHANGELOG
 
-### 0.3.0
-  * [ae1d3d8] Remove unused git-changelog script
-  * [d4f560c] Update version in README.md
-  * [cb7647a] Add --decorate --color to 'git changelog' alias
-  * [fad6049] Add new alias: 'git authors'
-  * [735229c] Modify 'git changelog' alias to show commit hashes and exclude merge commits
+### 0.4.0
+  * [f4415ac] Move git scripts to a new folder
