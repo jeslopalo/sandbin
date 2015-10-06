@@ -1,6 +1,6 @@
 # Ignore vim temporal saved files
 *~
 
-*.iml
-
 .idea/
+
+*.iml

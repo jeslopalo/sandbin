@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+SERVER_URL="[server url]"
+REPOSITORIES_PATH="/path/to/repositories"
+red='\033[0;31m'
+green='\033[0;32m'
+NC='\033[0m' # No Color
+
+
+
+echo -e "\n\n¡We are going to create a ${red}new GIT repository${NC}!"
+
+
+
+confirmation="M"
+while [ "$confirmation" != "Y" ] && [ "$confirmation" != "y" ]; do
+        echo -e "Repository name (examples: library.git, cool-library.git, common/cool-library.git): "
+        read -e repository_name
+
+        echo -e "¿Is ${green}$repository_name${NC} the repository name that you want? [Yy]: "
+        read -e confirmation
+done
+
+if [ -d $repository_name ]; then
+        echo -e "${red}¡GAME OVER!${NC} Sorry, that reposity already exists."
+        exit
+fi
+
+echo -e "\nCreating directory ${green} $repository_name ${NC}..."
+mkdir -p $repository_name
+
+cd $repository_name
+git init --bare --shared
+
+echo -e "\n¡The ${green}$repository_name${NC} repository has been created!"
+echo -e "To start coding just clone: ${green}git clone ssh://[username]@$SERVER_URL$REPOSITORIES_PATH/$repository_name${NC}\n"

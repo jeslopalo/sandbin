@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ "$(expr substr $(uname -s) 1 5)" != "Linux" ]; then
+	echo "Sorry!, Linux Os is required.  Aborting." >&2; exit 1;
+fi
+
+killPort() {
+	 lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
+}
+
+if [ "$1" != "" ]; then
+	echo "Killing process by port $1";
+	killPort $1
+else
+	echo "Usage: kill-by-port <port>"
+fi
