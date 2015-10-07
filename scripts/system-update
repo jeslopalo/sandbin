@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$(expr substr $(uname -s) 1 5)" != "Linux" ]; then
+	echo "Sorry!, Linux Os is required.  Aborting." >&2; exit 1;
+fi
+
+sudo apt-get update
+
+echo "\n\n...actualizando !!! \n\n"q
+
+sudo apt-get upgrade
+
+echo "\n\n TODO comprobar si existe la palabra kernel"
+echo "Si hay actualizaciones del kernel recuerda ejecutar....!"
+echo "/opt/kaspersky/script/build !!"
