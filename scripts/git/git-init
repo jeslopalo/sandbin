@@ -21,7 +21,7 @@ git config $scope user.email "$email"
 
 echo -e "Configuring aliases for log command..."
 echo -e "New command: git lol"
-git config $scope alias.lol "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --decorate --left-right"
+git config $scope alias.lol "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --decorate"
 echo -e "New command: git changelog"
 git config $scope alias.changelog "log `git describe --tags --abbrev=0`..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges"
 echo -e "New command: git authors"
