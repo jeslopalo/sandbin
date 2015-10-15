@@ -20,18 +20,13 @@ git config $scope user.name "$username"
 git config $scope user.email "$email"
 
 echo -e "Configuring aliases for log command..."
-
 echo -e "New command: git lol"
-git config $scope alias.lol "log --pretty=oneline --abbrev-commit --graph --decorate"
-
+git config $scope alias.lol "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --decorate"
 echo -e "New command: git changelog"
-#git config alias.changelog "log --pretty=oneline --abbrev-commit --decorate --color"
 git config $scope alias.changelog "log `git describe --tags --abbrev=0`..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges"
-# TODO: See if it's possible to stop in previous release
-#git log v2.1.0...v2.1.1 --pretty=format:'<li> <a href="http://github.com/jeslopalo/<project>/commit/%H">view commit &bull;</a> %s</li> ' --reverse | grep "#changelog"
-
 echo -e "New command: git authors"
 git config $scope alias.authors '!git log --all --format="%aN <%aE>" | sort -u'
 
 echo -e "Configuring aliases for unstage changes..."
+echo -e "New command: git unstage"
 git config $scope alias.unstage "reset HEAD"
