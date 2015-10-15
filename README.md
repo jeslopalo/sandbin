@@ -10,6 +10,11 @@ Just my own shell scripts for everyday work
  
 ## CHANGELOG
 
+### 0.5.1
+  * [50ae328] Update 'git lol' alias to show author and date
+  * [a02fd4d] Revmove '--left-right' flag from alias.lol
+  * [eaedc93] Add missing echo message in git init script
+
 ### 0.5.0
   * [f68fca3] Add 'Thanks' section in README.md
   * [b6ab90b] Rename 'create-repository' script
