@@ -19,7 +19,7 @@ git config $scope alias.last-tag "describe --tags --abbrev=0"
 
 echo -e "Configuring aliases for log command..."
 echo -e "New command: git history"
-git config $scope alias.history "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %s' --abbrev-commit --decorate"
+git config $scope alias.history "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --decorate --date=relative"
 echo -e "New command: git changelog"
 git config $scope alias.changelog "log `git last-tag`..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges"
 echo -e "New command: git authors"
