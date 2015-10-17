@@ -9,7 +9,17 @@ Just my own shell scripts for everyday work
 - https://www.andyjeffries.co.uk/25-tips-for-intermediate-git-users/
  
 ## CHANGELOG
-
+  
+## 0.6.0
+  * [eff64ec] New diff aliases: diffstat & changes
+  * [e604fe0] Separate git-init into two scripts
+  * [44207e0] Modify git-aliases to be executable
+  * [ee6986d] Modify 'unstage' alias
+  * [5026281] New alias 'git last-tag'
+  * [3b48a27] Rename 'git lol' -> 'git history' alias
+  * [d002e9b] Modify 'git history' alias colors
+  * [2f22d2c] Fix 'git changelog' alias
+  
 ### 0.5.1
   * [50ae328] Update 'git lol' alias to show author and date
   * [a02fd4d] Revmove '--left-right' flag from alias.lol
