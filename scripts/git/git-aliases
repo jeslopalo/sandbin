@@ -29,4 +29,4 @@ git config $scope alias.diffstat "diff --stat -r"
 
 echo -e "Configuring aliases for unstage changes..."
 echo -e "New command: git unstage"
-git config $scope alias.unstage "reset HEAD"
+git config $scope alias.unstage "reset HEAD --"
