@@ -1,3 +1,6 @@
+## 0.8.0
+  * [c36fb7b] New alias: git push-all
+  
 ## 0.7.0
   * [b352e08] Rename 'create-git-repository' to 'git-create-repository'
   * [1f7f638] New alias: 'git aliases' to list alias
