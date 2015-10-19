@@ -13,6 +13,10 @@ scope=$1
 
 set -e
 
+echo -e "Configuring aliases for config command..."
+echo -e "New command: git aliases"
+git config $scope alias.aliases "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=\t/'"
+
 echo -e "Configuring aliases for describe command..."
 echo -e "New command: git last-tag"
 git config $scope alias.last-tag "describe --tags --abbrev=0"
