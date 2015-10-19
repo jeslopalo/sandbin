@@ -9,7 +9,12 @@ Just my own shell scripts for everyday work
 - https://www.andyjeffries.co.uk/25-tips-for-intermediate-git-users/
  
 ## CHANGELOG
-  
+
+## 0.7.0
+  * [b352e08] Rename 'create-git-repository' to 'git-create-repository'
+  * [1f7f638] New alias: 'git aliases' to list alias
+  * [d3f0156] Add new command 'git last-commit' alias
+
 ## 0.6.0
   * [eff64ec] New diff aliases: diffstat & changes
   * [e604fe0] Separate git-init into two scripts
