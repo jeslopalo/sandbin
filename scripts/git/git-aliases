@@ -32,6 +32,8 @@ git config $scope alias.authors '!git log --all --format="%aN <%aE>" | sort -u'
 echo -e "Configuring aliases for diff command..."
 echo -e "New command: git changes"
 git config $scope alias.changes "diff --name-status -r"
+echo -e "New command: git last-commit"
+git config $scope alias.last-commit "diff --cached HEAD^"
 echo -e "New command: git diffstat"
 git config $scope alias.diffstat "diff --stat -r"
 
