@@ -38,11 +38,9 @@ function reload_shell_config() {
 	echo -e "\nReloading shell configuration..."
 
 	if test -n "$ZSH_VERSION"; then
-#		env zsh
 		. ~/.zshrc
 		echo "- Sourced ~/.zshrc file again..."
 	elif test -n "$BASH_VERSION"; then
-#		env bash
 		. ~/.bashrc
 		echo "- Sourced ~/.bashrc file again..."
 	fi
