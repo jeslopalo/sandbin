@@ -38,7 +38,12 @@ cd "$SANDBIN_HOME"
 if git pull --rebase --stat origin master
 then
   printf '%s' "$GREEN"
-  printf '%s\n' 'SANDBIN'
+  printf '%s\n' '                                          oooo oooo       o88'
+  printf '%s\n' ' oooooooo8    ooooooo   oo oooooo    ooooo888   888ooooo  oooo  oo oooooo'
+  printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   888   888'
+  printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
+  printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
+  printf '%s\n' ''
   printf "${BLUE}%s\n" "Hooray! Sandbin has been updated and/or is at the current version."
 else
   printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?'
