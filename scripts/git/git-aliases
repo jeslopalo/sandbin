@@ -44,3 +44,7 @@ git config $scope alias.unstage "reset HEAD --"
 echo -e "Configuring aliases for push changes..."
 echo -e "New command: git push-all"
 git config $scope alias.push-all "!git push --all && git push --tags"
+
+echo -e "Configuring aliases for show things..."
+echo -e "New command: git show-origin-info"
+git config $scope alias.show-origin-info "remote show origin"
