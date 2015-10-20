@@ -33,6 +33,8 @@ set -e
 echo -e "${BLUE}Configuring aliases for aliases...${NORMAL}"
 echo -e "New command: ${YELLOW}git alias${NORMAL}"
 git config $scope alias.alias "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=\t/'"
+echo -e "New command: ${YELLOW}git clean-alias${NORMAL}"
+git config $scope alias.clean-alias "config $scope --remove-section alias"
 
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
 echo -e "New command: ${YELLOW}git history${NORMAL}"
