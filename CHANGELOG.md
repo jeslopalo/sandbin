@@ -1,3 +1,14 @@
+## 0.9.0
+  * [d53b354] Rename git alias 'aliases' to 'list-alias' to fix cygwin bug
+  * [79fc53b] Rename git alias 'aliases' to 'list-alias' to fix cygwin bug
+  * [4fb34ef] Remove commented dead code
+  * [68d497f] Add new upgrade script
+  * [6746d20] Modify ASCII art in upgrade.sh script
+  * [7a9b63c] Add 'git show-origin-info' alias
+  * [1ba72b2] New command 'git branch-activity'
+  * [2a35367] Refactor & clean aliases
+  * [5105618] New 'git clean-alias' alias
+
 ## 0.8.0
   * [c36fb7b] New alias: git push-all
   
