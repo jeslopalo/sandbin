@@ -1,3 +1,7 @@
+## 0.10.0
+  * [5abaad9] Add 'git history-all' alias
+  * [ee8eeef] Refactor creation of new aliases in a bash function: 'new_alias'
+
 ## 0.9.0
   * [d53b354] Rename git alias 'aliases' to 'list-alias' to fix cygwin bug
   * [79fc53b] Rename git alias 'aliases' to 'list-alias' to fix cygwin bug
