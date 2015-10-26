@@ -38,7 +38,9 @@ git config $scope alias.clean-alias "config $scope --remove-section alias"
 
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
 echo -e "New command: ${YELLOW}git history${NORMAL}"
-git config $scope alias.history "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --decorate --date=relative"
+git config $scope alias.history     "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
+echo -e "New command: ${YELLOW}git history-all${NORMAL}"
+git config $scope alias.history-all "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color --all"
 echo -e "New command: ${YELLOW}git branches${NORMAL}"
 git config $scope alias.branches "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
 
