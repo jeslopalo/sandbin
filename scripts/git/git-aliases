@@ -25,53 +25,45 @@ else
   NORMAL=""
 fi
 
-
 scope=$1
 
+function new_alias() {
+  local alias_name=$1
+  local alias_command=$2
+
+  echo -e "New command: ${YELLOW}git ${alias_name}${NORMAL}"
+  git config $scope alias.${alias_name} "${alias_command}"
+}
 set -e
 
 echo -e "${BLUE}Configuring aliases for aliases...${NORMAL}"
-echo -e "New command: ${YELLOW}git alias${NORMAL}"
-git config $scope alias.alias "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=\t/'"
-echo -e "New command: ${YELLOW}git clean-alias${NORMAL}"
-git config $scope alias.clean-alias "config $scope --remove-section alias"
+new_alias "alias" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=\t/'"
+new_alias "clean-alias" "config $scope --remove-section alias"
 
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
-echo -e "New command: ${YELLOW}git history${NORMAL}"
-git config $scope alias.history     "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
-echo -e "New command: ${YELLOW}git history-all${NORMAL}"
-git config $scope alias.history-all "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color --all"
-echo -e "New command: ${YELLOW}git branches${NORMAL}"
-git config $scope alias.branches "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
+new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
+new_alias "history-all" "!git history --all"
+new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
 
 echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
-echo -e "New command: ${YELLOW}git authors${NORMAL}"
-git config $scope alias.authors '!git log --all --format="%aN <%aE>" | sort -u'
+new_alias "authors" '!git log --all --format="%aN <%aE>" | sort -u'
 
 echo -e "${BLUE}Configuring aliases for changes...${NORMAL}"
-echo -e "New command: ${YELLOW}git changelog${NORMAL}"
-git config $scope alias.changelog "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges; }; f"
-echo -e "New command: ${YELLOW}git changes${NORMAL}"
-git config $scope alias.changes "diff --name-status -r"
-echo -e "New command: ${YELLOW}git diffstat${NORMAL}"
-git config $scope alias.diffstat "diff --stat -r"
+new_alias "changelog" "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges; }; f"
+new_alias "changes" "diff --name-status -r"
+new_alias "diffstat" "diff --stat -r"
 
 echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
-echo -e "New command: ${YELLOW}git last-tag${NORMAL}"
-git config $scope alias.last-tag "describe --tags --abbrev=0"
+new_alias "last-tag" "describe --tags --abbrev=0"
 
 echo -e "${BLUE}Configuring aliases for commits...${NORMAL}"
-echo -e "New command: ${YELLOW}git last-commit${NORMAL}"
-git config $scope alias.last-commit "diff --cached HEAD^"
+new_alias "last-commit" "diff --cached HEAD^"
 
 echo -e "${BLUE}Configuring aliases for stages...${NORMAL}"
-echo -e "New command: ${YELLOW}git unstage${NORMAL}"
-git config $scope alias.unstage "reset HEAD --"
+new_alias "unstage" "reset HEAD --"
 
 echo -e "${BLUE}Configuring aliases for push changes...${NORMAL}"
-echo -e "New command: ${YELLOW}git push-all${NORMAL}"
-git config $scope alias.push-all "!git push --all && git push --tags"
+new_alias "push-all" "!git push --all && git push --tags"
 
 echo -e "${BLUE}Configuring aliases for remotes...${NORMAL}"
-echo -e "New command: ${YELLOW}git show-origin${NORMAL}"
-git config $scope alias.show-origin "remote show origin"
+new_alias "show-origin" "remote show origin"
