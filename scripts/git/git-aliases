@@ -43,7 +43,6 @@ new_alias "clean-alias" "config $scope --remove-section alias"
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
 new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-all" "!git history --all"
-new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
 
 echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
 new_alias "authors" '!git log --all --format="%aN <%aE>" | sort -u'
@@ -52,6 +51,10 @@ echo -e "${BLUE}Configuring aliases for changes...${NORMAL}"
 new_alias "changelog" "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges; }; f"
 new_alias "changes" "diff --name-status -r"
 new_alias "diffstat" "diff --stat -r"
+
+echo -e "${BLUE}Configuring aliases for branches...${NORMAL}"
+new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
+new_alias "branches-last-commit" "branch -vv -a"
 
 echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
 new_alias "last-tag" "describe --tags --abbrev=0"
