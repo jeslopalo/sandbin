@@ -54,6 +54,7 @@ new_alias "diffstat" "diff --stat -r"
 
 echo -e "${BLUE}Configuring aliases for branches...${NORMAL}"
 new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
+new_alias "branches-last-commit" "branch -vv -a"
 
 echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
 new_alias "last-tag" "describe --tags --abbrev=0"
