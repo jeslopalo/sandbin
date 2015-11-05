@@ -1,3 +1,7 @@
+## 0.11.0
+  * [95cd210] Move branch aliases to a new script section
+  * [88a6c3f] Add alias to show branch-last-commit
+
 ## 0.10.0
   * [5abaad9] Add 'git history-all' alias
   * [ee8eeef] Refactor creation of new aliases in a bash function: 'new_alias'
