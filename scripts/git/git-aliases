@@ -70,3 +70,7 @@ new_alias "push-all" "!git push --all && git push --tags"
 
 echo -e "${BLUE}Configuring aliases for remotes...${NORMAL}"
 new_alias "show-origin" "remote show origin"
+
+echo -e "${BLUE}Configuring aliases to set config values...${NORMAL}"
+new_alias "filemodeon" "config --local core.filemode true"
+new_alias "filemodeoff" "config --local core.filemode false"
