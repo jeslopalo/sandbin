@@ -59,6 +59,7 @@ new_alias "branches-last-commit" "branch -vv -a"
 
 echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
 new_alias "last-tag" "describe --tags --abbrev=0"
+new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
 echo -e "${BLUE}Configuring aliases for commits...${NORMAL}"
 new_alias "last-commit" "diff --cached HEAD^"
