@@ -37,8 +37,8 @@ function new_alias() {
 set -e
 
 echo -e "${BLUE}Configuring aliases for aliases...${NORMAL}"
-new_alias "alias" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=    /'"
-new_alias "clean-alias" "config $scope --remove-section alias"
+new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=    /'"
+new_alias "clean-aliases" "config $scope --remove-section alias"
 
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
 new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
