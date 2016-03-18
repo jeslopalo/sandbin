@@ -43,6 +43,7 @@ new_alias "clean-alias" "config $scope --remove-section alias"
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
 new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-all" "!git history --all"
+new_alias "history-of" "!git history --first-parent"
 
 echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
 new_alias "authors" '!git log --all --format="%aN <%aE>" | sort -u'
