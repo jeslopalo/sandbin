@@ -46,7 +46,7 @@ new_alias "history-all" "!git history --all"
 new_alias "history-of" "!git history --first-parent"
 
 echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
-new_alias "authors" '!git log --all --format="%aN <%aE>" | sort -u'
+new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
 
 echo -e "${BLUE}Configuring aliases for changes...${NORMAL}"
 new_alias "changelog" "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges; }; f"
