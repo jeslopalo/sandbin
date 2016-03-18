@@ -65,7 +65,8 @@ echo -e "${BLUE}Configuring aliases for commits...${NORMAL}"
 new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
 new_alias "last-commit" "diff --cached HEAD^"
 
-echo -e "${BLUE}Configuring aliases for stages...${NORMAL}"
+echo -e "${BLUE}Configuring aliases for (un)stage...${NORMAL}"
+new_alias "stage" "add"
 new_alias "unstage" "reset HEAD --"
 
 echo -e "${BLUE}Configuring aliases for push changes...${NORMAL}"
