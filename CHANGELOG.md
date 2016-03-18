@@ -1,3 +1,17 @@
+## 0.12.0
+  * [cb6335d] Add aliases to manage filemode setting
+  * [d77cf29] New alias 'history-of <brach|tag|ref>'
+  * [abf7784] Add alias 'distance-from-tags'
+  * [90ea34d] Fix tab character
+  * [020994f] Rename 'alias' alias to 'aliases'
+  * [b3b26cc] Modfiy 'history' colors
+  * [6a90b83] Add new alais 'first-commit'
+  * [4a7ed96] Fix 'last-tag' alias
+  * [ac55d00] Modify colors of 'authors' alias
+  * [2c765ed] Modify colors of 'changelog' alias
+  * [add00b1] Add new 'stage' alias
+  * [b3d20de] Change 'last-commit' alias behavior
+
 ## 0.11.0
   * [95cd210] Move branch aliases to a new script section
   * [88a6c3f] Add alias to show branch-last-commit

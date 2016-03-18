@@ -37,18 +37,19 @@ function new_alias() {
 set -e
 
 echo -e "${BLUE}Configuring aliases for aliases...${NORMAL}"
-new_alias "alias" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=\t/'"
-new_alias "clean-alias" "config $scope --remove-section alias"
+new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=    /'"
+new_alias "clean-aliases" "config $scope --remove-section alias"
 
 echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
-new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(bold blue)<%ae>%Creset %Cgreen(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
+new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-all" "!git history --all"
+new_alias "history-of" "!git history --first-parent"
 
 echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
-new_alias "authors" '!git log --all --format="%aN <%aE>" | sort -u'
+new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
 
 echo -e "${BLUE}Configuring aliases for changes...${NORMAL}"
-new_alias "changelog" "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  * [%h] %s\" --reverse --no-merges; }; f"
+new_alias "changelog" "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
 new_alias "changes" "diff --name-status -r"
 new_alias "diffstat" "diff --stat -r"
 
@@ -57,12 +58,15 @@ new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authord
 new_alias "branches-last-commit" "branch -vv -a"
 
 echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
-new_alias "last-tag" "describe --tags --abbrev=0"
+new_alias "last-tag" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1"
+new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
 echo -e "${BLUE}Configuring aliases for commits...${NORMAL}"
-new_alias "last-commit" "diff --cached HEAD^"
+new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
+new_alias "last-commit" "show HEAD^"
 
-echo -e "${BLUE}Configuring aliases for stages...${NORMAL}"
+echo -e "${BLUE}Configuring aliases for (un)stage...${NORMAL}"
+new_alias "stage" "add"
 new_alias "unstage" "reset HEAD --"
 
 echo -e "${BLUE}Configuring aliases for push changes...${NORMAL}"
@@ -70,3 +74,7 @@ new_alias "push-all" "!git push --all && git push --tags"
 
 echo -e "${BLUE}Configuring aliases for remotes...${NORMAL}"
 new_alias "show-origin" "remote show origin"
+
+echo -e "${BLUE}Configuring aliases to set config values...${NORMAL}"
+new_alias "filemodeon" "config --local core.filemode true"
+new_alias "filemodeoff" "config --local core.filemode false"
