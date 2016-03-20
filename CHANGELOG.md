@@ -1,3 +1,8 @@
+## 0.13.0
+  * [2ed71d7] Add new alias 'history-refs'
+  * [275b75b] Add new alias 'history-all-refs'
+  * [c1f9e1a] Add new alias 'tags'
+
 ## 0.12.0
   * [cb6335d] Add aliases to manage filemode setting
   * [d77cf29] New alias 'history-of <brach|tag|ref>'

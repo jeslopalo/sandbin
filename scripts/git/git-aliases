@@ -44,6 +44,8 @@ echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
 new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-all" "!git history --all"
 new_alias "history-of" "!git history --first-parent"
+new_alias "history-refs" "!git history --simplify-by-decoration"
+new_alias "history-all-refs" "!git history-refs --all"
 
 echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
 new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
@@ -58,6 +60,7 @@ new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authord
 new_alias "branches-last-commit" "branch -vv -a"
 
 echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
+new_alias "tags" "!git log --tags --simplify-by-decoration --pretty=\"format:%C(dim cyan)%ci%Creset %C(auto)%d%Creset - %C(dim white)%an <%ae>%Creset\"  | sort -r"
 new_alias "last-tag" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1"
 new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
