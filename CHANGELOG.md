@@ -1,3 +1,6 @@
+## 0.13.1
+  * [880ce32] Rename from git-aliases to gti-setup-aliases
+
 ## 0.13.0
   * [2ed71d7] Add new alias 'history-refs'
   * [275b75b] Add new alias 'history-all-refs'
