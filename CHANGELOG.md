@@ -1,3 +1,9 @@
+## 0.14.0
+  * [ea441bb] Add/modify 'last-tag-id' & 'last-tag' alias
+  * [7e6ac0e] Rewrite 'tags' alias to show the subject
+  * [04d74ec] Fix 'changelog' alias
+  * [1e71f5f] Refactor printing to say method
+
 ## 0.13.1
   * [880ce32] Rename from git-aliases to gti-setup-aliases
 
