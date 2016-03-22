@@ -34,50 +34,56 @@ function new_alias() {
   echo -e "New command: ${YELLOW}git ${alias_name}${NORMAL}"
   git config $scope alias.${alias_name} "${alias_command}"
 }
+
+function say() {
+    echo -e "${BLUE}$1${NORMAL}"
+}
+
 set -e
 
-echo -e "${BLUE}Configuring aliases for aliases...${NORMAL}"
+say "Configuring aliases for aliases..."
 new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=    /'"
 new_alias "clean-aliases" "config $scope --remove-section alias"
 
-echo -e "${BLUE}Configuring aliases for history...${NORMAL}"
+say "Configuring aliases for history..."
 new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-all" "!git history --all"
 new_alias "history-of" "!git history --first-parent"
 new_alias "history-refs" "!git history --simplify-by-decoration"
 new_alias "history-all-refs" "!git history-refs --all"
 
-echo -e "${BLUE}Configuring aliases for authors...${NORMAL}"
+say "Configuring aliases for authors..."
 new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
 
-echo -e "${BLUE}Configuring aliases for changes...${NORMAL}"
-new_alias "changelog" "!f() { git last-tag | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
+say "Configuring aliases for changes..."
+new_alias "changelog" "!f() { git last-tag-id | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
 new_alias "changes" "diff --name-status -r"
 new_alias "diffstat" "diff --stat -r"
 
-echo -e "${BLUE}Configuring aliases for branches...${NORMAL}"
+say "Configuring aliases for branches..."
 new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
 new_alias "branches-last-commit" "branch -vv -a"
 
-echo -e "${BLUE}Configuring aliases for tags...${NORMAL}"
-new_alias "tags" "!git log --tags --simplify-by-decoration --pretty=\"format:%C(dim cyan)%ci%Creset %C(auto)%d%Creset - %C(dim white)%an <%ae>%Creset\"  | sort -r"
-new_alias "last-tag" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1"
+say "Configuring aliases for tags..."
+new_alias "tags" "for-each-ref --sort=-taggerdate --format=\"%(color:dim cyan)%(taggerdate:iso)%(color:reset) - %(color:green)[%(refname:short)]%(color:reset) %09%(color:dim white)%(taggeremail)%(color:reset)%09// %(subject)\" refs/tags"
+new_alias "last-tag" "!git show \$(git last-tag-id)"
+new_alias "last-tag-id" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1"
 new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
-echo -e "${BLUE}Configuring aliases for commits...${NORMAL}"
+say "Configuring aliases for commits..."
 new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
 new_alias "last-commit" "show HEAD^"
 
-echo -e "${BLUE}Configuring aliases for (un)stage...${NORMAL}"
+say "Configuring aliases for (un)stage..."
 new_alias "stage" "add"
 new_alias "unstage" "reset HEAD --"
 
-echo -e "${BLUE}Configuring aliases for push changes...${NORMAL}"
+say "Configuring aliases for push changes..."
 new_alias "push-all" "!git push --all && git push --tags"
 
-echo -e "${BLUE}Configuring aliases for remotes...${NORMAL}"
+say "Configuring aliases for remotes..."
 new_alias "show-origin" "remote show origin"
 
-echo -e "${BLUE}Configuring aliases to set config values...${NORMAL}"
+say "Configuring aliases to set config values..."
 new_alias "filemodeon" "config --local core.filemode true"
 new_alias "filemodeoff" "config --local core.filemode false"
