@@ -72,7 +72,7 @@ new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-li
 
 say "Configuring aliases for commits..."
 new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
-new_alias "last-commit" "show HEAD^"
+new_alias "last-commit" "show HEAD"
 
 say "Configuring aliases for (un)stage..."
 new_alias "stage" "add"
