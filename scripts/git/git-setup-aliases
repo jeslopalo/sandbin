@@ -64,6 +64,7 @@ new_alias "changed-files" "diff --stat"
 new_alias "changes-staged" "diff --staged"
 
 say "Configuring aliases for branches..."
+new_alias "branch-publish" "!git push -u origin \$(git branch-name)"
 new_alias "branch-name" "!git rev-parse --abbrev-ref HEAD"
 new_alias "branch-rename" "branch -m"
 new_alias "branch-delete" "!f() { git branch -D \$1; git push origin --delete \$1; }; f"
