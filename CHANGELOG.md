@@ -1,3 +1,18 @@
+## 0.16.0
+  * [95489eb] New 'changed-words' & 'changed-files' aliases
+  * [8cc8eb7] New 'changes-staged' alias
+  * [3591b4b] New 'assume' alias
+  * [26e851a] New 'unassume' alias
+  * [6849454] New 'assumed' alias
+  * [6a6d472] New 'unassume-all' alias
+  * [1851136] New 'assume-all' alias
+  * [e65a506] New 'rename-branch' alias
+  * [8611148] New 'branch-name' alias
+  * [d1c4bf7] Rename to 'branch-rename' alias
+  * [a27a784] New 'branch-delete' alias
+  * [5090fe3] New 'branch-publish' alias
+  * [e1a32a9] New 'branch-unpublish' alias
+
 ## 0.15.0
   * [41f2833] Refactor of 'refs' aliases
   * [00bd5be] Change history messages separator
