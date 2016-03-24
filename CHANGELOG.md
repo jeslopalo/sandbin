@@ -1,3 +1,12 @@
+## 0.15.0
+  * [41f2833] Refactor of 'refs' aliases
+  * [00bd5be] Change history messages separator
+  * [e349b6e] Format code
+  * [95ff3f3] Simplify & update 'branches' alias with colors
+  
+## 0.14.1
+  * [cb4183e] Fix 'last-commit' alias
+
 ## 0.14.0
   * [ea441bb] Add/modify 'last-tag-id' & 'last-tag' alias
   * [7e6ac0e] Rewrite 'tags' alias to show the subject
