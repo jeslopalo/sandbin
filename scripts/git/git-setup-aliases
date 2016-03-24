@@ -92,6 +92,7 @@ new_alias "assume" "update-index --assume-unchanged"
 new_alias "unassume" "update-index --no-assume-unchanged"
 new_alias "assumed" "!git ls-files -v | grep ^h | cut -c 3-"
 new_alias "unassume-all" "!git assumed | xargs git update-index --no-assume-unchanged"
+new_alias "assume-all"  "!git st -s | awk {'print $2'} | xargs git assume"
 
 say "Configuring aliases to set config values..."
 new_alias "filemodeon" "config --local core.filemode true"
