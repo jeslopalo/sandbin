@@ -46,11 +46,13 @@ new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]
 new_alias "clean-aliases" "config $scope --remove-section alias"
 
 say "Configuring aliases for history..."
-new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
-new_alias "history-all" "!git history --all"
+new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset | %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-of" "!git history --first-parent"
-new_alias "history-refs" "!git history --simplify-by-decoration"
-new_alias "history-all-refs" "!git history-refs --all"
+new_alias "history-all" "!git history --all"
+
+say "Configuring aliases for refs..."
+new_alias "refs" "!git history --simplify-by-decoration --no-merges"
+new_alias "refs-all" "!git refs --all"
 
 say "Configuring aliases for authors..."
 new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
@@ -61,7 +63,7 @@ new_alias "changes" "diff --name-status -r"
 new_alias "diffstat" "diff --stat -r"
 
 say "Configuring aliases for branches..."
-new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
+new_alias "branches" "for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads"
 new_alias "branches-last-commit" "branch -vv -a"
 
 say "Configuring aliases for tags..."
