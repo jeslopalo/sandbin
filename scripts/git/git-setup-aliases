@@ -87,6 +87,9 @@ new_alias "push-all" "!git push --all && git push --tags"
 say "Configuring aliases for remotes..."
 new_alias "show-origin" "remote show origin"
 
+say "Configuring aliases for assume unchangeds..."
+new_alias "assume" "update-index --assume-unchanged"
+
 say "Configuring aliases to set config values..."
 new_alias "filemodeon" "config --local core.filemode true"
 new_alias "filemodeoff" "config --local core.filemode false"
