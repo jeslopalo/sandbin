@@ -46,7 +46,7 @@ new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]
 new_alias "clean-aliases" "config $scope --remove-section alias"
 
 say "Configuring aliases for history..."
-new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset - %s' --abbrev-commit --date=relative --decorate --color"
+new_alias "history" "log --graph --pretty=format:'%Cred%h%Creset %C(dim white)<%ae>%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset | %s' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-all" "!git history --all"
 new_alias "history-of" "!git history --first-parent"
 
