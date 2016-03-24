@@ -63,7 +63,7 @@ new_alias "changes" "diff --name-status -r"
 new_alias "diffstat" "diff --stat -r"
 
 say "Configuring aliases for branches..."
-new_alias "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate) - %(refname)' refs/heads | sed -e 's-refs/heads/--'"
+new_alias "branches" "for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads"
 new_alias "branches-last-commit" "branch -vv -a"
 
 say "Configuring aliases for tags..."
