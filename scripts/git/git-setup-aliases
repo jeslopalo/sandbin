@@ -66,6 +66,7 @@ new_alias "changes-staged" "diff --staged"
 say "Configuring aliases for branches..."
 new_alias "branches" "for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads"
 new_alias "branches-last-commit" "branch -vv -a"
+new_alias "rename-branch" "branch -m"
 
 say "Configuring aliases for tags..."
 new_alias "tags" "for-each-ref --sort=-taggerdate --format=\"%(color:dim cyan)%(taggerdate:iso)%(color:reset) - %(color:green)[%(refname:short)]%(color:reset) %09%(color:dim white)%(taggeremail)%(color:reset)%09// %(subject)\" refs/tags"
