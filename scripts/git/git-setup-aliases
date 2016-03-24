@@ -59,8 +59,9 @@ new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim w
 
 say "Configuring aliases for changes..."
 new_alias "changelog" "!f() { git last-tag-id | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
-new_alias "changes" "diff --name-status -r"
-new_alias "diffstat" "diff --stat -r"
+new_alias "changed-words" "diff --word-diff"
+new_alias "changed-files" "diff --stat"
+new_alias "changes-staged" "diff --staged"
 
 say "Configuring aliases for branches..."
 new_alias "branches" "for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads"
