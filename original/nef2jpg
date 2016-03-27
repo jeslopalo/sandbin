@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo $1 to $2
-
-dcraw -v -w -h -c $1 | convert - $2 && exiftool -overwrite_original -tagsfromfile $1 $2
