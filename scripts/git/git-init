@@ -13,8 +13,16 @@ scope=$1
 username=$2
 email=$3
 
+#Fonts format
+outpututils_bold=`tput bold`
+outpututils_normal=`tput sgr0`
+
+function b() {
+	echo "$outpututils_bold$1$outpututils_normal"
+}
+
 set -e
 
-echo -e "Configuring username and email as repository properties..."
+echo -e "Configuring username $(b "$username") & email $(b "$email") as $(b "$scope") repository properties..."
 git config $scope user.name "$username"
 git config $scope user.email "$email"
