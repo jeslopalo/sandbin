@@ -11,8 +11,8 @@ if [ ! -n "$OM_ZSH_HOME" ]; then
 fi
 
 if [ -d "$SANDBIN_HOME" ]; then
-	echo "You already have sandbin installed. You'll need to remove $SANDBIN_HOME if you want to install"
-    	exit
+	echo "You already have sandbin installed. You'll need to remove $SANDBIN_HOME if you want to reinstall"
+    exit
 fi
 
 echo "Cloning sandbin..."
