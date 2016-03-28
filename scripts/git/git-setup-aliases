@@ -42,7 +42,7 @@ function say() {
 set -e
 
 say "Configuring aliases for aliases..."
-new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/=    /'"
+new_alias "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/= /' | sed 's/^[a-z\-]*=/- `tput bold`&`tput sgr0`/'"
 new_alias "clean-aliases" "config $scope --remove-section alias"
 
 say "Configuring aliases for history..."
