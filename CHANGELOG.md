@@ -1,3 +1,12 @@
+## 0.17.0
+  * [531c2c2] Remove original scripts
+  * [6c61027] Change message in install.sh script
+  * [710502b] Modify usage instructions in git-init script
+  * [d19ce40] Improve git-init result message
+  * [ed1355e] Prettify git 'aliases' alias with bold alias name in list
+  * [5fbffd8] Update install.sh script
+  * [785c81a] Fix & prettify install.sh script
+
 ## 0.16.0
   * [95489eb] New 'changed-words' & 'changed-files' aliases
   * [8cc8eb7] New 'changes-staged' alias
