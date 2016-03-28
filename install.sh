@@ -70,7 +70,15 @@ bash_config=~/.bashrc
 update_path "$bash_config"
 update_path "$zsh_config"
 
-echo -e "\nPlease, reload your shell session!"
+printf '%s' "$GREEN"
+printf '%s\n' '                                          oooo oooo       o88'
+printf '%s\n' ' oooooooo8    ooooooo   oo oooooo    ooooo888   888ooooo  oooo  oo oooooo'
+printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   888   888'
+printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
+printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
+printf '%s\n' ''
+printf "${BLUE}%s\n" "Hooray! Sandbin has been installed."
+printf '%s\n' "Please, reload your shell session!"
 
 #reload_shell_config
 
