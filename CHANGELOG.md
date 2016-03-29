@@ -1,3 +1,8 @@
+## 0.18.0
+  * [501d28b] Change format in 'history' git aliases
+  * [a5f0212] Move 'kill-by-port' & 'system-update' to system directory
+  * [5eb7ce2] Move & rename 'upgrade.sh' to 'scripts/sandbin-upgrade'
+
 ## 0.17.0
   * [531c2c2] Remove original scripts
   * [6c61027] Change message in install.sh script
