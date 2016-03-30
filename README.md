@@ -1,7 +1,7 @@
 # sandbin
 
 ```zsh
-~ » wget --no-check-certificate https://raw.githubusercontent.com/jeslopalo/sandbin/master/install.sh -O - | sh                    jeslopalo@voyager1
+~ » wget --no-check-certificate https://raw.githubusercontent.com/jeslopalo/sandbin/master/install.sh -O - | sh
 
 --2016-03-30 22:15:32--  https://raw.githubusercontent.com/jeslopalo/sandbin/master/install.sh
 Resolving raw.githubusercontent.com... 23.235.43.133
@@ -10,7 +10,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 2836 (2.8K) [text/plain]
 Saving to: 'STDOUT'
 
--                                     100%[=======================================================================>]   2.77K  --.-KB/s    in 0s
+- 100%[=======================================================================>]   2.77K  --.-KB/s    in 0s
 
 2016-03-30 22:15:33 (135 MB/s) - written to stdout [2836/2836]
 
