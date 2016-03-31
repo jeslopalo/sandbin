@@ -69,8 +69,8 @@ function configure_sandbin_bootstrap() {
     fi
 }
 
-configure_sandbin_bootstrap "~/.bashrc" "$SANDBIN_HOME"
-configure_sandbin_bootstrap "~/.zshrc" "$SANDBIN_HOME"
+configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
+configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
 
 # Use colors, but only if connected to a terminal, and that terminal
 # supports them.
