@@ -1,10 +1,29 @@
 #@IgnoreInspection AddShebangLine
 
+while [[ $# > 1 ]];  do
+    key="$1"
+
+    case $key in
+        --sandbin-home)
+        SANDBIN_HOME="$2"
+        shift
+        ;;
+        -F|--force-reinstall)
+        force_reinstall=1
+    esac
+    shift
+done
+
 set -e
 
 if [ ! -n "$SANDBIN_HOME" ]; then
 	SANDBIN_HOME=~/.sandbin
 fi
+if [ $force_reinstall ]; then
+    printf "Uninstalling sandbin from '%s' directory...\n" "$SANDBIN_HOME"
+    rm -rf $SANDBIN_HOME
+fi
+printf "Installing sandbin in '%s' directory...\n" "$SANDBIN_HOME"
 
 if [ ! -n "$OM_ZSH_HOME" ]; then
 	OM_ZSH_HOME=~/.oh-my-zsh
