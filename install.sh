@@ -54,7 +54,7 @@ function configure_sandbin_bootstrap() {
 
     if grep -q "{{sandbinhome}}" $sandbin_config; then
         echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
-        perl -pi -e 's/{{sandbinhome}}/\"$sandbin_home\"/g' "$sandbin_config"
+        perl -pi -e "s/{{sandbinhome}}/\"$sandbin_home\"/g" "$sandbin_config"
     fi
 
     if [ -f $config_file ]; then
