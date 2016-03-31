@@ -41,9 +41,9 @@ hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.g
 }
 
 
-if [ -d "$OM_ZSH_HOME" ]; then
+function installing_omzsh_plugins() {
 	echo "\nInstalling zsh plugins in $OM_ZSH_HOME/custom/plugins..."
-	
+
 	mkdir -p "$OM_ZSH_HOME"/custom
 	mkdir -p "$OM_ZSH_HOME"/custom/plugins
 
@@ -51,7 +51,7 @@ if [ -d "$OM_ZSH_HOME" ]; then
 		echo "- $SANDBIN_HOME/scripts/oh-my-zsh/plugins/$plugin to $OM_ZSH_HOME/custom/plugins/$plugin"
 		ln -s "$SANDBIN_HOME/scripts/oh-my-zsh/plugins/$plugin" "$OM_ZSH_HOME/custom/plugins/$plugin"
 	done
-fi
+}
 
 function reload_shell_config() {
 	echo "\nReloading shell configuration..."
@@ -74,7 +74,7 @@ function update_path() {
 			echo "\nUpdating $config PATH declaration..."
 
 			if grep -q "export PATH=$SANDBIN_HOME/scripts:\$PATH" $config; then
-				echo "sandbin is already declared in $config!"		
+				echo "sandbin is already declared in $config!"
 			else
 				echo "\nexport PATH=$SANDBIN_HOME/scripts:\$PATH" >> $config
 				echo "sandbin directory has been declared in path!"
@@ -82,6 +82,10 @@ function update_path() {
 		fi
 	fi
 }
+
+if [ -d "$OM_ZSH_HOME" ]; then
+    installing_omzsh_plugins
+fi
 
 zsh_config=~/.zshrc
 bash_config=~/.bashrc
