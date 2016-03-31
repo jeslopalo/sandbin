@@ -52,6 +52,7 @@ function configure_sandbin_bootstrap() {
     local sandbin_home=$2;
     local sandbin_config="$sandbin_home/.sandbinrc"
 
+    echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
     perl -pi -e 's/{{sandbinhome}}/$sandbin_home/g' "$sandbin_config"
 
     if [ -f $config_file ]; then
