@@ -10,6 +10,11 @@ while [[ $# > 0 ]];  do
         ;;
         -F|--force-reinstall)
         force_reinstall=1
+        ;;
+        --revision)
+        revision="$2"
+        shift
+        ;;
     esac
     shift
 done
@@ -36,6 +41,11 @@ hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.g
   echo "git not installed"
   exit
 }
+
+if [ "$revision" != "" ]; then
+    cd "$SANDBIN_HOME"
+    git checkout "$revision"
+fi
 
 function configure_sandbin_bootstrap() {
     local config_file=$1;
