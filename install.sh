@@ -1,6 +1,6 @@
 #@IgnoreInspection AddShebangLine
 
-while [[ $# > 1 ]];  do
+while [[ $# > 0 ]];  do
     key="$1"
 
     case $key in
