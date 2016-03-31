@@ -1,3 +1,21 @@
+## 0.19.0
+  * [69bc095] Modify README.md
+  * [6588599] Modify README.md
+  * [fae5151] Add --sandbin-home & --force-reinstall options in install.sh
+  * [4917acf] Fix install.sh min arguments
+  * [efbec5e] Extract install_omzsh_plugins() from install.sh
+  * [c2fb889] Comment out oh-my-zsh plugins installation
+  * [bbf7496] Reveme unnecesary colors in install.sh
+  * [b1aba3d] Add .sandbinrc generation
+  * [603b68b] Add --revision to install.sh
+  * [276f79b] Add a trace in configure_sandbin_bootstrap()
+  * [eb31855] Edit .sandbinrc when is not edited yet
+  * [b9c6887] Add .sandbinrc final new line
+  * [3ee315b] Fix .sandbinrc sandbin home perl substitution
+  * [3c88f47] Fix .sandbinrc sandbin home perl substitution
+  * [d1c721b] Fix .bashrc location
+  * [cfdc78b] Fix bug with .zshrc and .bashrc locations
+
 ## 0.18.0
   * [501d28b] Change format in 'history' git aliases
   * [a5f0212] Move 'kill-by-port' & 'system-update' to system directory
