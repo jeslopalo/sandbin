@@ -60,16 +60,16 @@ function configure_sandbin_bootstrap() {
 
     if [ -f $config_file ]; then
 
-        if ! grep -q "source $sandbin_config" $config_file; then
+        if grep -q "source $sandbin_config" $config_file; then
+            echo "sandbin bootstrap is already configured in '$config_file'"
+        else
             echo "\n# sandbin bootstrap\nsource $sandbin_config\n" >> $config_file
             echo "sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
-        else
-            echo "sandbin bootstrap is already configured in '$config_file'"
         fi
     fi
 }
 
-configure_sandbin_bootstrap "/.bashrc" "$SANDBIN_HOME"
+configure_sandbin_bootstrap "~/.bashrc" "$SANDBIN_HOME"
 configure_sandbin_bootstrap "~/.zshrc" "$SANDBIN_HOME"
 
 # Use colors, but only if connected to a terminal, and that terminal
