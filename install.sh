@@ -83,9 +83,9 @@ function update_path() {
 	fi
 }
 
-if [ -d "$OM_ZSH_HOME" ]; then
-    installing_omzsh_plugins
-fi
+#if [ -d "$OM_ZSH_HOME" ]; then
+#    installing_omzsh_plugins
+#fi
 
 zsh_config=~/.zshrc
 bash_config=~/.bashrc
