@@ -52,10 +52,13 @@ function configure_sandbin_bootstrap() {
     local sandbin_home=$2;
     local sandbin_config="$sandbin_home/.sandbinrc"
 
-    echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
-    perl -pi -e 's/{{sandbinhome}}/$sandbin_home/g' "$sandbin_config"
+    if grep -q "{{sandbinhome}}" $sandbin_config; then
+        echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
+        perl -pi -e 's/{{sandbinhome}}/\"$sandbin_home\"/g' "$sandbin_config"
+    fi
 
     if [ -f $config_file ]; then
+
         if ! grep -q "source $sandbin_config" $config_file; then
             echo "\n# sandbin bootstrap\nsource $sandbin_config\n" >> $config_file
             echo "sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
