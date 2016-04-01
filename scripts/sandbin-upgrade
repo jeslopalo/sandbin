@@ -11,8 +11,6 @@ if [ ! -d "$SANDBIN_HOME" ]; then
     exit
 fi
 
-. "$SANDBIN_HOME/scripts/lib/colors.lib.bash"
-
 printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin"
 cd "$SANDBIN_HOME"
 if git pull --rebase --stat origin master
