@@ -35,7 +35,7 @@ else
 fi
 
 if [ ! -f "$target_file" ] || [ "$force" -eq 1 ] ; then
-    printf "Creating .gitattributes file in '%s' directory\n" "$to_dir"
+    printf "${GREEN}Creating .gitattributes file ['%s']${NORMAL}\n" "$target_file"
     cp "$SANDBIN_HOME/dotfiles/gitattributes/default.gitattributes" "$target_file"
 else
     printf "The file ${RED}'%s'${NORMAL} already exists!\n" "$target_file"
