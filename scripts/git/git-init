@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-	echo -e "usage: ./git-init [--system|--global|--local] \"User Name\" user@name.es"
+	printf "${YELLOW}%s${NORMAL}\n" "usage: git-init [--system|--global|--local] \"User Name\" user@name.es"
 }
 
 if [ $# -lt 3 ]; then
