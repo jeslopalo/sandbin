@@ -28,7 +28,7 @@ done
 
 set -e
 
-if [ "$to_dir" -ne "" ]; then
+if [ ! -z "$to_dir" ]; then
     target_file=$to_dir/.gitattributes
 else
     target_file=.gitattributes
