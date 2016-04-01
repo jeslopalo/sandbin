@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sandbash
 
 to_dir=
 force=0
