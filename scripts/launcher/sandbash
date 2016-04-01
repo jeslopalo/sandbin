@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+if [ ! -n "$SANDBIN_HOME" ] || [ ! -d "$SANDBIN_HOME" ]; then
+	echo "You have not sandbin installed. You'll need to install sandbin"
+    exit 1
+fi
+
+source "$SANDBIN_HOME/scripts/lib/omzsh.lib.bash"
+source "$SANDBIN_HOME/scripts/lib/path.lib.bash"
+
+source $*
