@@ -1,0 +1,140 @@
+# Extracted from https://github.com/Danimoth/gitattributes templates compilation
+#
+# Handle line endings automatically for files detected as text
+# and leave all files detected as binary untouched.
+* text=auto
+
+#
+# The above will handle all files NOT found below
+#
+# These files are text and should be normalized (Convert crlf => lf)
+
+# Git
+.gitattributes  text
+.gitignore      text
+.gitconfig      text
+
+# Documents
+*.doc           diff=astextplain
+*.DOC	        diff=astextplain
+*.docx          diff=astextplain
+*.DOCX          diff=astextplain
+*.dot           diff=astextplain
+*.DOT           diff=astextplain
+*.pdf           diff=astextplain
+*.PDF	        diff=astextplain
+*.rtf	        diff=astextplain
+*.RTF	        diff=astextplain
+*.md            text
+*.markdown      text
+*.MD            text
+*.adoc          text
+*.textile       text
+*.mustache      text
+*.csv           text
+*.tab           text
+*.tsv           text
+
+
+# Development
+*.php           text
+*.css           text
+*.sass          text
+*.scss          text
+*.less          text
+*.styl          text
+*.df            text
+*.htm           text
+*.html          text
+*.java          text
+*.ts            text
+*.coffee        text
+*.js            text
+*.json          text
+*.jsp           text
+*.jspf          text
+*.sql           text
+*.properties    text
+*.conf          text
+*.yaml          text
+*.yml           text
+.editorconfig   text
+*.sh            text
+*.zsh           text
+*.bash          text
+*.bat           text
+*.svg           text
+*.tld           text
+*.txt           text
+*.xml           text
+*.ini           text
+*.inc           text
+*.pl            text
+*.rb            text
+*.py            text
+*.scm           text
+
+LICENSE         text
+AUTHORS         text
+
+# server config
+.htaccess       text
+
+# code analysis config
+.jshintrc       text
+.jscsrc         text
+.jshintignore   text
+.csslintrc      text
+.eslintrc       text
+.stylelintrc    text
+
+# build config
+*.npmignore     text
+*.bowerrc       text
+
+# Heroku
+Procfile        text
+.slugignore     text
+
+# templates
+*.ejs           text
+*.hbt           text
+*.jade          text
+*.haml          text
+*.hbs           text
+*.dot           text
+*.tmpl          text
+*.phtml         text
+*.latte         text
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.class         binary
+*.dll           binary
+*.ear           binary
+*.gif           binary
+*.ico           binary
+*.jar           binary
+*.jpg           binary
+*.jpeg          binary
+*.png           binary
+*.gif           binary
+*.tif           binary
+*.tiff          binary
+*.eps           binary
+*.so            binary
+*.war           binary
+*.mov           binary
+*.mp4           binary
+*.mp3           binary
+*.flv           binary
+*.fla           binary
+*.swf           binary
+*.gz            binary
+*.zip           binary
+*.7z            binary
+*.ttf           binary
+*.eot           binary
+*.woff          binary
+*.woff2         binary
+*.pyc           binary
