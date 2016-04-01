@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sandbash
 
 usage() {
 	printf "${YELLOW}%s${NORMAL}\n" "usage: git-aliases [--system|--global|--local]"

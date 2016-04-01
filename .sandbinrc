@@ -1,18 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env sandbash
 
 export SANDBIN_HOME={{sandbinhome}}
-
-if [ ! -d "$SANDBIN_HOME" ]; then
-	echo "You have not sandbin installed. You'll need to install sandbin"
-    exit
-fi
-
-source "$SANDBIN_HOME/scripts/lib/colors.lib.bash"
-source "$SANDBIN_HOME/scripts/lib/omzsh.lib.bash"
-source "$SANDBIN_HOME/scripts/lib/path.lib.bash"
 
 #if [ -d "$OM_ZSH_HOME" ]; then
 #    installing_omzsh_plugins
 #fi
 
-export PATH=$SANDBIN_HOME/scripts:$SANDBIN_HOME/scripts/git:$PATH
+export PATH=$SANDBIN_HOME/scripts/launcher:$SANDBIN_HOME/scripts:$SANDBIN_HOME/scripts/git:$PATH
