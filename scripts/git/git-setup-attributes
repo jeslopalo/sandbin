@@ -1,0 +1,38 @@
+#!/bin/sh
+
+to_dir=.
+force=0
+
+function usage() {
+	printf "${YELLOW}%s${NORMAL}\n" "usage: git-setup-attributes [--to-dir] [-F | --force] [-h | --help]"
+}
+
+while [[ $# > 0 ]];  do
+    key="$1"
+
+    case $key in
+        --to-dir)
+        to_dir="$2"
+        shift
+        ;;
+        -F|--force)
+        force=1
+        ;;
+        -h|--help)
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+done
+
+set -e
+
+if [ ! -f "$to_dir/.gitattributes" ] || [ "$force" -eq 1 ] ; then
+    printf "Creating .gitattributes file in '%s' directory\n" "$to_dir"
+    cp "$SANDBIN_HOME/dotfiles/gitattributes/default.gitattributes" "$to_dir/.gitattributes"
+else
+    printf "The file ${RED}'%s'${NORMAL} already exists!\n" "$to_dir/.gitattributes"
+fi
+
+exit 1
