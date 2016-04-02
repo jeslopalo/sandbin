@@ -1,3 +1,9 @@
+## 0.21.0
+  * [c2d38ba] Modify attribution to https://github.com/Danimoth/gitattributes
+  * [ad68ffd] Modify git-init colors
+  * [f2321ff] Modify colors for git-setup-aliases
+  * [5227d05] Modify colors & delete unnecesary code in sandbin-upgrade
+
 ## 0.20.2
   * [e27712c] Fix 'sandbash' bug when passing parameters with spaces
   
