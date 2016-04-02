@@ -28,15 +28,17 @@ if [ -n "$tput" ]; then
     ncolors=$(tput colors)
 fi
 if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-  GREEN="$(tput setaf 2)"
-  YELLOW="$(tput setaf 3)"
-  BLUE="$(tput setaf 4)"
-  NORMAL="$(tput sgr0)"
+    RED="$(tput setaf 1)"
+    GREEN="$(tput setaf 2)"
+    YELLOW="$(tput setaf 3)"
+    BLUE="$(tput setaf 4)"
+    NORMAL="$(tput sgr0)"
 else
-  GREEN=""
-  YELLOW=""
-  BLUE=""
-  NORMAL=""
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    NORMAL=""
 fi
 
 if [ ! -n "$SANDBIN_HOME" ]; then
@@ -60,7 +62,9 @@ hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.g
   exit
 }
 
-if [ "$revision" != "" ]; then
+if [ -z "$revision" ]; then
+    revision="master"
+else
     cd "$SANDBIN_HOME"
     git checkout "$revision"
 fi
@@ -98,6 +102,7 @@ printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   
 printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
 printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
 printf '%s\n' ''
+printf "${RED}%s${NORMAL}\n" "                                                          revision: $revision"
 printf "${BLUE}%s\n" "Hooray! Sandbin has been installed."
 printf "${YELLOW}%s${NORMAL}\n" "Please, reload your shell session!"
 
