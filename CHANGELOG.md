@@ -1,3 +1,6 @@
+## 0.20.2
+  * [e27712c] Fix 'sandbash' bug when passing parameters with spaces
+  
 ## 0.20.1
   * [dfd1c92] Modify .gitignore to include .sandbinrc
   * [2fbe817] Fix sandbash parameters calculation
