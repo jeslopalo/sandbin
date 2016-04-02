@@ -11,4 +11,12 @@ source "$SANDBIN_HOME/scripts/lib/colors.lib.bash"
 source "$SANDBIN_HOME/scripts/lib/omzsh.lib.bash"
 source "$SANDBIN_HOME/scripts/lib/path.lib.bash"
 
-source $*
+script_name=$1
+if [ -z "$script_name" ]; then
+    echo "${RED}sandbash: The name of script is mandatory.${NORMAL}"
+    exit 1
+fi
+
+shift
+
+source $script_name $*
