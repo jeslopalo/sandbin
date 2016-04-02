@@ -115,8 +115,8 @@ printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   
 printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
 printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
 printf '%s\n' ''
-printf "${RED}%s${NORMAL}\n" "                                                          revision: $revision"
-printf "${BLUE}%s\n" "Hooray! Sandbin has been installed."
-printf "${YELLOW}%s${NORMAL}\n" "Please, reload your shell session!"
+printf "%s\n" "${RED}                                                  revision: $revision${NORMAL}"
+printf "%s\n" "${BLUE}Hooray! Sandbin has been installed.${NORMAL}"
+printf "%s\n" "${YELLOW}Please, reload your shell session!${NORMAL}"
 
 
