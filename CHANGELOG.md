@@ -1,3 +1,7 @@
+## 0.20.1
+  * [dfd1c92] Modify .gitignore to include .sandbinrc
+  * [2fbe817] Fix sandbash parameters calculation
+
 ## 0.20.0
   * [7c7e8ce] Add default.gitattributes
   * [67cf982] Modify usage() in git scripts
