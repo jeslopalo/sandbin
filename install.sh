@@ -69,28 +69,41 @@ else
     git checkout "$revision"
 fi
 
-function configure_sandbin_bootstrap() {
-    local config_file=$1;
-    local sandbin_home=$2;
-    local sandbin_config="$sandbin_home/.sandbinrc"
+function generate_sandbin_bootstrap_file() {
+    local sandbin_home=$1;
+    local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbinrc.template"
+    local sandbin_config="$sandbin_home/sandbinrc"
+
+    if [ ! -f "$sandbin_config" ]; then
+        printf "Copying sandbinrc file to '%s'...\n" "$sandbin_home"
+        cp "$sandbin_template" "$sandbin_config"
+    fi
 
     if grep -q "{{sandbinhome}}" $sandbin_config; then
         echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
         local curated_sandbin_home=${sandbin_home//\//\\\/}
         perl -pi -e "s/{{sandbinhome}}/\"$curated_sandbin_home\"/g" "$sandbin_config"
     fi
+}
+
+function configure_sandbin_bootstrap() {
+    local config_file=$1;
+    local sandbin_home=$2;
+    local sandbin_home_sha=`echo $sandbin_home | /usr/bin/shasum | /usr/bin/cut -c 1-10`
+    local sandbin_config="$sandbin_home/sandbinrc"
 
     if [ -f $config_file ]; then
 
         if grep -q "source $sandbin_config" $config_file; then
             echo "sandbin bootstrap is already configured in '$config_file'"
         else
-            echo "\n# sandbin bootstrap\nsource $sandbin_config\n" >> $config_file
+            echo "\n# sandbin bootstrap $sandbin_home_sha\nsource $sandbin_config\n" >> $config_file
             echo "sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
         fi
     fi
 }
 
+generate_sandbin_bootstrap_file "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
 
