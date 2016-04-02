@@ -19,4 +19,4 @@ fi
 
 shift
 
-source $script_name $*
+source $script_name "$@"
