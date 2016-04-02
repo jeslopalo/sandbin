@@ -1,6 +1,6 @@
 #!/usr/bin/env sandbash
 
-usage() {
+function usage() {
 	printf "${YELLOW}%s${NORMAL}\n" "usage: git-aliases [--system|--global|--local]"
 }
 
@@ -9,34 +9,18 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
-# Use colors, but only if connected to a terminal, and that terminal
-# supports them.
-tput=$(which tput)
-if [ -n "$tput" ]; then
-    ncolors=$(tput colors)
-fi
-if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-  YELLOW="$(tput setaf 3)"
-  BLUE="$(tput setaf 4)"
-  NORMAL="$(tput sgr0)"
-else
-  YELLOW=""
-  BLUE=""
-  NORMAL=""
-fi
-
-scope=$1
+scope="$1"
 
 function new_alias() {
   local alias_name=$1
   local alias_command=$2
 
-  echo -e "New command: ${YELLOW}git ${alias_name}${NORMAL}"
+  printf "%s\n" "New command: ${YELLOW}git ${BOLD}${alias_name}${NORMAL}"
   git config $scope alias.${alias_name} "${alias_command}"
 }
 
 function say() {
-    echo -e "${BLUE}$1${NORMAL}"
+    printf "${GREEN}%s${NORMAL}\n" "$1"
 }
 
 set -e

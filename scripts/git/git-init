@@ -1,7 +1,7 @@
 #!/usr/bin/env sandbash
 
-usage() {
-	printf "${YELLOW}%s${NORMAL}\n" "usage: git-init [--system|--global|--local] \"User Name\" user@name.es"
+function usage() {
+	printf "${YELLOW}%s${NORMAL}\n" "usage: git-init [--system|--global|--local] \"Name Surname\" user@name.es"
 }
 
 if [ $# -lt 3 ]; then
@@ -9,20 +9,11 @@ if [ $# -lt 3 ]; then
 	exit 1
 fi
 
-scope=$1
-username=$2
-email=$3
-
-#Fonts format
-outpututils_bold=`tput bold`
-outpututils_normal=`tput sgr0`
-
-function b() {
-	echo "$outpututils_bold$1$outpututils_normal"
-}
+scope="$1"
+username="$2"
+email="$3"
 
 set -e
 
-echo -e "Configuring username $(b "$username") & email $(b "$email") as $(b "$scope") repository properties..."
-git config $scope user.name "$username"
+printf "Configuring user.name='${BOLD}${GREEN}$username${NORMAL}' & user.email='${BOLD}${GREEN}$email${NORMAL}' as '${BOLD}${YELLOW}$scope${NORMAL}' repository properties...\n"
 git config $scope user.email "$email"
