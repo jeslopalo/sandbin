@@ -21,6 +21,24 @@ done
 
 set -e
 
+# Use colors, but only if connected to a terminal, and that terminal
+# supports them.
+tput=$(which tput)
+if [ -n "$tput" ]; then
+    ncolors=$(tput colors)
+fi
+if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+  GREEN="$(tput setaf 2)"
+  YELLOW="$(tput setaf 3)"
+  BLUE="$(tput setaf 4)"
+  NORMAL="$(tput sgr0)"
+else
+  GREEN=""
+  YELLOW=""
+  BLUE=""
+  NORMAL=""
+fi
+
 if [ ! -n "$SANDBIN_HOME" ]; then
 	SANDBIN_HOME=~/.sandbin
 fi
@@ -71,24 +89,6 @@ function configure_sandbin_bootstrap() {
 
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
-
-# Use colors, but only if connected to a terminal, and that terminal
-# supports them.
-tput=$(which tput)
-if [ -n "$tput" ]; then
-    ncolors=$(tput colors)
-fi
-if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-  GREEN="$(tput setaf 2)"
-  YELLOW="$(tput setaf 3)"
-  BLUE="$(tput setaf 4)"
-  NORMAL="$(tput sgr0)"
-else
-  GREEN=""
-  YELLOW=""
-  BLUE=""
-  NORMAL=""
-fi
 
 printf '%s' "$GREEN"
 printf '%s\n' ''
