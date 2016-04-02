@@ -1,3 +1,19 @@
+## 0.20.0
+  * [7c7e8ce] Add default.gitattributes
+  * [67cf982] Modify usage() in git scripts
+  * [188ba93] Add command 'git-setup-attributes' to setup .gitattributes in a git repository
+  * [e3dcde9] Improve target file calculation in git-setup-attributes
+  * [327a428] Fix target_file calculation in git-setup-attributes
+  * [4a1573a] Improve git-setup-attributes messages
+  * [b6ab3b0] Extract color definitions to colors.lib.bash
+  * [ed22dd0] Extract sourcing of colors.lib.sh to .sandbinrc
+  * [3b5e59f] Fix GREEN color in colors.lib.bash
+  * [d91c0b5] Create a custom launcher 'sandbash' to include custom libs
+  * [6e1a8dd] Update scripts to use sandbash
+  * [e582390] Add colors.lib.bash to sandbash launcher
+  * [7084ea0] Add '.sandbinrc' to '.gitignore' to allow user editions
+  * [b3fcab3] Add .gitattributes to avoid problems with crlf
+  
 ## 0.19.0
   * [69bc095] Modify README.md
   * [6588599] Modify README.md
