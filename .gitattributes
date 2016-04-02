@@ -1,4 +1,4 @@
-# Extracted from https://github.com/Danimoth/gitattributes templates compilation
+# Compiled from the templates at https://github.com/Danimoth/gitattributes
 #
 # Handle line endings automatically for files detected as text
 # and leave all files detected as binary untouched.
@@ -106,6 +106,7 @@ Procfile        text
 *.tmpl          text
 *.phtml         text
 *.latte         text
+*.template      text
 
 # These files are binary and should be left untouched
 # (binary is a macro for -text -diff)
