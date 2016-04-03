@@ -75,6 +75,7 @@ new_alias "last-tag-id" "!git for-each-ref refs/tags --sort=-taggerdate --format
 new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
 say "Configuring aliases for commits..."
+new_alias "ci" "commit --verbose"
 new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
 new_alias "last-commit" "show HEAD"
 
