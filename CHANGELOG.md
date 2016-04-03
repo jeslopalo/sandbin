@@ -1,3 +1,14 @@
+## 0.22.0
+  * [6464f1b] Move colors configuration at the top of the script
+  * [b887a81] Add revision in installation banner
+  * [f9aafd0] Modify '.sandbinrc' to add comments
+  * [7ff8686] Add *.template as text to default.gitattributes
+  * [3f34089] Modified repository .gitattributes file
+  * [fd5d699] Extract sandbinrc to a template
+  * [58117aa] Modify .gitignore to add sandbinrc
+  * [9b13952] Clean up the installation sandbin banner
+  * [5fdc02c] Remove the bootstrapping of sandbin when sandbin_home changes
+
 ## 0.21.0
   * [c2d38ba] Modify attribution to https://github.com/Danimoth/gitattributes
   * [ad68ffd] Modify git-init colors
