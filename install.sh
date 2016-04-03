@@ -86,18 +86,40 @@ function generate_sandbin_bootstrap_file() {
     fi
 }
 
+function remove_between_marks_in_file() {
+    local start_mark="$1";
+    local end_mark="$2";
+    local file="$3";
+
+    # Remove from content
+    sed "/$start_mark/,/$end_mark/d" "$file" > "$file.tmp"
+
+    # Backup old file before rewrite
+    /bin/cp "$file" "$file.oldbackup"
+    /bin/mv "$file.tmp" "$file"
+}
+
 function configure_sandbin_bootstrap() {
     local config_file=$1;
     local sandbin_home=$2;
-    local sandbin_home_sha=`echo $sandbin_home | /usr/bin/shasum | /usr/bin/cut -c 1-10`
-    local sandbin_config="$sandbin_home/sandbinrc"
+    local sandbin_home_sha=`echo $sandbin_home | /usr/bin/shasum | /usr/bin/cut -c 1-10`;
+    local START_MARK="#sandbin-bootstrap";
+    local END_MARK="#end-sandbin-bootstrap";
+    local sandbin_config="$sandbin_home/sandbinrc";
+    local bootstrap_configuration="$START_MARK $sandbin_home_sha\nsource $sandbin_config\n$END_MARK\n";
 
     if [ -f $config_file ]; then
 
-        if grep -q "source $sandbin_config" $config_file; then
+        if grep -q "$START_MARK $sandbin_home_sha" "$config_file"; then
             echo "sandbin bootstrap is already configured in '$config_file'"
+
         else
-            echo "\n# sandbin bootstrap $sandbin_home_sha\nsource $sandbin_config\n" >> $config_file
+            if grep -q "$START_MARK" "$config_file"; then
+                echo "Removing old sandbin configuration from '$config_file' file"
+                remove_between_marks_in_file "$START_MARK" "$END_MARK\\n" "$config_file"
+            fi
+
+            echo "$bootstrap_configuration" >> "$config_file"
             echo "sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
         fi
     fi
