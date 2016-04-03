@@ -1,3 +1,12 @@
+## 0.23.0
+  * [2481f1d] Add new git alias: 'git status-short'
+  * [1cb3b44] Add new git alias: 'git workspace'
+  * [e30ea6d] Add new git alias: 'git committers' & 'git mergers'
+  * [27e4f37] Add new git alias: 'git author'
+  * [235c932] Add new git alias: 'git conflicts'
+  * [36192d0] Add new git alias: 'git history-fuller' & 'git history-all-fuller'
+  * [85d41b2] Add new git alias: 'git commit --verbose'
+
 ## 0.22.0
   * [6464f1b] Move colors configuration at the top of the script
   * [b887a81] Add revision in installation banner
