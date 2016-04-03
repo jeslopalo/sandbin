@@ -51,7 +51,8 @@ say "Configuring aliases for workspace info..."
 new_alias "workspace" "!git rev-parse --show-toplevel"
 
 say "Configuring aliases form status..."
-new_alias "status-short" "status -sb -uno --ignore-submodules=untracked"
+new_alias "status-short" "status -sb -uno --ignore-submodules=untracked --untracked-files=normal --ignored"
+new_alias "st" "!git status-short"
 
 say "Configuring aliases for changes..."
 new_alias "changelog" "!f() { git last-tag-id | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
