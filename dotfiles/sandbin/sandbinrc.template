@@ -1,9 +1,7 @@
 #!/usr/bin/env sandbash
 
+# sandbin installation directory
 export SANDBIN_HOME={{sandbinhome}}
 
-#if [ -d "$OM_ZSH_HOME" ]; then
-#    installing_omzsh_plugins
-#fi
-
+# export sandbin paths
 export PATH=$SANDBIN_HOME/scripts/launcher:$SANDBIN_HOME/scripts:$SANDBIN_HOME/scripts/git:$PATH

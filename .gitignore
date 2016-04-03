@@ -5,5 +5,5 @@
 
 *.iml
 
-#Ignore user changes
-/.sandbinrc
+#Ignore sandbin configuration file
+/sandbinrc

@@ -21,6 +21,26 @@ done
 
 set -e
 
+# Use colors, but only if connected to a terminal, and that terminal
+# supports them.
+tput=$(which tput)
+if [ -n "$tput" ]; then
+    ncolors=$(tput colors)
+fi
+if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+    RED="$(tput setaf 1)"
+    GREEN="$(tput setaf 2)"
+    YELLOW="$(tput setaf 3)"
+    BLUE="$(tput setaf 4)"
+    NORMAL="$(tput sgr0)"
+else
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    NORMAL=""
+fi
+
 if [ ! -n "$SANDBIN_HOME" ]; then
 	SANDBIN_HOME=~/.sandbin
 fi
@@ -42,53 +62,72 @@ hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.g
   exit
 }
 
-if [ "$revision" != "" ]; then
+if [ -z "$revision" ]; then
+    revision="master"
+else
     cd "$SANDBIN_HOME"
     git checkout "$revision"
 fi
 
-function configure_sandbin_bootstrap() {
-    local config_file=$1;
-    local sandbin_home=$2;
-    local sandbin_config="$sandbin_home/.sandbinrc"
+function generate_sandbin_bootstrap_file() {
+    local sandbin_home=$1;
+    local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbinrc.template"
+    local sandbin_config="$sandbin_home/sandbinrc"
+
+    if [ ! -f "$sandbin_config" ]; then
+        printf "Copying sandbinrc file to '%s'...\n" "$sandbin_home"
+        cp "$sandbin_template" "$sandbin_config"
+    fi
 
     if grep -q "{{sandbinhome}}" $sandbin_config; then
         echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
         local curated_sandbin_home=${sandbin_home//\//\\\/}
         perl -pi -e "s/{{sandbinhome}}/\"$curated_sandbin_home\"/g" "$sandbin_config"
     fi
+}
+
+function remove_between_marks_in_file() {
+    local start_mark="$1";
+    local end_mark="$2";
+    local file="$3";
+
+    # Remove from content
+    sed "/$start_mark/,/$end_mark/d" "$file" > "$file.tmp"
+
+    # Backup old file before rewrite
+    /bin/cp "$file" "$file.oldbackup"
+    /bin/mv "$file.tmp" "$file"
+}
+
+function configure_sandbin_bootstrap() {
+    local config_file=$1;
+    local sandbin_home=$2;
+    local sandbin_home_sha=`echo $sandbin_home | /usr/bin/shasum | /usr/bin/cut -c 1-10`;
+    local START_MARK="#sandbin-bootstrap";
+    local END_MARK="#end-sandbin-bootstrap";
+    local sandbin_config="$sandbin_home/sandbinrc";
+    local bootstrap_configuration="$START_MARK $sandbin_home_sha\nsource $sandbin_config\n$END_MARK\n";
 
     if [ -f $config_file ]; then
 
-        if grep -q "source $sandbin_config" $config_file; then
+        if grep -q "$START_MARK $sandbin_home_sha" "$config_file"; then
             echo "sandbin bootstrap is already configured in '$config_file'"
+
         else
-            echo "\n# sandbin bootstrap\nsource $sandbin_config\n" >> $config_file
+            if grep -q "$START_MARK" "$config_file"; then
+                echo "Removing old sandbin configuration from '$config_file' file"
+                remove_between_marks_in_file "$START_MARK" "$END_MARK\\n" "$config_file"
+            fi
+
+            echo "$bootstrap_configuration" >> "$config_file"
             echo "sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
         fi
     fi
 }
 
+generate_sandbin_bootstrap_file "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
-
-# Use colors, but only if connected to a terminal, and that terminal
-# supports them.
-tput=$(which tput)
-if [ -n "$tput" ]; then
-    ncolors=$(tput colors)
-fi
-if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-  GREEN="$(tput setaf 2)"
-  YELLOW="$(tput setaf 3)"
-  BLUE="$(tput setaf 4)"
-  NORMAL="$(tput sgr0)"
-else
-  GREEN=""
-  YELLOW=""
-  BLUE=""
-  NORMAL=""
-fi
 
 printf '%s' "$GREEN"
 printf '%s\n' ''
@@ -98,7 +137,8 @@ printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   
 printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
 printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
 printf '%s\n' ''
-printf "${BLUE}%s\n" "Hooray! Sandbin has been installed."
-printf "${YELLOW}%s${NORMAL}\n" "Please, reload your shell session!"
+printf "%s\n" "${RED}                                                  revision: $revision${NORMAL}"
+printf "%s\n" "${BLUE}Hooray! Sandbin has been installed.${NORMAL}"
+printf "%s\n" "${YELLOW}Please, reload your shell session!${NORMAL}"
 
 
