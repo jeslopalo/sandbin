@@ -1,3 +1,9 @@
+## 0.24.0
+  * [fe4d24a] Modify 'git status-short' to add untracked & ignored
+  * [eaec94f] Modify sandbash to add output.lib.bash
+  * [e78f22c] Add new git-functions.lib.bash library
+  * [3f2f778] Extract git alias definitions to a file in dotfiles
+
 ## 0.23.0
   * [2481f1d] Add new git alias: 'git status-short'
   * [1cb3b44] Add new git alias: 'git workspace'
