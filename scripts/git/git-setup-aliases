@@ -33,13 +33,25 @@ say "Configuring aliases for history..."
 new_alias "history" "log --graph --pretty=format:'%C(bold red)%h%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset | %C(bold)%s%C(reset) - %C(dim white)<%aN>%Creset' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-of" "!git history --first-parent"
 new_alias "history-all" "!git history --all"
+new_alias "history-fuller" "!git history --pretty=fuller --stat -p"
+new_alias "history-all-fuller" "!git history-all --pretty=fuller --stat -p"
 
 say "Configuring aliases for refs..."
 new_alias "refs" "!git history --simplify-by-decoration --no-merges"
 new_alias "refs-all" "!git refs --all"
 
 say "Configuring aliases for authors..."
+new_alias "author" "!printf \"${RED}%s${NORMAL} <%s>\n\" \"`git config user.name`\" \"`git config user.email`\""
 new_alias "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
+new_alias "committers" "!git log --pretty=format:\"%C(red)%aN%C(reset)\" | sort | uniq -c | sort -rn"
+new_alias "mergers" "!git log --pretty=format:\"%C(red)%aN%C(reset)\" --merges | sort | uniq -c | sort -rn"
+
+say "Configuring aliases for workspace info..."
+# find the workspace of current repository
+new_alias "workspace" "!git rev-parse --show-toplevel"
+
+say "Configuring aliases form status..."
+new_alias "status-short" "status -sb -uno --ignore-submodules=untracked"
 
 say "Configuring aliases for changes..."
 new_alias "changelog" "!f() { git last-tag-id | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
@@ -63,8 +75,13 @@ new_alias "last-tag-id" "!git for-each-ref refs/tags --sort=-taggerdate --format
 new_alias "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
 say "Configuring aliases for commits..."
+new_alias "ci" "commit --verbose"
 new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
 new_alias "last-commit" "show HEAD"
+
+say "Configuring aliases for conflicts..."
+# shows list of files that have a merge conflict
+new_alias "conflicts" "!git --no-pager diff --name-only --diff-filter=U"
 
 say "Configuring aliases for (un)stage..."
 new_alias "stage" "add"
