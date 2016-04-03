@@ -33,6 +33,8 @@ say "Configuring aliases for history..."
 new_alias "history" "log --graph --pretty=format:'%C(bold red)%h%Creset %C(dim cyan)(%cr)%Creset %C(auto)%d%Creset | %C(bold)%s%C(reset) - %C(dim white)<%aN>%Creset' --abbrev-commit --date=relative --decorate --color"
 new_alias "history-of" "!git history --first-parent"
 new_alias "history-all" "!git history --all"
+new_alias "history-fuller" "!git history --pretty=fuller --stat -p"
+new_alias "history-all-fuller" "!git history-all --pretty=fuller --stat -p"
 
 say "Configuring aliases for refs..."
 new_alias "refs" "!git history --simplify-by-decoration --no-merges"
