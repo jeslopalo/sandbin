@@ -1,3 +1,6 @@
+## 0.25.1
+  * [480de7c] Fix a bug in SANDBIN_HOME resolution
+
 ## 0.25.0
   * [541a526] Split PATH declaration
   * [4fb9990] Add system commands to PATH
