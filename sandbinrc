@@ -1,7 +1,10 @@
-#!/usr/bin/env sandbash
+#!/bin/bash
 
 # sandbin installation directory
-export SANDBIN_HOME={{sandbinhome}}
+export SANDBIN_HOME=`pwd -P`
+
+# Load sandbin configuration
+source "$SANDBIN_HOME/sandbin.config"
 
 # export sandbin paths
 source "$SANDBIN_HOME/dotfiles/.paths"

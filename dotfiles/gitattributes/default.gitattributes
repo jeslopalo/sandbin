@@ -55,6 +55,7 @@
 *.jspf          text
 *.sql           text
 *.properties    text
+*.config        text
 *.conf          text
 *.yaml          text
 *.yml           text

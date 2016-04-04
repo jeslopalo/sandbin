@@ -69,20 +69,14 @@ else
     git checkout "$revision"
 fi
 
-function generate_sandbin_bootstrap_file() {
+function generate_sandbin_config_file() {
     local sandbin_home=$1;
-    local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbinrc.template"
-    local sandbin_config="$sandbin_home/sandbinrc"
+    local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbin.config.template"
+    local sandbin_config="$sandbin_home/sandbin.config"
 
     if [ ! -f "$sandbin_config" ]; then
-        printf "Copying sandbinrc file to '%s'...\n" "$sandbin_home"
+        printf "Copying sandbin.config file to '%s'...\n" "$sandbin_home"
         cp "$sandbin_template" "$sandbin_config"
-    fi
-
-    if grep -q "{{sandbinhome}}" $sandbin_config; then
-        echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
-        local curated_sandbin_home=${sandbin_home//\//\\\/}
-        perl -pi -e "s/{{sandbinhome}}/\"$curated_sandbin_home\"/g" "$sandbin_config"
     fi
 }
 
@@ -125,7 +119,7 @@ function configure_sandbin_bootstrap() {
     fi
 }
 
-generate_sandbin_bootstrap_file "$SANDBIN_HOME"
+generate_sandbin_config_file "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
 
@@ -137,7 +131,7 @@ printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   
 printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
 printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
 printf '%s\n' ''
-printf "%s\n" "${RED}                                                  revision: $revision${NORMAL}"
+printf "%s\n" "${RED}                                                   revision: $revision${NORMAL}"
 printf "%s\n" "${BLUE}Hooray! Sandbin has been installed.${NORMAL}"
 printf "%s\n" "${YELLOW}Please, reload your shell session!${NORMAL}"
 
