@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # sandbin installation directory
-export SANDBIN_HOME=`pwd -P`
+export SANDBIN_HOME=`dirname $0`
 
 # Load sandbin configuration
 source "$SANDBIN_HOME/sandbin.conf"
