@@ -72,7 +72,7 @@ fi
 function generate_sandbin_config_file() {
     local sandbin_home=$1;
     local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbin.conf.template"
-    local sandbin_config="$sandbin_home/sandbin.config"
+    local sandbin_config="$sandbin_home/sandbin.conf"
 
     if [ ! -f "$sandbin_config" ]; then
         printf "Copying sandbin.conf file to '%s'...\n" "$sandbin_home"
