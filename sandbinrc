@@ -4,7 +4,7 @@
 export SANDBIN_HOME=`pwd -P`
 
 # Load sandbin configuration
-source "$SANDBIN_HOME/sandbin.config"
+source "$SANDBIN_HOME/sandbin.conf"
 
 # export sandbin paths
 source "$SANDBIN_HOME/dotfiles/.paths"
