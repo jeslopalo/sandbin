@@ -6,4 +6,5 @@ export SANDBIN_HOME={{sandbinhome}}
 # export sandbin paths
 export PATH=$SANDBIN_HOME/scripts:$PATH;
 export PATH=$SANDBIN_HOME/scripts/git:$PATH;
+export PATH=$SANDBIN_HOME/scripts/system:$PATH;
 export PATH=$SANDBIN_HOME/scripts/launcher:$PATH;
