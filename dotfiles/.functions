@@ -1,0 +1,19 @@
+# -F automatically exit if the entire file can be displayed on the first screen.
+# -R it preserves colors
+# -X Disables sending the termcap initialization and deinitialization strings to
+#        the terminal.  This  is  sometimes  desirable  if  the  deinitialization
+#        string does something unnecessary, like clearing the screen.
+function page() {
+    less -FRX "$@"
+}
+
+# `list` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+#
+# Thanks: https://github.com/mathiasbynens/dotfiles
+#
+function list() {
+	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | page;
+}

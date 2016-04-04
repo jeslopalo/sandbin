@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# sandbin installation directory
+export SANDBIN_HOME=`pwd -P`
+
+# Load sandbin configuration
+source "$SANDBIN_HOME/sandbin.conf"
+
+# export sandbin paths
+source "$SANDBIN_HOME/dotfiles/.paths"
+
+# source dotfiles
+source "$SANDBIN_HOME/dotfiles/.functions"

@@ -69,20 +69,14 @@ else
     git checkout "$revision"
 fi
 
-function generate_sandbin_bootstrap_file() {
+function generate_sandbin_config_file() {
     local sandbin_home=$1;
-    local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbinrc.template"
-    local sandbin_config="$sandbin_home/sandbinrc"
+    local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbin.conf.template"
+    local sandbin_config="$sandbin_home/sandbin.conf"
 
     if [ ! -f "$sandbin_config" ]; then
-        printf "Copying sandbinrc file to '%s'...\n" "$sandbin_home"
+        printf "Copying sandbin.conf file to '%s'...\n" "$sandbin_home"
         cp "$sandbin_template" "$sandbin_config"
-    fi
-
-    if grep -q "{{sandbinhome}}" $sandbin_config; then
-        echo "Configuring sandbin home '$sandbin_home' in '$sandbin_config'"
-        local curated_sandbin_home=${sandbin_home//\//\\\/}
-        perl -pi -e "s/{{sandbinhome}}/\"$curated_sandbin_home\"/g" "$sandbin_config"
     fi
 }
 
@@ -106,12 +100,11 @@ function configure_sandbin_bootstrap() {
     local START_MARK="#sandbin-bootstrap";
     local END_MARK="#end-sandbin-bootstrap";
     local sandbin_config="$sandbin_home/sandbinrc";
-    local bootstrap_configuration="$START_MARK $sandbin_home_sha\nsource $sandbin_config\n$END_MARK\n";
 
     if [ -f $config_file ]; then
 
         if grep -q "$START_MARK $sandbin_home_sha" "$config_file"; then
-            echo "sandbin bootstrap is already configured in '$config_file'"
+            echo "The sandbin bootstrap is already configured in '$config_file'"
 
         else
             if grep -q "$START_MARK" "$config_file"; then
@@ -119,13 +112,13 @@ function configure_sandbin_bootstrap() {
                 remove_between_marks_in_file "$START_MARK" "$END_MARK\\n" "$config_file"
             fi
 
-            echo "$bootstrap_configuration" >> "$config_file"
-            echo "sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
+            printf "%s\n%s\n%s\n" "$START_MARK $sandbin_home_sha" "source $sandbin_config" "$END_MARK" >> "$config_file"
+            echo "The sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
         fi
     fi
 }
 
-generate_sandbin_bootstrap_file "$SANDBIN_HOME"
+generate_sandbin_config_file "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
 
@@ -137,7 +130,7 @@ printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   
 printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
 printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
 printf '%s\n' ''
-printf "%s\n" "${RED}                                                  revision: $revision${NORMAL}"
+printf "%s\n" "${RED}                                                           revision: $revision${NORMAL}"
 printf "%s\n" "${BLUE}Hooray! Sandbin has been installed.${NORMAL}"
 printf "%s\n" "${YELLOW}Please, reload your shell session!${NORMAL}"
 
