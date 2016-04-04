@@ -6,4 +6,4 @@
 *.iml
 
 #Ignore sandbin configuration file
-/sandbin.config
+/sandbin.conf
