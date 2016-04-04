@@ -8,3 +8,6 @@ export PATH=$SANDBIN_HOME/scripts:$PATH;
 export PATH=$SANDBIN_HOME/scripts/git:$PATH;
 export PATH=$SANDBIN_HOME/scripts/system:$PATH;
 export PATH=$SANDBIN_HOME/scripts/launcher:$PATH;
+
+# source dotfiles
+source "$SANDBIN_HOME/dotfiles/.functions"
