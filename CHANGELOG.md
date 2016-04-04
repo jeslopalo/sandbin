@@ -1,3 +1,14 @@
+## 0.25.0
+  * [541a526] Split PATH declaration
+  * [4fb9990] Add system commands to PATH
+  * [4a6c3a4] Source '.functions' utility functions
+  * [640730c] Extract path exports to .paths file
+  * [c06030b] Break up sandbin configuration and sandbin bootstrap
+  * [f772dd3] Fix a typo in the name of sandbin configuration file
+  * [2e45231] Fix a typo in the name of sandbin configuration file
+  * [bfa1ec8] Fix a typo in the name of sandbin configuration file
+  * [6a62ae8] Fix an issue writing sandbin bootstrap in .zshrc & .bashrc
+  
 ## 0.24.0
   * [fe4d24a] Modify 'git status-short' to add untracked & ignored
   * [eaec94f] Modify sandbash to add output.lib.bash
