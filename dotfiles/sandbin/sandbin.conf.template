@@ -5,3 +5,6 @@
 ##            888 888    888   888   888 888    888   888    888 888   888   888
 ##    88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o
 ##
+
+# sandbin installation directory
+export SANDBIN_HOME={{sandbinhome}}

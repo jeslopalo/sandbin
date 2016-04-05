@@ -69,6 +69,18 @@ else
     git checkout "$revision"
 fi
 
+function replace() {
+    local pattern=$1;
+    local value=$2;
+    local file=$3;
+
+    if grep -q "{{$pattern}}" $file; then
+        printf "Replacing '%s' with '%s' in '%s' file\n" "$pattern" "$value" "$file"
+        local curated_value=${value//\//\\\/}
+        perl -pi -e "s/{{$pattern}}/\"$curated_value\"/g" "$file"
+    fi
+}
+
 function generate_sandbin_config_file() {
     local sandbin_home=$1;
     local sandbin_template="$sandbin_home/dotfiles/sandbin/sandbin.conf.template"
@@ -77,6 +89,8 @@ function generate_sandbin_config_file() {
     if [ ! -f "$sandbin_config" ]; then
         printf "Copying sandbin.conf file to '%s'...\n" "$sandbin_home"
         cp "$sandbin_template" "$sandbin_config"
+
+        replace "sandbinhome" "$sandbin_home" "$sandbin_config"
     fi
 }
 
@@ -113,7 +127,7 @@ function configure_sandbin_bootstrap() {
             fi
 
             printf "%s\n%s\n%s\n" "$START_MARK $sandbin_home_sha" "source $sandbin_config" "$END_MARK" >> "$config_file"
-            echo "The sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
+            echo "The sandbin bootstrap '$sandbin_config' has been configured in '$config_file'"
         fi
     fi
 }
