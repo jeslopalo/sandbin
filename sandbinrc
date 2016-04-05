@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # sandbin installation directory
-export SANDBIN_HOME=`dirname $0`
+if [ -z "$SANDBIN_HOME" ]; then
+    export SANDBIN_HOME=`dirname $0`
+fi
 
 # Load sandbin configuration
 source "$SANDBIN_HOME/sandbin.conf"
