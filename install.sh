@@ -127,7 +127,7 @@ function configure_sandbin_bootstrap() {
             fi
 
             printf "%s\n%s\n%s\n" "$START_MARK $sandbin_home_sha" "source $sandbin_config" "$END_MARK" >> "$config_file"
-            echo "The sandbin bootstrap configuration '$sandbin_config' has been configured in '$config_file'"
+            echo "The sandbin bootstrap '$sandbin_config' has been configured in '$config_file'"
         fi
     fi
 }
