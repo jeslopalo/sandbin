@@ -34,13 +34,15 @@ function sandbin_version() {
 
 function sandbin_upgrade() {
 
-    printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin installation [$SANDBIN_HOME]"
-    cd "$SANDBIN_HOME"
+    version=$(sandbin_branch)
 
-    if git pull --rebase --stat origin master
+    printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin installation [$SANDBIN_HOME] to $version"
+
+    cd "$SANDBIN_HOME"
+    if git pull --rebase --stat origin "$version"
     then
         sandbin_reload
-        print_sandbin_banner "$(sandbin_branch)"
+        print_sandbin_banner "$version"
         printf "${YELLOW}%s\n" "Hooray! Sandbin has been updated and/or is at the current version."
 
     else
@@ -50,6 +52,6 @@ function sandbin_upgrade() {
 
 function sandbin_reload() {
     source "$SANDBIN_HOME/sandbinrc"
-
+    
     print_sandbin_banner "$(sandbin_branch)" "${YELLOW}"
 }
