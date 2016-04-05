@@ -1,3 +1,28 @@
+## 0.26.0
+  * [9127f23] Update .functions doc
+  * [420742e] New command 'sandbin upgrade'
+  * [574855c] Add execution rights to sandbin command
+  * [c8bb6a8] Add sandbin commands in path & add sandbin args control
+  * [903e862] Modify error message
+  * [38066f9] Add sandbin_version() function
+  * [66acc7c] Fix sandbin branch calculation
+  * [8d0a61e] Improve some messages
+  * [d50bea6] Move SANDBIN_HOME definition to sandbin.conf
+  * [cdf409c] Modify sandbinrc sourcing paths
+  * [ccf6e38] Modify sandbinrc sourcing paths
+  * [dcfa8eb] Modify sandbinrc sourcing paths
+  * [be6f640] Modify a trace message
+  * [54fcff3] Calculate branch to upgrade in sandbin_upgrade()
+  * [2def4ef] Remove print_sandbin_banner() invocation in sandbin_reload()
+  * [075dedd] Fix infinite loop in sandbin command with unknown command
+  * [374f846] Delay command execution until all arguments are read
+  * [25f0389] Fix sandbin command execution
+  * [7b7e898] Fix sandbin command execution
+  * [88da07d] Fix sandbin command execution
+  * [483b808] Fix sandbin command execution
+  * [3d209e1] Fix sandbin command execution
+  * [da735de] Fix sandbin command execution
+
 ## 0.25.1
   * [480de7c] Fix a bug in SANDBIN_HOME resolution
 
