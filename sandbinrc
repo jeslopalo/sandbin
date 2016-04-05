@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Load sandbin configuration
-source "$SANDBIN_HOME/sandbin.conf"
+source "./sandbin.conf"
 
 # export sandbin paths
-source "$SANDBIN_HOME/dotfiles/.paths"
+source "./dotfiles/.paths"
 
 # source dotfiles
-source "$SANDBIN_HOME/dotfiles/.functions"
+source "./dotfiles/.functions"
