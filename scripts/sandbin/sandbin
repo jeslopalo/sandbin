@@ -36,4 +36,4 @@ while [[ $# > 0 ]];  do
     esac
 done
 
-eval "sandbin_$command"
+`sandbin_$command`
