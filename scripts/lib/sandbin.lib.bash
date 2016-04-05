@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 function print_sandbin_banner() {
-    local banner_color=$1;
-    local branch=`git rev-parse --abbrev-ref HEAD`;
+    local branch=$1;
+    local banner_color=$2;
 
     if [ -z "$banner_color" ]; then
         banner_color="${GREEN}"
@@ -16,11 +16,20 @@ function print_sandbin_banner() {
     printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
     printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
     printf '%s\n' ''
-    printf "%s\n" "${RED}                                                           revision: $branch${NORMAL}"
+    if [ ! -z "$branch" ]; then
+        printf "%s\n" "${RED}                                                           revision: $branch"
+    fi
+    printf "${NORMAL}\n"
+}
+
+sandbin_branch() {
+    cd "$SANDBIN_HOME"
+    
+    echo `git rev-parse --abbrev-ref HEAD`
 }
 
 function sandbin_version() {
-    print_sandbin_banner "${BLUE}"
+    print_sandbin_banner "$(sandbin_branch)" "${BLUE}"
 }
 
 function sandbin_upgrade() {
@@ -31,7 +40,7 @@ function sandbin_upgrade() {
     if git pull --rebase --stat origin master
     then
         sandbin_reload
-        print_sandbin_banner
+        print_sandbin_banner "$(sandbin_branch)"
         printf "${YELLOW}%s\n" "Hooray! Sandbin has been updated and/or is at the current version."
 
     else
@@ -42,5 +51,5 @@ function sandbin_upgrade() {
 function sandbin_reload() {
     source "$SANDBIN_HOME/sandbinrc"
 
-    print_sandbin_banner "${YELLOW}"
+    print_sandbin_banner "$(sandbin_branch)" "${YELLOW}"
 }
