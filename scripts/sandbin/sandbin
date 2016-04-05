@@ -1,0 +1,18 @@
+#!/usr/bin/env sandbash
+
+set -e
+
+while [[ $# > 0 ]];  do
+    key="$1"
+
+    case $key in
+        upgrade)
+            sandbin_upgrade
+            exit 1
+        ;;
+        -v|--version)
+            sandbin_version
+            exit 1
+        ;;
+    esac
+done
