@@ -28,5 +28,10 @@ while [[ $# > 0 ]];  do
             usage
             exit 1
         ;;
+        *)
+            printf "${RED}%s${NORMAL}\n" "Unknown option '$key'"
+            usage
+            exit 0
+        ;;
     esac
 done
