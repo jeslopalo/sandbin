@@ -52,6 +52,4 @@ function sandbin_upgrade() {
 
 function sandbin_reload() {
     source "$SANDBIN_HOME/sandbinrc"
-    
-    print_sandbin_banner "$(sandbin_branch)" "${YELLOW}"
 }
