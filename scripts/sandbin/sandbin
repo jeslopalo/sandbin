@@ -2,6 +2,16 @@
 
 set -e
 
+function usage() {
+    printf "${YELLOW}%s${NORMAL}\n" "sandbin [upgrade] [-v | --version] [-h | --help]"
+}
+
+if [ $# = 0 ]; then
+    printf "${RED}%s${NORMAL}\n" "I need a sandbin command to continue :("
+    usage;
+    exit 0;
+fi
+
 while [[ $# > 0 ]];  do
     key="$1"
 
@@ -12,6 +22,10 @@ while [[ $# > 0 ]];  do
         ;;
         -v|--version)
             sandbin_version
+            exit 1
+        ;;
+        -h|--help)
+            usage
             exit 1
         ;;
     esac
