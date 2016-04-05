@@ -19,6 +19,10 @@ function print_sandbin_banner() {
     printf "%s\n" "${RED}                                                           revision: $branch${NORMAL}"
 }
 
+function sandbin_version() {
+    print_sandbin_banner "${BLUE}"
+}
+
 function sandbin_upgrade() {
 
     printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin"
