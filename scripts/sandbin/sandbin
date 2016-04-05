@@ -35,4 +35,4 @@ while [[ $# > 0 ]];  do
     shift;
 done
 
-${!command}
+eval $command
