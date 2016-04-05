@@ -18,11 +18,9 @@ while [[ $# > 0 ]];  do
     case $key in
         upgrade)
             command="upgrade"
-            exit 1
         ;;
         -v|--version)
             command="version"
-            exit 1
         ;;
         -h|--help)
             usage
@@ -34,6 +32,7 @@ while [[ $# > 0 ]];  do
             exit 0
         ;;
     esac
+    shift;
 done
 
-`sandbin_$command`
+${!sandbin_$command}
