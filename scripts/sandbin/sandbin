@@ -17,11 +17,11 @@ while [[ $# > 0 ]];  do
 
     case $key in
         upgrade)
-            sandbin_upgrade
+            command="upgrade"
             exit 1
         ;;
         -v|--version)
-            sandbin_version
+            command="version"
             exit 1
         ;;
         -h|--help)
@@ -29,9 +29,11 @@ while [[ $# > 0 ]];  do
             exit 1
         ;;
         *)
-            printf "${RED}%s${NORMAL}\n" "Unknown option '$key'"
+            printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
             usage
             exit 0
         ;;
     esac
 done
+
+eval "sandbin_$command"
