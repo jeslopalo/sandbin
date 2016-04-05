@@ -7,7 +7,7 @@ function usage() {
 }
 
 if [ $# = 0 ]; then
-    printf "${RED}%s${NORMAL}\n" "I need a sandbin command to continue :("
+    printf "${RED}%s${NORMAL}\n" "Sorry! I need a sandbin command to continue :("
     usage;
     exit 0;
 fi
