@@ -24,7 +24,7 @@ function print_sandbin_banner() {
 
 sandbin_branch() {
     cd "$SANDBIN_HOME"
-    
+
     echo `git rev-parse --abbrev-ref HEAD`
 }
 
@@ -34,7 +34,7 @@ function sandbin_version() {
 
 function sandbin_upgrade() {
 
-    printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin"
+    printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin installation [$SANDBIN_HOME]"
     cd "$SANDBIN_HOME"
 
     if git pull --rebase --stat origin master

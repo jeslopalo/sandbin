@@ -3,7 +3,7 @@
 set -e
 
 function usage() {
-    printf "${YELLOW}%s${NORMAL}\n" "sandbin [upgrade] [-v | --version] [-h | --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: sandbin [upgrade] [-v | --version] [-h | --help]"
 }
 
 if [ $# = 0 ]; then
