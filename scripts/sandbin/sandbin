@@ -17,10 +17,10 @@ while [[ $# > 0 ]];  do
 
     case $key in
         upgrade)
-            command="upgrade"
+            command="sandbin_upgrade"
         ;;
         -v|--version)
-            command="version"
+            command="sandbin_version"
         ;;
         -h|--help)
             usage
@@ -35,4 +35,4 @@ while [[ $# > 0 ]];  do
     shift;
 done
 
-$("sandbin_"$command)
+$(!command)
