@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# sandbin installation directory
+if [ -z "$SANDBIN_HOME" ]; then
+    export SANDBIN_HOME=`dirname $0`
+fi
+
 # Load sandbin configuration
-source "sandbin.conf"
+source "$SANDBIN_HOME/sandbin.conf"
 
 # export sandbin paths
-source "dotfiles/.paths"
+source "$SANDBIN_HOME/dotfiles/.paths"
 
 # source dotfiles
-source "dotfiles/.functions"
+source "$SANDBIN_HOME/dotfiles/.functions"
