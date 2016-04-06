@@ -19,6 +19,9 @@ while [[ $# > 0 ]];  do
         upgrade)
             command="sandbin_upgrade"
         ;;
+        reload)
+            command="sandbin_reload"
+        ;;
         -v|--version)
             command="sandbin_version"
         ;;

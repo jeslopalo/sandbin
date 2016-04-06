@@ -1,3 +1,12 @@
+## 0.27.0
+  * [06d1a1f] Add color to an error message
+  * [d0d0b41] Remove SANDBIN_HOME of the dinamically calculated value. Export is in sandbin.conf
+  * [02fab28] Add new colors to scripts
+  * [eaefb69] ADd 'sandbin reload' command
+  * [c6babe5] Switch from bash to zsh in shebangs
+  * [cc2002e] Bootstrap zsh completions
+  * [8f553f6] Add sandbin command completions
+  
 ## 0.26.0
   * [9127f23] Update .functions doc
   * [420742e] New command 'sandbin upgrade'

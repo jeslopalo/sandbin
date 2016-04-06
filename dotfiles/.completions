@@ -1,0 +1,7 @@
+
+# Load all of the autocomplete files in sandbin home directory
+fpath=($SANDBIN_HOME/scripts/sandbin $fpath)
+
+# compsys initialization
+autoload -U compinit
+compinit

@@ -1,0 +1,28 @@
+#compdef sandbin
+
+_sandbin() {
+
+    local -a commands
+
+    commands=(
+        'upgrade:upgrade sandbin shell utilities.'
+        'reload:reload sandbin shell utilities.'
+    )
+
+    local -a options
+    options=(
+        '-v:show the used sandbin version'
+        '--version:show the used sandbin version'
+        '-h:display sandbin command help'
+        '--help:display sandbin command help'
+    )
+
+    if (( CURRENT == 2 )); then
+        _describe -t commands 'commands' commands
+        _describe options 'options'
+    fi
+
+    return 0
+}
+
+_sandbin "$@"

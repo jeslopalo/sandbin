@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 function update_path() {
 	local config=$1;
