@@ -2,7 +2,7 @@
 
 # sandbin installation directory
 if [ -z "$SANDBIN_HOME" ]; then
-    export SANDBIN_HOME=`dirname $0`
+    SANDBIN_HOME=`dirname $0`
 fi
 
 # Load sandbin configuration
