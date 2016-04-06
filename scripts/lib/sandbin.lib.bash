@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 function print_sandbin_banner() {
     local branch=$1;
