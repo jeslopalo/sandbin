@@ -41,9 +41,9 @@ function sandbin_upgrade() {
     cd "$SANDBIN_HOME"
     if git pull --rebase --stat origin "$version"
     then
-        sandbin_reload
         print_sandbin_banner "$version"
-        printf "${YELLOW}%s\n" "Hooray! Sandbin has been updated and/or is at the current version."
+        printf "${YELLOW}%s${NORMAL}\n" "Hooray! Sandbin has been updated and/or is at the current version."
+        printf "${UNDERLINE}${BRIGHT_WHITE}%s${REMOVE_UNDERLINE}${NORMAL}\n" "Remember to reload your sandbin session running 'sandbin reload' in your shell."
 
     else
         printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?'
@@ -52,4 +52,5 @@ function sandbin_upgrade() {
 
 function sandbin_reload() {
     source "$SANDBIN_HOME/sandbinrc"
+    printf "${WHITE}%s${NORMAL}\n" "Hooray! your sandbin session has been reloaded!"
 }
