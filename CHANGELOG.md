@@ -1,3 +1,7 @@
+## 0.28.0
+  * [07e7dd0] Load all of autocompletion files in SANDBIN_HOME/scripts
+  * [2a72cf7] Add a feature to install from a local directory (development mode)
+
 ## 0.27.0
   * [06d1a1f] Add color to an error message
   * [d0d0b41] Remove SANDBIN_HOME of the dinamically calculated value. Export is in sandbin.conf
