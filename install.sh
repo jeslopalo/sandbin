@@ -11,6 +11,10 @@ while [[ $# > 0 ]];  do
         -F|--force-reinstall)
         force_reinstall=1
         ;;
+        --from-dir)
+        install_from_dir="$2"
+        shift
+        ;;
         --revision)
         revision="$2"
         shift
@@ -56,17 +60,23 @@ if [ -d "$SANDBIN_HOME" ]; then
     exit
 fi
 
-echo "Cloning sandbin..."
-hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.git $SANDBIN_HOME || {
-  echo "git not installed"
-  exit
-}
+if [ -z $install_from_dir ]; then
 
-if [ -z "$revision" ]; then
-    revision="master"
+    echo "Cloning sandbin..."
+    hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.git $SANDBIN_HOME || {
+      echo "git not installed"
+      exit
+    }
+
+    if [ -z "$revision" ]; then
+        revision="master"
+    else
+        cd "$SANDBIN_HOME"
+        git checkout "$revision"
+    fi
 else
-    cd "$SANDBIN_HOME"
-    git checkout "$revision"
+    echo "Installing from local directory $install_from_dir to $SANDBIN_HOME"
+    cp -R "$install_from_dir" $SANDBIN_HOME
 fi
 
 function replace() {
