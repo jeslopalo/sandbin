@@ -1,7 +1,7 @@
 #!/usr/bin/env sandbash
 
 function usage() {
-	printf "${YELLOW}%s${NORMAL}\n" "usage: git-aliases [--system|--global|--local]"
+	printf "${YELLOW}%s${NORMAL}\n" "usage: git-setup-aliases [--system|--global|--local]"
 }
 
 if [ $# -lt 1 ]; then
