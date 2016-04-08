@@ -7,7 +7,7 @@ if [ ! -n "$SANDBIN_HOME" ] || [ ! -d "$SANDBIN_HOME" ]; then
     exit 1
 fi
 
-source "$SANDBIN_HOME/scripts/lib/output.lib.bash"
+source "$SANDBIN_HOME/scripts/lib/output.lib.zsh"
 source "$SANDBIN_HOME/scripts/lib/colors.lib.zsh"
 source "$SANDBIN_HOME/scripts/lib/sandbin.lib.zsh"
 
