@@ -15,5 +15,5 @@ set -e
 
 file="default"
 
-source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.bash"
+source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 source "${SANDBIN_HOME}/dotfiles/gitaliases/${file}.gitaliases"

@@ -79,6 +79,7 @@ else
     cp -R "$install_from_dir" $SANDBIN_HOME
 fi
 
+# replace function is in moustache.lib
 function replace() {
     local pattern=$1;
     local value=$2;
