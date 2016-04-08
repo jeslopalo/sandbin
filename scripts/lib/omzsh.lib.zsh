@@ -1,4 +1,3 @@
-#!/bin/zsh
 
 if [ ! -n "$OM_ZSH_HOME" ]; then
 	OM_ZSH_HOME=~/.oh-my-zsh
