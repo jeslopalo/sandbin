@@ -58,6 +58,8 @@ say "Configuring aliases for commits..."
 new_alias "ci" "commit --verbose"
 new_alias "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
 new_alias "last-commit" "show HEAD"
+# What's new? To see what new commits have been created by the last command (typically after a "git pull") :
+new_alias "commits-since-pull-in" "!sh -c 'git log \$1@{1}..\$1@{0} \"\$@\"'"
 
 say "Configuring aliases for conflicts..."
 # shows list of files that have a merge conflict
