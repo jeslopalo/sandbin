@@ -1,0 +1,104 @@
+#!/usr/bin/env sandbash
+
+set -e
+
+source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/gitbox/gitbox.lib.zsh"
+
+function usage() {
+#    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init] [setup] [-h | --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init] [-h | --help]"
+}
+
+function gitbox() {
+
+    if [ $# = 0 ]; then
+        printf "${RED}%s${NORMAL}\n" "Sorry! I need a command to continue :("
+        usage;
+        exit 0;
+    fi
+
+    while [[ $# > 0 ]];  do
+        key="$1"
+
+        case $key in
+            init)
+                shift
+                gitbox-init "$@"
+                exit $?
+            ;;
+#            setup)
+#                shift
+#                gitbox-setup "$@"
+#                exit $?
+#            ;;
+            -h|--help)
+                usage
+                exit 1
+            ;;
+            *)
+                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                usage
+                exit 0
+            ;;
+        esac
+
+        shift;
+    done
+}
+
+function gitbox-init() {
+    while [[ $# > 0 ]]; do
+        key="$1"
+
+        case $key in
+            -f)
+            force=$key
+            ;;
+        esac
+
+        shift;
+    done
+
+    if [ -d "./.git" ]; then
+        printf "${YELLOW}The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
+    else
+        printf "Initializing git in '%s' directory...\n" $(pwd)
+        git init
+    fi
+
+    printf "Initializing git flow in '%s' directory...\n" $(pwd)
+    git flow init $force
+}
+
+function gitbox-setup() {
+
+    while [[ $# > 0 ]];  do
+        key="$1"
+
+        case $key in
+            user)
+                shift
+                gitbox-setup-user "$@"
+                exit $?
+            ;;
+            *)
+                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                usage
+                exit 0
+            ;;
+        esac
+
+        shift;
+    done
+
+    printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters 'gitbox setup [subcommand]'"
+    usage
+    exit 0
+}
+
+function gitbox-setup-user() {
+    echo "user $@"
+}
+
+gitbox "$@"

@@ -1,5 +1,6 @@
 export PATH=$SANDBIN_HOME/scripts:$PATH;
-export PATH=$SANDBIN_HOME/scripts/git:$PATH;
+#export PATH=$SANDBIN_HOME/scripts/git:$PATH;
+export PATH=$SANDBIN_HOME/scripts/gitbox:$PATH;
 export PATH=$SANDBIN_HOME/scripts/system:$PATH;
 export PATH=$SANDBIN_HOME/scripts/sandbin:$PATH;
 export PATH=$SANDBIN_HOME/scripts/launcher:$PATH;

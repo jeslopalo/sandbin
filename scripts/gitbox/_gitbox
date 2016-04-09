@@ -1,0 +1,86 @@
+#compdef gitbox
+
+_gitbox() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+#                'setup:Several git configurations'
+            subcommands=(
+                'init:Execute \"git init\" & \"git flow init\"'
+                '-h:display gitbox usage instructions'
+                '--help:display gitbox usage instructions'
+            )
+            _describe -t commands 'gitbox' subcommands
+        ;;
+
+        (options)
+			case $line[1] in
+
+				(init)
+				    __gitbox-init
+				;;
+
+#				(setup)
+#				    __gitbox-setup
+#                ;;
+			esac
+		;;
+    esac
+}
+
+__gitbox-init() {
+    _arguments \
+        -f'[Force setting of gitflow branches, even if already configured]'
+}
+
+__gitbox-setup() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                'user:Configure repository user.name'
+            )
+            _describe -t commands 'gitbox setup' subcommands
+        ;;
+
+		(options)
+			case $line[1] in
+
+                (user)
+                    __gitbox-setup-user
+                ;;
+			esac
+		;;
+    esac
+}
+
+__gitbox-setup-user() {
+    _arguments \
+        --system'[Apply in system scope]' \
+        --global'[Apply in global scope]' \
+        --local'[Apply in local scope]'
+}
+
+# I don't know what is this
+#compdef _gnu_generic gitbox
+
+#_gitbox "$@"
+zstyle ':completion:*:*:git:*' user-commands gitbox:'provide high-level repository operations'
