@@ -75,10 +75,39 @@ __gitbox-setup() {
 }
 
 __gitbox-setup-user() {
-    _arguments \
-        --system'[Apply in system scope]' \
-        --global'[Apply in global scope]' \
-        --local'[Apply in local scope]'
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                '--system:Use system config file'
+                '--global:Use global config file'
+                '--local:Use repository config file'
+            )
+            _describe -t commands 'gitbox setup user' subcommands
+        ;;
+
+		(options)
+			case $line[1] in
+
+                (--system)
+                ;;
+                (--global)
+                ;;
+                (--local)
+                ;;
+
+			esac
+		;;
+    esac
 }
 
 # I don't know what is this

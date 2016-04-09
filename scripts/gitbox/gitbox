@@ -3,6 +3,7 @@
 set -e
 
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.lib.zsh"
 
 function usage() {
@@ -111,7 +112,16 @@ function gitbox-setup() {
 }
 
 function gitbox-setup-user() {
-    echo "user $@"
+    local scope="$1"
+    local username="$2"
+
+    if [ ! $# = 2 ]; then
+        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters 'gitbox setup user --system|--global|--local <username>'"
+        exit 0
+    fi
+
+    set_git_username "$scope" "$username"
+    printf "${GREEN}Great! '$BOLD%s$NORMAL$GREEN' has been configured as user.name in %s scope ${NORMAL}\n" $(get_git_username $scope) "$scope"
 }
 
 gitbox "$@"
