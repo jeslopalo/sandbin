@@ -64,6 +64,7 @@ new_alias "$scope" "last-commit" "show HEAD"
 new_alias "$scope" "commits-since-pull-in" "!sh -c 'git log \$1@{1}..\$1@{0} \"\$@\"'"
 
 say "Configuring aliases for amends..."
+# see: http://stackoverflow.com/a/25815116
 new_alias "$scope" "amend-author-since-commit" "!f() { [ \$# = 1 ] && git rebase -i \$1 -x \"git commit --amend --reset-author -CHEAD\"; }; f"
 
 say "Configuring aliases for conflicts..."
