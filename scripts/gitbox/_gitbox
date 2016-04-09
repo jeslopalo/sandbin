@@ -13,9 +13,9 @@ _gitbox() {
         (command)
             local -a subcommands;
 
-#                'setup:Several git configurations'
             subcommands=(
                 'init:Execute \"git init\" & \"git flow init\"'
+                'setup:Several git configurations'
                 '-h:display gitbox usage instructions'
                 '--help:display gitbox usage instructions'
             )
@@ -29,9 +29,9 @@ _gitbox() {
 				    __gitbox-init
 				;;
 
-#				(setup)
-#				    __gitbox-setup
-#                ;;
+				(setup)
+				    __gitbox-setup
+                ;;
 			esac
 		;;
     esac
@@ -39,7 +39,9 @@ _gitbox() {
 
 __gitbox-init() {
     _arguments \
-        -f'[Force setting of gitflow branches, even if already configured]'
+        -f'[Force setting of gitflow branches, even if already configured]' \
+        -h'[Show help for gitbox init command]' \
+        --help'[Show help for gitbox init command]'
 }
 
 __gitbox-setup() {

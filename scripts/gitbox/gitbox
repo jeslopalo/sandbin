@@ -6,8 +6,7 @@ source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.lib.zsh"
 
 function usage() {
-#    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init] [setup] [-h | --help]"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init] [-h | --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init [-f]] [setup] [-h | --help]"
 }
 
 function gitbox() {
@@ -27,11 +26,11 @@ function gitbox() {
                 gitbox-init "$@"
                 exit $?
             ;;
-#            setup)
-#                shift
-#                gitbox-setup "$@"
-#                exit $?
-#            ;;
+            setup)
+                shift
+                gitbox-setup "$@"
+                exit $?
+            ;;
             -h|--help)
                 usage
                 exit 1
@@ -48,12 +47,22 @@ function gitbox() {
 }
 
 function gitbox-init() {
+
     while [[ $# > 0 ]]; do
         key="$1"
 
         case $key in
             -f)
             force=$key
+            ;;
+            -h|--help)
+                usage
+                exit 1
+            ;;
+            *)
+            printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+            usage
+            exit 0
             ;;
         esac
 
@@ -81,6 +90,10 @@ function gitbox-setup() {
                 shift
                 gitbox-setup-user "$@"
                 exit $?
+            ;;
+            -h|--help)
+                usage
+                exit 1
             ;;
             *)
                 printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
