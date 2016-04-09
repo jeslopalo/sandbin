@@ -63,6 +63,9 @@ new_alias "$scope" "last-commit" "show HEAD"
 # What's new? To see what new commits have been created by the last command (typically after a "git pull") :
 new_alias "$scope" "commits-since-pull-in" "!sh -c 'git log \$1@{1}..\$1@{0} \"\$@\"'"
 
+say "Configuring aliases for amends..."
+new_alias "$scope" "amend-author-since-commit" "!f() { [ \$# = 1 ] && git rebase -i \$1 -x \"git commit --amend --reset-author -CHEAD\"; }; f"
+
 say "Configuring aliases for conflicts..."
 # shows list of files that have a merge conflict
 new_alias "$scope" "conflicts" "!git --no-pager diff --name-only --diff-filter=U"
