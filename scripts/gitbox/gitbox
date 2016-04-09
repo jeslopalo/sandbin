@@ -89,7 +89,12 @@ function gitbox-setup() {
         case $key in
             user)
                 shift
-                gitbox-setup-user "$@"
+                gitbox-setup-attribute "user.name" "$@"
+                exit $?
+            ;;
+            email)
+                shift
+                gitbox-setup-attribute "user.email" "$@"
                 exit $?
             ;;
             -h|--help)
@@ -111,17 +116,26 @@ function gitbox-setup() {
     exit 0
 }
 
-function gitbox-setup-user() {
-    local scope="$1"
-    local username="$2"
+function gitbox-setup-attribute-usage() {
+    local attribute="$1"
 
-    if [ ! $# = 2 ]; then
-        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters 'gitbox setup user --system|--global|--local <username>'"
+    printf "%s\n" "usage: gitbox setup $attribute <scope> <$attribute value>"
+    printf "\t- ${BOLD}scope:${NORMAL} --system | --global | --local\n"
+}
+
+function gitbox-setup-attribute() {
+    local attribute="$1"
+    local scope="$2"
+    local value="$3"
+
+    if [ ! $# = 3 ]; then
+        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters."
+        gitbox-setup-attribute-usage $attribute
         exit 0
     fi
 
-    set_git_username "$scope" "$username"
-    printf "${GREEN}Great! '$BOLD%s$NORMAL$GREEN' has been configured as user.name in %s scope ${NORMAL}\n" $(get_git_username $scope) "$scope"
+    set_git_attribute "$attribute" "$scope" "$value"
+    printf "${GREEN}Great! '$BOLD%s$NORMAL$GREEN' has been configured as %s in %s scope ${NORMAL}\n" "$(get_git_attribute $attribute $scope)" "$attribute" "$scope"
 }
 
 gitbox "$@"

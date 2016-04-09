@@ -59,6 +59,7 @@ __gitbox-setup() {
 
             subcommands=(
                 'user:Configure repository user.name'
+                'email:Configure repository user.email'
             )
             _describe -t commands 'gitbox setup' subcommands
         ;;
@@ -67,47 +68,54 @@ __gitbox-setup() {
 			case $line[1] in
 
                 (user)
-                    __gitbox-setup-user
+                    __gitbox-setup-attribute 'gitbox setup user'
+                ;;
+                (email)
+                    __gitbox-setup-attribute 'gitbox setup email'
                 ;;
 			esac
 		;;
     esac
 }
 
-__gitbox-setup-user() {
+__gitbox-setup-attribute() {
 
-    local curcontext="$curcontext" state line
-    typeset -A opt_args
+    local description=$1
 
-    _arguments -C \
-        ':command:->command' \
-        '*::options:->options'
+    if [ ! -z $description ]; then
 
-    case $state in
-        (command)
-            local -a subcommands;
+        local curcontext="$curcontext" state line
+        typeset -A opt_args
 
-            subcommands=(
-                '--system:Use system config file'
-                '--global:Use global config file'
-                '--local:Use repository config file'
-            )
-            _describe -t commands 'gitbox setup user' subcommands
-        ;;
+        _arguments -C \
+            ':command:->command' \
+            '*::options:->options'
 
-		(options)
-			case $line[1] in
+        case $state in
+            (command)
+                local -a subcommands;
 
-                (--system)
-                ;;
-                (--global)
-                ;;
-                (--local)
-                ;;
+                subcommands=(
+                    '--system:Use system config file'
+                    '--global:Use global config file'
+                    '--local:Use repository config file'
+                )
+                _describe -t commands $description subcommands
+            ;;
 
-			esac
-		;;
-    esac
+            (options)
+                case $line[1] in
+
+                    (--system)
+                    ;;
+                    (--global)
+                    ;;
+                    (--local)
+                    ;;
+                esac
+            ;;
+        esac
+    fi
 }
 
 # I don't know what is this

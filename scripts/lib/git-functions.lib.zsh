@@ -14,19 +14,21 @@ function new_alias() {
     fi
 }
 
-function set_git_username() {
-    local scope="$1"
-    local username="$2"
+function set_git_attribute() {
+    local attribute="$1"
+    local scope="$2"
+    local value="$3"
 
-    if [ $# = 2 ]; then
-        git config $scope user.name "$username"
+    if [ $# = 3 ]; then
+        git config $scope $attribute "$value"
     else
-        printf "${RED}%s${NORMAL}\n" "set_git_username: scope or username not found"
+        printf "${RED}%s${NORMAL}\n" "set_git_attribute: scope or $attribute not found"
     fi
 }
 
-function get_git_username() {
-    local scope="$1"
+function get_git_attribute() {
+    local attribute="$1"
+    local scope="$2"
 
-    git config $scope --get user.name
+    git config $scope --get $attribute
 }
