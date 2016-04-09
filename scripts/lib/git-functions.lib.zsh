@@ -7,10 +7,8 @@ function new_alias() {
     if [ $# = 3 ]; then
         printf "%s\n" "New command: ${YELLOW}git ${BOLD}${alias_name}${NORMAL}"
         git config $scope alias.${alias_name} "${alias_command}"
-        exit 1
     else
         printf "%s\n" "New alias: scope, name or command not found"
-        exit 0
     fi
 }
 
