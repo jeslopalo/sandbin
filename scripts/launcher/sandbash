@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-set -e
-
 if [ ! -n "$SANDBIN_HOME" ] || [ ! -d "$SANDBIN_HOME" ]; then
 	echo "${RED}You have not sandbin installed. You'll need to install sandbin${NORMAL}"
     exit 1
