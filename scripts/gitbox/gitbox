@@ -1,7 +1,5 @@
 #!/usr/bin/env sandbash
 
-set -e
-
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.lib.zsh"
@@ -87,6 +85,11 @@ function gitbox-setup() {
         key="$1"
 
         case $key in
+            aliases)
+                shift
+                gitbox-setup-aliases "$@"
+                exit $?
+            ;;
             user)
                 shift
                 gitbox-setup-attribute "user.name" "$@"
@@ -116,21 +119,95 @@ function gitbox-setup() {
     exit 0
 }
 
-function gitbox-setup-attribute-usage() {
-    local attribute="$1"
-
-    printf "%s\n" "usage: gitbox setup $attribute <scope> <$attribute value>"
+function gitbox-setup-aliases-usage() {
+    printf "%s\n" "usage: gitbox setup aliases <scope> [-c | --clean-aliases] [aliases file prefix] [-h | --help]"
     printf "\t- ${BOLD}scope:${NORMAL} --system | --global | --local\n"
 }
 
-function gitbox-setup-attribute() {
+function gitbox-setup-aliases() {
+
+    while [[ $# > 0 ]];  do
+        key="$1"
+
+        case $key in
+            --system|--global|--local)
+                scope=$key
+            ;;
+            -c|--clean-aliases)
+                clean_aliases=$key
+            ;;
+            -h|--help)
+                gitbox-setup-aliases-usage
+                return 1
+            ;;
+            *)
+                aliases_file_prefix=$key
+            ;;
+        esac
+
+        shift;
+    done
+
+    if [ ! -d .git ]; then
+        printf "${RED}Ouch! I need a git repository to work${NORMAL}\n"
+        return 0;
+    fi
+
+    if [ -z $scope ]; then
+        printf "${RED}Ouch! I need a scope (ie. --system, --global, --local) to setup aliases${NORMAL}\n"
+        return 0;
+    fi
+
+    if [ ! -z $clean_aliases ]; then
+        printf "${YELLOW}Cleaning aliases in %s scope...${NORMAL}\n" "$scope"
+        git config $scope --remove-section alias 2> /dev/null
+    fi
+
+    if [ -z $aliases_file_prefix ]; then
+        aliases_file_prefix="default"
+    fi
+
+    source "${SANDBIN_HOME}/dotfiles/gitaliases/${aliases_file_prefix}.gitaliases"
+}
+
+function gitbox-setup-attribute-usage() {
     local attribute="$1"
     local scope="$2"
-    local value="$3"
 
-    if [ ! $# = 3 ]; then
+    if [ -z $scope ]; then
+        printf "usage: gitbox setup %s <scope> <%s value>\n" "$attribute" "$attribute"
+        printf "\t- ${BOLD}scope:${NORMAL} --system | --global | --local\n"
+    else
+        printf "usage: gitbox setup %s %s <%s value>\n" "$attribute" "$scope" "$attribute"
+    fi
+}
+
+function gitbox-setup-attribute() {
+
+    local attribute="$1"
+    shift;
+
+    while [[ $# > 0 ]];  do
+        key="$1"
+
+        case $key in
+            -h|--help)
+                gitbox-setup-attribute-usage $attribute $scope
+                return 1;
+            ;;
+                --system|--global|--local)
+                scope="$1"
+            ;;
+            *)
+                value="$1"
+            ;;
+        esac
+        shift;
+    done
+
+    if [ -z $value ] || [ -z $scope ]; then
         printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters."
-        gitbox-setup-attribute-usage $attribute
+        gitbox-setup-attribute-usage $attribute $scope
         exit 0
     fi
 
