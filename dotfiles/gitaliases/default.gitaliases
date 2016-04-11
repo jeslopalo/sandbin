@@ -36,7 +36,7 @@ new_alias "$scope" "status-short" "status -sb -uno --ignore-submodules=untracked
 new_alias "$scope" "st" "!git status-short"
 
 say "Configuring aliases for changes..."
-new_alias "$scope" "changelog" "!f() { git last-tag-id | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges; }; f"
+new_alias "$scope" "changelog" "!f() { git last-tag-id | xargs -I tag git log tag..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges | less -FRX; }; f"
 new_alias "$scope" "changed-words" "diff --word-diff"
 new_alias "$scope" "changed-files" "diff --stat"
 new_alias "$scope" "changes-staged" "diff --staged"
