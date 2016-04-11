@@ -1,3 +1,27 @@
+## 0.29.0
+  * [2b0e4f9] Modify sandbin.lib extension from bash to zsh
+  * [2734d26] Rename colors.lib extension to zsh
+  * [3e80675] Modify output.lib extension from bash to zsh
+  * [4b759fd] Modify lib extensions from bash to zsh
+  * [f1a0e80] Add a WARNING, because replace() function is duplicated
+  * [1ea1e44] Fix aliases & author git alias
+  * [b151386] Add new git aliases: 'today' & 'today-all'
+  * [fe5bfbf] Add git alias to list commits since last pull: 'git commits-since-pull-in'
+  * [28202d6] Modify 'history-*' git aliases
+  * [7385438] Modify git-setup-aliases usage() message
+  * [4dca2ef] Add command 'gitbox init' to initialize git flow repository
+  * [f07adc8] Remove 'git' directory from path
+  * [840ce81] Add gitbox setup command
+  * [d7e89a4] Add new command 'gitbox setup user' to setup user.name in a git repository
+  * [8633077] Add new command 'gitbox setup email' to setup user.email in a git repository
+  * [f505bfd] Delete exits from new_alias method
+  * [c132450] Add scope parameter to new_alias function
+  * [34cccec] Add new git alias 'amend-author-since-commit' to amend wrong author
+  * [0b9c2e2] Add comment to 'amend-author-since' git alias
+  * [a669d14] Remove 'set -e' in sandbash launcher
+  * [7d9f21d] Add 'gitbox setup aliases' command
+  * [4d00214] Modify 'git changelog' alias to use less -FRX
+
 ## 0.28.0
   * [07e7dd0] Load all of autocompletion files in SANDBIN_HOME/scripts
   * [2a72cf7] Add a feature to install from a local directory (development mode)
