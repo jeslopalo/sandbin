@@ -1,4 +1,3 @@
-#!/bin/zsh
 
 function print_sandbin_banner() {
     local branch=$1;

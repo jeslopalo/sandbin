@@ -1,0 +1,158 @@
+#compdef gitbox
+
+_gitbox() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                'init:Execute \"git init\" & \"git flow init\"'
+                'setup:Several git configurations'
+            )
+            _describe -t commands 'gitbox' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for gitbox usage]"
+        ;;
+
+        (options)
+			case $line[1] in
+
+				(init)
+				    __gitbox-init
+				;;
+
+				(setup)
+				    __gitbox-setup
+                ;;
+			esac
+		;;
+    esac
+}
+
+__gitbox-init() {
+    _arguments \
+        -f'[Force setting of gitflow branches, even if already configured]' \
+        "(-h --help)"{-h,--help}"[Show help for gitbox init command]"
+}
+
+__gitbox-setup() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                'aliases:Configure git aliases from a definition file'
+                'user:Configure repository user.name'
+                'email:Configure repository user.email'
+            )
+            _describe -t commands 'gitbox setup' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
+        ;;
+
+		(options)
+			case $line[1] in
+                (aliases)
+                    __gitbox-setup-aliases
+                ;;
+                (user)
+                    __gitbox-setup-attribute 'gitbox setup user'
+                ;;
+                (email)
+                    __gitbox-setup-attribute 'gitbox setup email'
+                ;;
+			esac
+		;;
+    esac
+}
+
+__gitbox-setup-aliases() {
+    _arguments \
+        ':scopes:__gitbox-setup-scopes' \
+        "(-c --clean-aliases)"{-c,--clean-aliases}'[Clean aliases defined in the scope]' \
+        ':file-prefixes:__gitbox-setup-aliases-files' \
+        "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
+}
+
+__gitbox-setup-scopes() {
+    local expl
+    declare -a scopes
+
+    scopes=("--system" "--global" "--local")
+
+    _wanted scopes expl 'scope' compadd $* - $scopes
+}
+
+__gitbox-setup-aliases-files() {
+    local expl
+    declare -a file_prefixes
+
+    local prefixes
+    for file in $SANDBIN_HOME/dotfiles/gitaliases/*.gitaliases; do
+        filename=${file##*/}
+        prefix=${filename%.*}
+        prefix=${prefix// /}
+        prefixes="$prefix $prefixes"
+    done
+
+    file_prefixes=(${prefixes// /})
+
+    _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
+}
+
+__gitbox-setup-attribute() {
+
+    local description=$1
+
+    if [ ! -z $description ]; then
+
+        local curcontext="$curcontext" state line
+        typeset -A opt_args
+
+        _arguments -C \
+            ':command:->command' \
+            '*::options:->options'
+
+        case $state in
+            (command)
+                local -a subcommands;
+
+                subcommands=()
+                _describe -t commands $description subcommands
+
+                _arguments \
+                    ':scopes:__gitbox-setup-scopes' \
+                    "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
+            ;;
+
+            (options)
+                case $line[1] in
+
+                    (--system|--global|--local)
+                        _arguments \
+                            "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
+                    ;;
+                esac
+            ;;
+        esac
+    fi
+}
+
+#_gitbox "$@"
+zstyle ':completion:*:*:git:*' user-commands gitbox:'provide high-level repository operations'

@@ -1,4 +1,3 @@
-#!/bin/zsh
 
 #
 # Replaces {{'pattern'}}  with 'value' in 'file'
