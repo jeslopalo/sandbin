@@ -19,8 +19,10 @@ function set_git_attribute() {
 
     if [ $# = 3 ]; then
         git config $scope $attribute "$value"
+        return $?;
     else
         printf "${RED}%s${NORMAL}\n" "set_git_attribute: scope or $attribute not found"
+        return 1;
     fi
 }
 
