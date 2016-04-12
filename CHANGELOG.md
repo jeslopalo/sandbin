@@ -1,3 +1,14 @@
+## 0.30.0
+  * [c9a8a0e] Add return codes to 'new_alias()' function
+  * [ce7a3e1] Fix error codes in gitbox
+  * [dac36f5] Add new 'gitbox setup attributes <prefix>' command
+  * [387db68] Fix 'gitbox setup attributes --to-dir' bad directory
+  * [1f2a160] Add 'gitbox setup attributes' completions
+  * [1a2d321] FIX: Update CHANGELOG with 0.29.1 changes
+
+## 0.29.1
+  * [29a7802] Fix 'gitbox-setup-attribute()' control of errors
+
 ## 0.29.0
   * [2b0e4f9] Modify sandbin.lib extension from bash to zsh
   * [2734d26] Rename colors.lib extension to zsh
