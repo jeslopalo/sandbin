@@ -58,6 +58,7 @@ __gitbox-setup() {
 
             subcommands=(
                 'aliases:Configure git aliases from a definition file'
+                'attributes:Create .gitattributes file from a template'
                 'user:Configure repository user.name'
                 'email:Configure repository user.email'
             )
@@ -70,6 +71,9 @@ __gitbox-setup() {
 			case $line[1] in
                 (aliases)
                     __gitbox-setup-aliases
+                ;;
+                (attributes)
+                    __gitbox-setup-attributes
                 ;;
                 (user)
                     __gitbox-setup-attribute 'gitbox setup user'
@@ -116,6 +120,38 @@ __gitbox-setup-aliases-files() {
     _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
 }
 
+__gitbox-setup-attributes-files() {
+    local expl
+    declare -a file_prefixes
+
+    local prefixes
+    for file in $SANDBIN_HOME/dotfiles/gitattributes/*.gitattributes; do
+        filename=${file##*/}
+        prefix=${filename%.*}
+        prefix=${prefix// /}
+        prefixes="$prefix $prefixes"
+    done
+
+    file_prefixes=(${prefixes// /})
+
+    _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
+}
+
+__installation_directory_prompt() {
+    _path_files -/ -W "(~)"
+}
+
+#
+# gitbox setup attributes [--to-dir <directory>] [-F | --force] [<attributes file prefix>] [-h | --help]
+#
+__gitbox-setup-attributes() {
+    _arguments \
+        --to-dir'[Installation directory]':directory:__installation_directory_prompt \
+        "(-F --force)"{-F,--force}"[Rewrite original .gitattributes file if already exists.]" \
+        ":file-prefixes:__gitbox-setup-attributes-files" \
+        "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
+}
+
 __gitbox-setup-attribute() {
 
     local description=$1
@@ -155,4 +191,16 @@ __gitbox-setup-attribute() {
 }
 
 #_gitbox "$@"
-zstyle ':completion:*:*:git:*' user-commands gitbox:'provide high-level repository operations'
+zstyle ':completion:*' user-commands gitbox:'provide high-level repository operations'
+zstyle ':completion:*' completer _complete _approximate
+zstyle ':completion:*:descriptions' format "- %d -"
+zstyle ':completion:*:corrections' format "- %d - (errors %e})"
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals.(^1*)' insert-sections true
+zstyle ':completion:*' menu select
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' rehash yes
+zstyle -e ':completion:*:approximate:*' max-errors \
+          'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
