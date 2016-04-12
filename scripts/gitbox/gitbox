@@ -90,6 +90,11 @@ function gitbox-setup() {
                 gitbox-setup-aliases "$@"
                 exit $?
             ;;
+            attributes)
+                shift
+                gitbox-setup-attributes "$@"
+                exit $?
+            ;;
             user)
                 shift
                 gitbox-setup-attribute "user.name" "$@"
@@ -120,7 +125,7 @@ function gitbox-setup() {
 }
 
 function gitbox-setup-aliases-usage() {
-    printf "%s\n" "usage: gitbox setup aliases <scope> [-c | --clean-aliases] [aliases file prefix] [-h | --help]"
+    printf "%s\n" "usage: gitbox setup aliases <scope> [-c | --clean-aliases] [<aliases file prefix>] [-h | --help]"
     printf "\t- ${BOLD}scope:${NORMAL} --system | --global | --local\n"
 }
 
@@ -168,6 +173,64 @@ function gitbox-setup-aliases() {
     fi
 
     source "${SANDBIN_HOME}/dotfiles/gitaliases/${aliases_file_prefix}.gitaliases"
+}
+
+function gitbox-setup-attributes-usage() {
+    printf "%s\n" "usage: gitbox setup attributes [--to-dir <directory>] [-F | --force] [<attributes file prefix>] [-h | --help]"
+}
+
+function gitbox-setup-attributes() {
+
+    while [[ $# > 0 ]];  do
+        key="$1"
+
+        case $key in
+            --to-dir)
+                directory="$2"
+                shift
+            ;;
+            -F|--force)
+                force=true
+            ;;
+            -h|--help)
+                gitbox-setup-attributes-usage
+                exit 0
+            ;;
+            *)
+                attributes_file_prefix="$1"
+            ;;
+        esac
+        shift
+    done
+
+    if [ -z "$directory" ]; then
+        directory="."
+    fi
+    installation_path=$directory/.gitattributes
+
+    if [ ! -d "$directory/.git" ]; then
+        printf "${RED}Ouch! I need a git repository to work${NORMAL}\n"
+        exit 1;
+    fi
+
+    if [ -z $attributes_file_prefix ]; then
+        attributes_file_prefix="default"
+    fi
+
+    if [ ! -f "$installation_path" ] || [ $force ] ; then
+
+        if [ -f "$installation_path" ]; then
+            printf "${YELLOW}Forcing to rewrite existing .gitattributes file ['%s'] (Saving a copy in %s)${NORMAL}\n" "$installation_path" "$installation_path.oldBackup"
+            mv "$installation_path" "$installation_path.oldBackup"
+        fi
+
+        printf "${GREEN}Creating .gitattributes file ['%s'] from %s.gitattributes template.${NORMAL}\n" "$installation_path" "$attributes_file_prefix"
+        cp "$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.gitattributes" "$installation_path"
+        return $?
+    else
+        printf "The file ${RED}'%s'${NORMAL} already exists! (use -F,--force to rewrite)\n" "$installation_path"
+        return 1
+    fi
 }
 
 function gitbox-setup-attribute-usage() {
