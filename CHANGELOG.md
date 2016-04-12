@@ -1,3 +1,6 @@
+## 0.29.1
+  * [29a7802] Fix 'gitbox-setup-attribute()' control of errors
+
 ## 0.29.0
   * [2b0e4f9] Modify sandbin.lib extension from bash to zsh
   * [2734d26] Rename colors.lib extension to zsh
