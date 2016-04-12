@@ -212,7 +212,11 @@ function gitbox-setup-attribute() {
     fi
 
     set_git_attribute "$attribute" "$scope" "$value"
-    printf "${GREEN}Great! '$BOLD%s$NORMAL$GREEN' has been configured as %s in %s scope ${NORMAL}\n" "$(get_git_attribute $attribute $scope)" "$attribute" "$scope"
+    if (( $? )); then
+        printf "${RED}Ouch! '$BOLD%s$NORMAL$RED' has not been configured as $BOLD%s$NORMAL$RED in %s scope. It's '%s' a git repository?${NORMAL}\n" "$value" "$attribute" "$scope" "$(pwd)";
+    else
+        printf "${GREEN}Great! '$BOLD%s$NORMAL$GREEN' has been configured as $BOLD%s$NORMAL$GREEN in %s scope ${NORMAL}\n" "$(get_git_attribute $attribute $scope)" "$attribute" "$scope";
+    fi
 }
 
 gitbox "$@"
