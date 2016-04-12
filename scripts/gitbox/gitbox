@@ -186,6 +186,10 @@ function gitbox-setup-attributes() {
 
         case $key in
             --to-dir)
+                if [ ! -d "$2" ]; then
+                    printf "${RED}Ouch! '%s' doesn't seem to be a valid directory.${NORMAL}\n" "$2"
+                    exit 1
+                fi
                 directory="$2"
                 shift
             ;;
