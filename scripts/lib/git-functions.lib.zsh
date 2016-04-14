@@ -34,3 +34,16 @@ function get_git_attribute() {
 
     git config $scope --get $attribute
 }
+
+function git_flow_init() {
+    local force="$1"
+
+    if [ -d "./.git" ]; then
+        printf "Initializing git flow in '%s' directory...\n" $(pwd)
+        git flow init $force
+        exit $?
+    else
+        printf "Sorry! I need a git repository to work :("
+        exit 1
+    fi
+}

@@ -39,7 +39,8 @@ _gitbox() {
 
 __gitbox-init() {
     _arguments \
-        -f'[Force setting of gitflow branches, even if already configured]' \
+        "(-f --force)"{-f,--force}'[Force setting of gitflow branches, even if already configured]' \
+        "(-s --server)"{-s,--server}'[Initialize a bare shared repository]' \
         "(-h --help)"{-h,--help}"[Show help for gitbox init command]"
 }
 

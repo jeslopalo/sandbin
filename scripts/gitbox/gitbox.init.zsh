@@ -1,6 +1,8 @@
+source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
+
 function usage-init() {
     printf "'${YELLOW}gitbox init${NORMAL}' initialize a new git repository\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox init [-f | -h, --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox init [-f, --force | -s, --server | -h, --help]"
 }
 
 function gitbox-init() {
@@ -9,8 +11,11 @@ function gitbox-init() {
         key="$1"
 
         case $key in
-            -f)
+            -f|--force)
                 force=$key
+            ;;
+            -s|--server)
+                server="true"
             ;;
             -h|--help)
                 usage-init
@@ -28,12 +33,17 @@ function gitbox-init() {
 
     if [ -d "./.git" ]; then
         printf "${YELLOW}The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
+        git_flow_init $force
+
+    elif [ "$server" = "true" ]; then
+        printf "Initializing git bare shared repository in '%s' directory...\n" $(pwd)
+        git init --bare --shared
+
     else
-        printf "Initializing git in '%s' directory...\n" $(pwd)
+        printf "Initializing git repository in '%s' directory...\n" $(pwd)
         git init
+        git_flow_init $force
     fi
 
-    printf "Initializing git flow in '%s' directory...\n" $(pwd)
-    git flow init $force
     exit $?
 }
