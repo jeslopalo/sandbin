@@ -1,3 +1,8 @@
+## 0.31.0
+  * [66f6f80] Refactor gitbox subcommands to independent files
+  * [3d993b3] Apply minor changes in gitbox init
+  * [8d26313] Add new 'gitbox init --server' to start a bare shared repository
+
 ## 0.30.0
   * [c9a8a0e] Add return codes to 'new_alias()' function
   * [ce7a3e1] Fix error codes in gitbox
