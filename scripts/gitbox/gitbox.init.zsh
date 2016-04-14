@@ -10,16 +10,16 @@ function gitbox-init() {
 
         case $key in
             -f)
-            force=$key
+                force=$key
             ;;
             -h|--help)
                 usage-init
                 exit 0
             ;;
             *)
-            printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
-            usage-init
-            exit 1
+                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                usage-init
+                exit 1
             ;;
         esac
 
@@ -35,4 +35,5 @@ function gitbox-init() {
 
     printf "Initializing git flow in '%s' directory...\n" $(pwd)
     git flow init $force
+    exit $?
 }
