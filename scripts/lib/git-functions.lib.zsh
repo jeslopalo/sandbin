@@ -47,3 +47,23 @@ function git_flow_init() {
         exit 1
     fi
 }
+
+function git_changelog() {
+    git changelog
+}
+
+function git_branch_name() {
+    git branch-name
+}
+
+function git_last_tag_id() {
+    git last-tag-id
+}
+
+function git_last_tag_subject() {
+    git last-tag-subject
+}
+
+function git_distance_from_last_tag() {
+    git distance-from-tag $(git last-tag-id)
+}
