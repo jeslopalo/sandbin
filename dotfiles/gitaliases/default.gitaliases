@@ -58,7 +58,8 @@ new_alias "$scope" "distance-from-tags" "!git tag | while read t; do echo \"\$(g
 
 say "Configuring aliases for commits..."
 new_alias "$scope" "ci" "commit --verbose"
-new_alias "$scope" "first-commit" "!git show \$(git rev-list --max-parents=0 HEAD)"
+new_alias "$scope" "first-commit-id" "rev-list --max-parents=0 HEAD"
+new_alias "$scope" "first-commit" "!git show \$(git first-commit-id)"
 new_alias "$scope" "last-commit" "show HEAD"
 # What's new? To see what new commits have been created by the last command (typically after a "git pull") :
 new_alias "$scope" "commits-since-pull-in" "!sh -c 'git log \$1@{1}..\$1@{0} \"\$@\"'"
