@@ -53,6 +53,7 @@ new_alias "$scope" "branches-last-commit" "branch -vv -a"
 say "Configuring aliases for tags..."
 new_alias "$scope" "tags" "for-each-ref --sort=-taggerdate --format=\"%(color:dim cyan)%(taggerdate:iso)%(color:reset) - %(color:green)[%(refname:short)]%(color:reset) %09%(color:dim white)%(taggeremail)%(color:reset)%09// %(subject)\" refs/tags"
 new_alias "$scope" "last-tag" "!git show \$(git last-tag-id)"
+new_alias "$scope" "last-tag-subject" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(subject)' --count=1"
 new_alias "$scope" "last-tag-id" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1"
 new_alias "$scope" "distance-from-tags" "!git tag | while read t; do echo \"\$(git rev-list --count \$t..HEAD) commits ahead of '\$t'\"; done | sort -n"
 
