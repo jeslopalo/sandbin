@@ -36,7 +36,8 @@ new_alias "$scope" "status-short" "status -sb -uno --ignore-submodules=untracked
 new_alias "$scope" "st" "!git status-short"
 
 say "Configuring aliases for changes..."
-new_alias "$scope" "changelog" "!f() { ref=\$(git last-tag-id); if [ \"\$ref\" = \"\" ]; then ref=\$(git first-commit-id); fi; git log \$ref..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges | less -FRX; }; f"
+#new_alias "$scope" "changelog" "!f() { ref=\$(git last-tag-id); if [ \"\$ref\" = \"\" ]; then ref=\$(git first-commit-id); fi; git log \$ref..HEAD --pretty=format:\"  %C(bold green)*%Creset [%C(red)%h%Creset] %s\" --reverse --no-merges | less -FRX; }; f"
+new_alias "$scope" "changelog" "!gitbox changelog"
 new_alias "$scope" "changed-words" "diff --word-diff"
 new_alias "$scope" "changed-files" "diff --stat"
 new_alias "$scope" "changes-staged" "diff --staged"
@@ -63,6 +64,7 @@ new_alias "$scope" "ci" "commit --verbose"
 new_alias "$scope" "first-commit-id" "rev-list --max-parents=0 HEAD"
 new_alias "$scope" "first-commit" "!git show \$(git first-commit-id)"
 new_alias "$scope" "last-commit" "show HEAD"
+new_alias "$scope" "last-commit-id" "rev-parse --verify HEAD"
 # What's new? To see what new commits have been created by the last command (typically after a "git pull") :
 new_alias "$scope" "commits-since-pull-in" "!sh -c 'git log \$1@{1}..\$1@{0} \"\$@\"'"
 

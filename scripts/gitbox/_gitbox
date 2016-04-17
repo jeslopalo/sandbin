@@ -15,6 +15,7 @@ _gitbox() {
 
             subcommands=(
                 'init:Execute \"git init\" & \"git flow init\"'
+                'changelog:Calculate changelog of a git repository'
                 'setup:Several git configurations'
             )
             _describe -t commands 'gitbox' subcommands
@@ -31,6 +32,10 @@ _gitbox() {
 
 				(setup)
 				    __gitbox-setup
+                ;;
+
+                (changelog)
+                    __gitbox-changelog
                 ;;
 			esac
 		;;
@@ -191,7 +196,18 @@ __gitbox-setup-attribute() {
     fi
 }
 
+__gitbox-changelog() {
+    _arguments \
+        "(-t --tag)"{-s,--subject}"[Tag to generate changelog]:tag name:()" \
+        "(-s --subject)"{-s,--subject}"[Version subject message]:subject message:()" \
+        "(-h --help)"{-h,--help}"[Show help for gitbox changelog command]"
+}
+
 #_gitbox "$@"
+
+# show completion menu when number of options is at least 2
+zstyle ':completion:*' menu select=2
+
 zstyle ':completion:*' user-commands gitbox:'provide high-level repository operations'
 zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*:descriptions' format "- %d -"

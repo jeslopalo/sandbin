@@ -48,8 +48,36 @@ function git_flow_init() {
     fi
 }
 
-function git_changelog() {
-    git changelog
+function git_changelog_by_tag() {
+    printf "WIP"
+}
+
+#
+# @parameters
+#   - $from - starting ref (if not set, it will be the reference to the last tag or first commit)
+#   - $to - ending ref (if not set, it will be HEAD)
+#
+function git_changelog_by_ref_range() {
+    local from="$1"
+    local to="$2"
+
+    if [ -z $from ]; then
+        from="$(git last-tag-id)"
+
+        if [ -z $from ]; then
+            from="$(git first-commit-id)";
+        fi
+    fi
+
+    if [ "$to" = "" ]; then
+        to="$(git last-commit-id)"
+    fi
+
+    if [ $from = $to ]; then
+        git log $from --pretty="format:  %C(bold green)*%Creset [%C(red)%h%Creset] %s" --reverse --no-merges;
+    else
+        git log $from..$to --pretty="format:  %C(bold green)*%Creset [%C(red)%h%Creset] %s" --reverse --no-merges;
+    fi
 }
 
 function git_branch_name() {
