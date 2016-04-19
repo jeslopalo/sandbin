@@ -198,9 +198,18 @@ __gitbox-setup-attribute() {
 
 __gitbox-changelog() {
     _arguments \
-        "(-t --tag)"{-s,--subject}"[Tag to generate changelog]:tag name:()" \
+        "(-t --tag)"{-t,--tag}"[Tag to generate changelog]:tag name:__gitbox-tag-names" \
         "(-s --subject)"{-s,--subject}"[Version subject message]:subject message:()" \
         "(-h --help)"{-h,--help}"[Show help for gitbox changelog command]"
+}
+
+__gitbox-tag-names() {
+
+    for tag in $(git for-each-ref --sort=-taggerdate --format="%(refname:short)" refs/tags 2>/dev/null); do
+        tags="$tag $tags"
+
+        compadd -X 'Available tags' "$tag"
+    done
 }
 
 #_gitbox "$@"
@@ -221,3 +230,4 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' rehash yes
 zstyle -e ':completion:*:approximate:*' max-errors \
           'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
+

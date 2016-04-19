@@ -48,8 +48,32 @@ function git_flow_init() {
     fi
 }
 
-function git_changelog_by_tag() {
-    printf "WIP"
+function git_previous_tag_from_tag() {
+    local tag="$1"
+
+    git describe --abbrev=0 --tags $tag^ 2> /dev/null
+}
+
+function git_branch_name() {
+    git branch-name
+}
+
+function git_last_tag_id() {
+    git last-tag-id
+}
+
+function git_last_tag_subject() {
+    git last-tag-subject
+}
+
+function git_distance_from_last_tag() {
+    git distance-from-tag $(git last-tag-id)
+}
+
+function git_exists_tag() {
+    local tag="$1"
+    git show-ref --tags --quiet --verify -- "refs/tags/$tag"
+    return $?
 }
 
 #
@@ -78,20 +102,4 @@ function git_changelog_by_ref_range() {
     else
         git log $from..$to --pretty="format:  %C(bold green)*%Creset [%C(red)%h%Creset] %s" --reverse --no-merges;
     fi
-}
-
-function git_branch_name() {
-    git branch-name
-}
-
-function git_last_tag_id() {
-    git last-tag-id
-}
-
-function git_last_tag_subject() {
-    git last-tag-subject
-}
-
-function git_distance_from_last_tag() {
-    git distance-from-tag $(git last-tag-id)
 }
