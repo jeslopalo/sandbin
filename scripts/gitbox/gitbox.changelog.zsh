@@ -41,7 +41,7 @@ function gitbox-changelog() {
     done
 
     if contains_not_released_commits; then
-        print_changelog_header "$subject"
+        print_changelog_header_by_branch "$subject"
         printf "%s\n" "$(git_changelog_by_ref_range)"
         return $?
     else
@@ -74,8 +74,10 @@ function git_changelog_by_tag() {
     fi
 
     if [ -z $previous_tag ]; then
+        print_changelog_header "v$tag - $(git tag-subject $tag)"
         git_changelog_by_ref_range $(git first-commit-id) $tag
     else
+        print_changelog_header "v$tag - $(git tag-subject $tag)"
         git_changelog_by_ref_range $previous_tag $tag
     fi
 }
@@ -93,20 +95,31 @@ function contains_not_released_commits() {
 function print_changelog_header() {
     local subject="$1"
 
+    if [ -z $subject ]; then
+        printf "CHANGELOG\n"
+    else
+        printf "%s\n" "$subject"
+    fi
+    printf "-----------------------------------------------------------------------\n"
+}
+
+function print_changelog_header_by_branch() {
+    local subject="$1"
+
     branch_name=$(git_branch_name)
     case $branch_name in
         feature/*)
-            printf "## WIP(%s)\n" "${branch_name##feature/}"
+            print_changelog_header "WIP(${branch_name##feature/})"
         ;;
         release/*)
-            printf "## %s - %s\n" "${branch_name##release/}" "$subject"
+            print_changelog_header "v${branch_name##release/} - $subject"
         ;;
         develop)
-            printf "## WIP(%s)\n" "develop"
+            print_changelog_header "WIP(develop)"
         ;;
         master)
-            printf "## %s\n" "$(git_last_tag_subject)"
+            print_changelog_header "v$tag - $(git_last_tag_subject)"
         ;;
     esac
-    printf "--------------------------------------------------------------\n"
+
 }
