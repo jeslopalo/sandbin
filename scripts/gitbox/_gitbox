@@ -15,6 +15,7 @@ _gitbox() {
 
             subcommands=(
                 'init:Execute \"git init\" & \"git flow init\"'
+                'changelog:Calculate changelog of a git repository'
                 'setup:Several git configurations'
             )
             _describe -t commands 'gitbox' subcommands
@@ -31,6 +32,10 @@ _gitbox() {
 
 				(setup)
 				    __gitbox-setup
+                ;;
+
+                (changelog)
+                    __gitbox-changelog
                 ;;
 			esac
 		;;
@@ -191,7 +196,27 @@ __gitbox-setup-attribute() {
     fi
 }
 
+__gitbox-changelog() {
+    _arguments \
+        "(-t --tag)"{-t,--tag}"[Tag to generate changelog]:tag name:__gitbox-tag-names" \
+        "(-h --help)"{-h,--help}"[Show help for gitbox changelog command]"
+#        "(-s --subject)"{-s,--subject}"[Version subject message]:subject message:()" \
+}
+
+__gitbox-tag-names() {
+
+    for tag in $(git for-each-ref --sort=-taggerdate --format="%(refname:short)" refs/tags 2>/dev/null); do
+        tags="$tag $tags"
+
+        compadd -X 'Available tags' "$tag"
+    done
+}
+
 #_gitbox "$@"
+
+# show completion menu when number of options is at least 2
+zstyle ':completion:*' menu select=2
+
 zstyle ':completion:*' user-commands gitbox:'provide high-level repository operations'
 zstyle ':completion:*' completer _complete _approximate
 zstyle ':completion:*:descriptions' format "- %d -"
@@ -205,3 +230,4 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' rehash yes
 zstyle -e ':completion:*:approximate:*' max-errors \
           'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
+
