@@ -1,3 +1,16 @@
+## 0.32.0
+  * [74e78fe] New git alias 'git first-commit-id'
+  * [922e1b2] Modify 'git changelog' alias to work with first commits
+  * [7e24a9e] New git alias 'git last-tag-subject'
+  * [3f9cc8a] New git alias 'git distance-from-tag <tag>'
+  * [fd42bbb] New command 'gitbox changelog --header <message>'
+  * [ca3271f] Change the subject flag in order to not collide with the help flag
+  * [7773d5e] Add gitbox subcommand to generate current 'changelog'
+  * [62b92a7] Remove commented code
+  * [2bad80f] Add gitbox changelog '--tag <tagname>' option
+  * [9b32403] Change 'gitbox changelog' colors
+  * [dbb3cfe] Remove -s, --subject autocompletion from gitbox changelog
+
 ## 0.31.0
   * [66f6f80] Refactor gitbox subcommands to independent files
   * [3d993b3] Apply minor changes in gitbox init
