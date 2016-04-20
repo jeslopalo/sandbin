@@ -55,7 +55,7 @@ new_alias "$scope" "tags" "for-each-ref --sort=-taggerdate --format=\"%(color:di
 new_alias "$scope" "last-tag" "!git show \$(git last-tag-id)"
 new_alias "$scope" "last-tag-subject" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(subject)' --count=1"
 new_alias "$scope" "last-tag-id" "!git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1"
-new_alias "$scope" "distance-from-tag" "!f() { git rev-list --count \$1..HEAD; }; f"
+new_alias "$scope" "distance-from-tag" "!f() { git rev-list --count --no-merges \$1..HEAD; }; f"
 new_alias "$scope" "distance-from-tags" "!git tag | while read t; do echo \"\$(git distance-from-tag \$t) commits ahead of '\$t'\"; done | sort -n"
 
 say "Configuring aliases for commits..."
