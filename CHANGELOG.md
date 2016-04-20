@@ -1,3 +1,8 @@
+## 0.33.0
+  * [4e8122e] Modify 'git distance-from-tag' to exclude --no-merges
+  * [d32fb3d] Add new git alias: git tag-subject
+  * [82c0e2c] Improve subject generation in gitbox changelog command
+
 ## 0.32.0
   * [74e78fe] New git alias 'git first-commit-id'
   * [922e1b2] Modify 'git changelog' alias to work with first commits
