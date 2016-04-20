@@ -98,8 +98,8 @@ function git_changelog_by_ref_range() {
     fi
 
     if [ $from = $to ]; then
-        git log $from --pretty="format:  %C(bold green)*%Creset [%C(red)%h%Creset] %s" --reverse --no-merges;
+        git log $from --pretty="format:  %C(bold)*%Creset [%C(green)%h%Creset] %s" --reverse --no-merges;
     else
-        git log $from..$to --pretty="format:  %C(bold green)*%Creset [%C(red)%h%Creset] %s" --reverse --no-merges;
+        git log $from..$to --pretty="format:  %C(bold)*%Creset [%C(green)%h%Creset] %s" --reverse --no-merges;
     fi
 }

@@ -41,7 +41,7 @@ function gitbox-changelog() {
     done
 
     if contains_not_released_commits; then
-        print_changelog_head "$subject"
+        print_changelog_header "$subject"
         printf "%s\n" "$(git_changelog_by_ref_range)"
         return $?
     else
@@ -90,7 +90,7 @@ function contains_not_released_commits() {
     fi
 }
 
-function print_changelog_head() {
+function print_changelog_header() {
     local subject="$1"
 
     branch_name=$(git_branch_name)
@@ -108,4 +108,5 @@ function print_changelog_head() {
             printf "## %s\n" "$(git_last_tag_subject)"
         ;;
     esac
+    printf "--------------------------------------------------------------\n"
 }
