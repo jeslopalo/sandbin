@@ -8,7 +8,7 @@ function usage-changelog() {
 
 function usage-changelog-all() {
     printf "'${YELLOW}gitbox changelog --all${NORMAL}' generates a complete changelog for every tag\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --all <release message> [ -h, --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --all <release message> [ --to-file <filename> | -h, --help]"
 }
 
 function gitbox-changelog() {
@@ -59,8 +59,9 @@ function git_changelog_wip() {
     else
         if [ "$release_message" != "" ]; then
             print_changelog_header_by_branch "$release_message"
+        else
+            printf "${RED}There aren't commits yet since the last tag${NORMAL}\n"
         fi
-        printf "${RED}There aren't commits yet since the last tag${NORMAL}\n"
         return 1
     fi
 }
@@ -138,9 +139,18 @@ function git_changelog_all() {
         key="$1"
 
         case $key in
+            --to-file)
+                if [ $# -lt 2 ]; then
+                    printf "${YELLOW}I need a filename! Maybe the next time?${NORMAL}\n\n"
+                    usage-changelog-all
+                    exit 1
+                fi
+                shift
+                filename="$1"
+            ;;
             -h|--help)
                 usage-changelog-all
-                exit $?
+                exit 1
             ;;
             *)
                 release_message="$1"
@@ -155,7 +165,20 @@ function git_changelog_all() {
         return 1
     fi
 
-    printf "%s\n\n" "$(git_changelog_wip \"$release_message\")"
+    if [ -z $filename ]; then
+        print_changelog_all "$release_message"
+    else
+        print_changelog_all "$release_message" | strip_color_codes > $filename
+    fi
+}
+
+function print_changelog_all() {
+    local release_message="$1"
+
+    if contains_not_released_commits; then
+        printf "%s\n\n" "$(git_changelog_wip $release_message)"
+    fi
+
     local starting_tag;
     local ending_tag;
     for ending_tag in $(git_tags); do
@@ -164,6 +187,7 @@ function git_changelog_all() {
         fi
         starting_tag=$ending_tag
     done
+
     printf "%s\n\n" "$(git_changelog_by_tag $starting_tag)"
 }
 
@@ -192,17 +216,21 @@ function print_changelog_header_by_branch() {
 
     branch_name=$(git_branch_name)
     case $branch_name in
-        feature/*)
-            print_changelog_header "WIP(${branch_name##feature/})"
+        feature/* | develop | master)
+            if [ -z $release_message ]; then
+                print_changelog_header "WIP(branch:${branch_name##feature/})"
+            else
+                print_changelog_header "WIP(branch:${branch_name##feature/}) - $release_message"
+            fi
         ;;
         release/*)
-            print_changelog_header "v${branch_name##release/} - $release_message"
-        ;;
-        develop)
-            print_changelog_header "WIP(develop)"
+            if [ -z $release_message ]; then
+                print_changelog_header "v${branch_name##release/}"
+            else
+                print_changelog_header "v${branch_name##release/} - $release_message"
+            fi
         ;;
         master)
-            print_changelog_header "v$tag - $(git_last_tag_release_message)"
         ;;
     esac
 }

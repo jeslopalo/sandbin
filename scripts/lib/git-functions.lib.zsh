@@ -62,6 +62,12 @@ function git_branch_name() {
     git branch-name
 }
 
+function git_tag_commit_id() {
+    local tag="$1"
+
+    git rev-list -n 1 $tag
+}
+
 function git_last_tag_id() {
     git last-tag-id
 }
@@ -100,6 +106,9 @@ function git_changelog_by_ref_range() {
     if [ "$to" = "" ]; then
         to="$(git last-commit-id)"
     fi
+
+    to=$(git_tag_commit_id $to);
+    from=$(git_tag_commit_id $from);
 
     if [ $from = $to ]; then
         git log $from --pretty='format:  %C(bold)*%Creset [%C(green)%h%Creset] %s' --reverse --no-merges;

@@ -197,11 +197,52 @@ __gitbox-setup-attribute() {
 }
 
 __gitbox-changelog() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                "-t:Tag to generate changelog"
+                "--tag:Tag to generate changelog"
+                "--all:Generate changelog for every tag"
+            )
+            _describe -t commands 'gitbox setup' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for 'gitbox changelog' command]"
+        ;;
+
+		(options)
+			case $line[1] in
+                (-t|--tag)
+                    _arguments ":tag name:__gitbox-tag-names"
+                ;;
+                (--all)
+                    _arguments \
+                        ':Release message:()' \
+                        '--to-file[File to write]:filename:_files'
+                ;;
+                *)
+                   _arguments \
+                        "(-h --help)"{-h,--help}"[Show help for 'gitbox changelog' command]"
+                ;;
+			esac
+		;;
+    esac
+}
+
+__gitbox-changeloga() {
     _arguments \
         "(-t --tag)"{-t,--tag}"[Tag to generate changelog]:tag name:__gitbox-tag-names" \
-        --all'[Generate changelog for every tag]' \
+        --all'[Generate changelog for every tag]:Release message:()' \
         "(-h --help)"{-h,--help}"[Show help for gitbox changelog command]"
-#        "(-s --subject)"{-s,--subject}"[Version subject message]:subject message:()" \
 }
 
 __gitbox-tag-names() {
