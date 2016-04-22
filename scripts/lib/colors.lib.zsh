@@ -102,3 +102,7 @@ else
     BLINK=""
     REVERSE=""
 fi
+
+function strip_color_codes() {
+    perl -pe 's/\e\[?.*?[\@-~]//g' $content
+}
