@@ -5,11 +5,11 @@ function new_alias() {
     local alias_command="$3"
 
     if [ $# = 3 ]; then
-        printf "%s\n" "New command: ${YELLOW}git ${BOLD}${alias_name}${NORMAL}"
+        printf "New command: ${YELLOW}git ${BOLD}%s${NORMAL}\n" "${alias_name}"
         git config $scope alias.${alias_name} "${alias_command}"
         return $?;
     else
-        printf "%s\n" "New alias: scope, name or command not found"
+        printf "New alias: scope, name or command not found\n"
         return 1;
     fi
 }
@@ -23,7 +23,7 @@ function set_git_attribute() {
         git config $scope $attribute "$value"
         return $?;
     else
-        printf "${RED}%s${NORMAL}\n" "set_git_attribute: scope or $attribute not found"
+        printf "${RED}set_git_attribute: scope or '%s' not found${NORMAL}\n" "$attribute"
         return 1;
     fi
 }
@@ -39,13 +39,17 @@ function git_flow_init() {
     local force="$1"
 
     if [ -d "./.git" ]; then
-        printf "Initializing git flow in '%s' directory...\n" $(pwd)
+        printf "Initializing git flow in '%s' directory...\n" "$(pwd)"
         git flow init $force
         exit $?
     else
-        printf "Sorry! I need a git repository to work :("
+        printf "Sorry! I need a git repository to work :(\n"
         exit 1
     fi
+}
+
+function git_tags() {
+    git for-each-ref --sort=-taggerdate --format='%(refname:short)' refs/tags | sed 's/\\n/ /g'
 }
 
 function git_previous_tag_from_tag() {
@@ -56,6 +60,12 @@ function git_previous_tag_from_tag() {
 
 function git_branch_name() {
     git branch-name
+}
+
+function git_tag_commit_id() {
+    local tag="$1"
+
+    git rev-list -n 1 $tag
 }
 
 function git_last_tag_id() {
@@ -97,9 +107,12 @@ function git_changelog_by_ref_range() {
         to="$(git last-commit-id)"
     fi
 
+    to=$(git_tag_commit_id $to);
+    from=$(git_tag_commit_id $from);
+
     if [ $from = $to ]; then
-        git log $from --pretty="format:  %C(bold)*%Creset [%C(green)%h%Creset] %s" --reverse --no-merges;
+        git log $from --pretty='format:  %C(bold)*%Creset [%C(green)%h%Creset] %s' --reverse --no-merges;
     else
-        git log $from..$to --pretty="format:  %C(bold)*%Creset [%C(green)%h%Creset] %s" --reverse --no-merges;
+        git log $from..$to --pretty='format:  %C(bold)*%Creset [%C(green)%h%Creset] %s' --reverse --no-merges;
     fi
 }
