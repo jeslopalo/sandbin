@@ -3,7 +3,12 @@ source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 function usage-changelog() {
     printf "'${YELLOW}gitbox changelog${NORMAL}' updates changelog information\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog [ -t, --tag <tagname> | -c, --current [-s, --subject <message>] | -h, --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog [ -t, --tag <tagname> | --all <release message> | -h, --help]"
+}
+
+function usage-changelog-all() {
+    printf "'${YELLOW}gitbox changelog --all${NORMAL}' generates a complete changelog for every tag\n"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --all <release message> [ -h, --help]"
 }
 
 function gitbox-changelog() {
@@ -17,15 +22,6 @@ function gitbox-changelog() {
                 git_changelog_by_tag "$@" | less -FRX
                 exit $?
             ;;
-#            -s|--subject)
-#                if [ $# -lt 2 ]; then
-#                    printf "${RED}%s${NORMAL}\n" "Ouch! Do you forget something, don't you? I need a subject message!"
-#                    usage-changelog
-#                    exit 1
-#                fi
-#                subject="$2"
-#                shift
-#            ;;
             --all)
                 shift
                 git_changelog_all "$@";
@@ -45,24 +41,24 @@ function gitbox-changelog() {
         shift;
     done
 
-    git_changelog_wip "$subject"
+    git_changelog_wip "$release_message"
     exit $?
 }
 
 #
 # @parameters
-#   - $subject - message to include in changelog header (optional)
+#   - $release_message - message to include in changelog header (optional)
 #
 function git_changelog_wip() {
-    local subject="$1"
+    local release_message="$1"
 
     if contains_not_released_commits; then
-        print_changelog_header_by_branch "$subject"
+        print_changelog_header_by_branch "$release_message"
         printf "%s\n" "$(git_changelog_by_ref_range)"
         return $?
     else
-        if [ "$subject" != "" ]; then
-            print_changelog_header_by_branch "$subject"
+        if [ "$release_message" != "" ]; then
+            print_changelog_header_by_branch "$release_message"
         fi
         printf "${RED}There aren't commits yet since the last tag${NORMAL}\n"
         return 1
@@ -125,22 +121,41 @@ function generate_tag_header() {
     local subject="$(git tag-subject $1 | tr -d '\n' | awk -v len=80 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }' )"
 
     if [[ $subject = v$tag* ]]; then
-        echo "$subject"
+        printf "%s" "$subject"
     elif [[ $subject = $tag* ]]; then
-        echo "v$subject"
+        printf "%s" "v$subject"
     else
-        echo "v$tag - $subject"
+        printf "v%s - %s" "$tag" "$subject"
     fi
 }
 
 #
 # @parameters
-#   - $subject - Message to include in the most recents changes in changelog
+#   - $release_message - Message to include in the most recents changes in changelog
 #
 function git_changelog_all() {
-    local subject="$1"
+    while [[ $# > 0 ]]; do
+        key="$1"
 
-    printf "%s\n\n" "$(git_changelog_wip \"$subject\")"
+        case $key in
+            -h|--help)
+                usage-changelog-all
+                exit $?
+            ;;
+            *)
+                release_message="$1"
+            ;;
+        esac
+        shift
+    done
+
+    if [ -z $release_message ]; then
+        printf "${RED}Ouch! Do you forget something, don't you? I need a release message!${NORMAL}\n" ""
+        usage-changelog-all
+        return 1
+    fi
+
+    printf "%s\n\n" "$(git_changelog_wip \"$release_message\")"
     local starting_tag;
     local ending_tag;
     for ending_tag in $(git_tags); do
@@ -162,18 +177,18 @@ function contains_not_released_commits() {
 }
 
 function print_changelog_header() {
-    local subject="$1"
+    local release_message="$1"
 
-    if [ -z $subject ]; then
+    if [ -z $release_message ]; then
         printf "CHANGELOG\n"
     else
-        printf "%s\n" "$subject"
+        printf "%s\n" "$release_message"
     fi
     printf "------------------------------------------------------------------------------------------\n"
 }
 
 function print_changelog_header_by_branch() {
-    local subject="$1"
+    local release_message="$1"
 
     branch_name=$(git_branch_name)
     case $branch_name in
@@ -181,13 +196,13 @@ function print_changelog_header_by_branch() {
             print_changelog_header "WIP(${branch_name##feature/})"
         ;;
         release/*)
-            print_changelog_header "v${branch_name##release/} - $subject"
+            print_changelog_header "v${branch_name##release/} - $release_message"
         ;;
         develop)
             print_changelog_header "WIP(develop)"
         ;;
         master)
-            print_changelog_header "v$tag - $(git_last_tag_subject)"
+            print_changelog_header "v$tag - $(git_last_tag_release_message)"
         ;;
     esac
 }
