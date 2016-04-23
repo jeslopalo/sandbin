@@ -6,8 +6,8 @@ source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.lib.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.init.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.setup.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/gitbox.changelog.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/gitbox.ranking.zsh"
+source "${SANDBIN_HOME}/scripts/gitbox/gitbox.changelog.zsh"
 
 function usage() {
     printf "It provides several utilities for working with git\n"

@@ -48,6 +48,7 @@ git_ranking () {
 
     if [ -z $username ]; then
         printf "${RED}Sorry, I need to know your username to proceed${NORMAL}\n"
+        usage-ranking
     else
         content=$(wget --no-check-certificate $url -q -O -)
         from_date=$(echo $content | grep "\*\*" | cut -d '*' -f 3)
