@@ -8,37 +8,52 @@ function usage-ranking() {
 
 function gitbox-ranking() {
 
+    local locations;
+    local username;
+
     while [[ $# > 0 ]]; do
         key="$1"
 
         case $key in
             --madrid)
-                shift
-                git_ranking_by_madrid "$@"
-                exit $?
+                locations="madrid$locations"
             ;;
             --spain)
-                shift
-                git_ranking_by_spain "$@";
-                exit $?
+                locations="spain$locations"
             ;;
             -h|--help)
                 usage-ranking
                 exit 0
             ;;
             *)
-                printf "${RED}Ouch! Unknown option '$key'. Please try agan!${NORMAL}\n"
-                usage-ranking
-                exit 1
+                username="$1"
             ;;
         esac
 
         shift;
     done
 
-    printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters!"
-    usage-ranking
-    exit 1
+    if [ "$locations" = "" ]; then
+        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters!, I need a location."
+        usage-ranking
+        exit 1
+    fi
+
+    if [ "$username" = "" ]; then
+        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters!, I need a username."
+        usage-ranking
+        exit 1
+    fi
+
+    if [ "${locations/spain/}" != "${locations}" ]; then
+        git_ranking_by_spain "$username"
+    fi
+
+    if [ "${locations/madrid/}" != "${locations}" ]; then
+        git_ranking_by_madrid "$username"
+    fi
+
+    exit 0
 }
 
 git_ranking () {

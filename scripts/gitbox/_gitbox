@@ -253,8 +253,9 @@ __gitbox-tag-names() {
 
 __gitbox-ranking() {
     _arguments \
-        --madrid'[Madrid ranking]:username:()' \
-        --spain'[Spain ranking]:username:()' \
+        ":username:()" \
+        --madrid'[Madrid ranking]' \
+        --spain'[Spain ranking]' \
         "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
