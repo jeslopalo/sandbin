@@ -1,3 +1,11 @@
+### v0.35.0 - Add 'git changelog ranking' command
+
+  * [fddc641] Modify CHANGELOG.md
+  * [49bc55f] Add 'gitbox ranking' to get the position in github ranking
+  * [9b91935] Add completion for 'gitbox ranking' command
+  * [898ce07] Add the option to ask for both locations --madrid, --spain
+  * [3f503ba] Modify changelog headers
+
 ### v0.34.0 - Add new 'gitbox changelog --all' command
 
   * [c63d808] Add 'strip_color_codes()' function
@@ -5,6 +13,7 @@
   * [c43b497] Add 'gitbox changelog --all' release_message & help
   * [ee66fb1] Add new git alias 'git tag-commit'
   * [9d50f94] Add '--to-file' suboption to 'gitbox changelog --all' command
+  * [6de4801] Update CHANGELOG for v0.34.0
 
 ### v0.33.0 - Improve 'gitbox changelog' command
 
