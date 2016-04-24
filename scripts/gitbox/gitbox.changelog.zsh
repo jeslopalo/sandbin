@@ -204,11 +204,10 @@ function print_changelog_header() {
     local release_message="$1"
 
     if [ -z $release_message ]; then
-        printf "CHANGELOG\n"
+        printf "### CHANGELOG\n\n"
     else
-        printf "%s\n" "$release_message"
+        printf "### %s\n\n" "$release_message"
     fi
-    printf "------------------------------------------------------------------------------------------\n"
 }
 
 function print_changelog_header_by_branch() {
