@@ -1,3 +1,4 @@
+source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 
 function new_alias() {
     local scope="$1"
