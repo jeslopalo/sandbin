@@ -188,7 +188,9 @@ function print_changelog_all() {
         starting_tag=$ending_tag
     done
 
-    printf "%s\n\n" "$(git_changelog_by_tag $starting_tag)"
+    if [ ! -z $starting_tag ]; then
+        printf "%s\n\n" "$(git_changelog_by_tag $starting_tag)"
+    fi
 }
 
 function contains_not_released_commits() {
