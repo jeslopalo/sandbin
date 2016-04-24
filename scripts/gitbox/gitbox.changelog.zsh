@@ -54,7 +54,7 @@ function git_changelog_wip() {
 
     if contains_not_released_commits; then
         print_changelog_header_by_branch "$release_message"
-        printf "%s\n" "$(git_changelog_by_ref_range)"
+        printf "%s\n\n" "$(git_changelog_by_ref_range)"
         return $?
     else
         if [ "$release_message" != "" ]; then
@@ -92,6 +92,7 @@ function git_changelog_by_tag() {
         print_changelog_header "$(generate_tag_header $tag)"
         git_changelog_by_ref_range $previous_tag $tag
     fi
+    printf "\n\n"
 }
 
 function git_changelog_by_tag_range() {
@@ -170,26 +171,28 @@ function git_changelog_all() {
     else
         print_changelog_all "$release_message" | strip_color_codes > $filename
     fi
+
+    exit 0
 }
 
 function print_changelog_all() {
     local release_message="$1"
 
     if contains_not_released_commits; then
-        printf "%s\n\n" "$(git_changelog_wip $release_message)"
+        printf "%s\n\n\n" "$(git_changelog_wip $release_message)"
     fi
 
     local starting_tag;
     local ending_tag;
     for ending_tag in $(git_tags); do
         if [ "$starting_tag" != "" ]; then
-            printf "%s\n\n" "$(git_changelog_by_tag_range $starting_tag $ending_tag)"
+            printf "%s\n\n\n" "$(git_changelog_by_tag_range $starting_tag $ending_tag)"
         fi
         starting_tag=$ending_tag
     done
 
     if [ ! -z $starting_tag ]; then
-        printf "%s\n\n" "$(git_changelog_by_tag $starting_tag)"
+        printf "%s\n\n\n" "$(git_changelog_by_tag $starting_tag)"
     fi
 }
 
@@ -231,7 +234,12 @@ function print_changelog_header_by_branch() {
                 print_changelog_header "v${branch_name##release/} - $release_message"
             fi
         ;;
-        master)
+        hotfix/*)
+            if [ -z $release_message ]; then
+                print_changelog_header "v${branch_name##hotfix/}"
+            else
+                print_changelog_header "v${branch_name##hotfix/} - $release_message"
+            fi
         ;;
     esac
 }
