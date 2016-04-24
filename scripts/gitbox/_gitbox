@@ -17,6 +17,7 @@ _gitbox() {
                 'init:Execute \"git init\" & \"git flow init\"'
                 'changelog:Calculate changelog of a git repository'
                 'setup:Several git configurations'
+                'ranking:Show the position of a user in github ranking'
             )
             _describe -t commands 'gitbox' subcommands
             _arguments \
@@ -36,6 +37,9 @@ _gitbox() {
 
                 (changelog)
                     __gitbox-changelog
+                ;;
+                (ranking)
+                    __gitbox-ranking
                 ;;
 			esac
 		;;
@@ -214,7 +218,7 @@ __gitbox-changelog() {
                 "--tag:Tag to generate changelog"
                 "--all:Generate changelog for every tag"
             )
-            _describe -t commands 'gitbox setup' subcommands
+            _describe -t commands 'gitbox changelog' subcommands
             _arguments \
                 "(-h --help)"{-h,--help}"[Show help for 'gitbox changelog' command]"
         ;;
@@ -238,13 +242,6 @@ __gitbox-changelog() {
     esac
 }
 
-__gitbox-changeloga() {
-    _arguments \
-        "(-t --tag)"{-t,--tag}"[Tag to generate changelog]:tag name:__gitbox-tag-names" \
-        --all'[Generate changelog for every tag]:Release message:()' \
-        "(-h --help)"{-h,--help}"[Show help for gitbox changelog command]"
-}
-
 __gitbox-tag-names() {
 
     for tag in $(git for-each-ref --sort=-taggerdate --format="%(refname:short)" refs/tags 2>/dev/null); do
@@ -252,6 +249,14 @@ __gitbox-tag-names() {
 
         compadd -X 'Available tags' "$tag"
     done
+}
+
+__gitbox-ranking() {
+    _arguments \
+        ":username:()" \
+        --madrid'[Madrid ranking]' \
+        --spain'[Spain ranking]' \
+        "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
 #_gitbox "$@"
