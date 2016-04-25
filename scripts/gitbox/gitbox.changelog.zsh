@@ -87,7 +87,7 @@ function git_changelog_by_tag() {
     local previous_tag=$(git_previous_tag_from_tag $tag)
     if [ -z $previous_tag ]; then
         print_changelog_header "$(generate_tag_header $tag)"
-        git_changelog_by_ref_range $(git first-commit-id) $tag
+        git_changelog_by_ref_range $(git_first_commit_id) $tag
     else
         print_changelog_header "$(generate_tag_header $tag)"
         git_changelog_by_ref_range $previous_tag $tag
@@ -111,7 +111,7 @@ function git_changelog_by_tag_range() {
 
     if [ -z $start_tag ]; then
         print_changelog_header "$(generate_tag_header $tag)"
-        git_changelog_by_ref_range $(git first-commit-id) $tag
+        git_changelog_by_ref_range $(git_first_commit_id) $tag
     else
         print_changelog_header "$(generate_tag_header $tag)"
         git_changelog_by_ref_range $start_tag $tag
@@ -120,7 +120,7 @@ function git_changelog_by_tag_range() {
 
 function generate_tag_header() {
     local tag="$1"
-    local subject="$(git tag-subject $1 | tr -d '\n' | awk -v len=80 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }' )"
+    local subject="$(git_tag_subject $1 | tr -d '\n' | awk -v len=80 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }' )"
 
     if [[ $subject = v$tag* ]]; then
         printf "%s" "$subject"
@@ -198,7 +198,7 @@ function print_changelog_all() {
 
 function contains_not_released_commits() {
 
-    if [ "$(git last-tag-id)" != "" ] && [ $(git_distance_from_last_tag) = 0 ]; then
+    if [ "$(git_last_tag_id)" != "" ] && [ $(git_distance_from_last_tag) = 0 ]; then
         return 1
     else
         return 0
