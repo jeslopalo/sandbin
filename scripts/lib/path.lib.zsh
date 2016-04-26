@@ -1,5 +1,5 @@
 
-function update_path() {
+function update_path_in_config_file() {
 	local config=$1;
 
 	if [ -f $config ]; then
