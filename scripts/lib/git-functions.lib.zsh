@@ -1,3 +1,4 @@
+source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 
 function new_alias() {
     local scope="$1"
@@ -52,38 +53,48 @@ function git_tags() {
     git for-each-ref --sort=-taggerdate --format='%(refname:short)' refs/tags | sed 's/\\n/ /g'
 }
 
+function git_tag_subject() {
+    local tag="$1"
+    git for-each-ref refs/tags --format='%(refname:short)#%(subject)' | grep $tag | cut -f 2 -d '#';
+}
+
 function git_previous_tag_from_tag() {
     local tag="$1"
-
     git describe --abbrev=0 --tags $tag^ 2> /dev/null
 }
 
 function git_branch_name() {
-    git branch-name
+    git rev-parse --abbrev-ref HEAD
 }
 
 function git_tag_commit_id() {
     local tag="$1"
-
     git rev-list -n 1 $tag
 }
 
 function git_last_tag_id() {
-    git last-tag-id
+    git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1
 }
 
 function git_last_tag_subject() {
-    git last-tag-subject
+    git for-each-ref refs/tags --sort=-taggerdate --format='%(subject)' --count=1
+}
+
+function git_first_commit_id() {
+    git rev-list --max-parents=0 HEAD
+}
+
+function git_last_commit_id() {
+    git rev-parse --verify HEAD
 }
 
 function git_distance_from_last_tag() {
-    git distance-from-tag $(git last-tag-id)
+    git rev-list --count --no-merges $(git_last_tag_id)..HEAD;
 }
 
 function git_exists_tag() {
     local tag="$1"
     git show-ref --tags --quiet --verify -- "refs/tags/$tag"
-    return $?
 }
 
 #
@@ -96,15 +107,15 @@ function git_changelog_by_ref_range() {
     local to="$2"
 
     if [ -z $from ]; then
-        from="$(git last-tag-id)"
+        from="$(git_last_tag_id)"
 
         if [ -z $from ]; then
-            from="$(git first-commit-id)";
+            from="$(git_first_commit_id)";
         fi
     fi
 
     if [ "$to" = "" ]; then
-        to="$(git last-commit-id)"
+        to="$(git_last_commit_id)"
     fi
 
     to=$(git_tag_commit_id $to);

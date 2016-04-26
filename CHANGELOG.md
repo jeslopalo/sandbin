@@ -1,7 +1,21 @@
+### v0.36.0 - Minor fixes and refactorings
+
+  * [5a8daf1] Update README.md
+  * [08d856f] Add 'colors.lib.zsh' to 'git-functions.lib.zsh'
+  * [6e99130] Simplify serveral git aliases
+  * [4a2cbe2] Avoid using aliases in gitbox commands
+  * [93520b9] Move sandbin.lib.zsh to sandbin commmand folder
+  * [93276e9] Rename to update_path_in_config_file()
+  * [b150751] Remove scripts directory from PATH
+  * [4871ace] Move zstyle configuration to .completions file
+  * [5f58e56] Refactor command libs to a dedicated folders
+
+
 ### v0.35.1 - Fix changelog generation without tags
 
   * [e74b6c6] Check whether there are tags
   * [5e55d7e] Fix changelog generation
+  * [27c1208] Update CHANGELOG with 0.35.1 changes
 
 
 ### v0.35.0 - Add 'git changelog ranking' command
