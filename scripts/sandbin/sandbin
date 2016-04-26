@@ -1,6 +1,6 @@
 #!/usr/bin/env sandbash
 
-set -e
+source "$SANDBIN_HOME/scripts/sandbin/sandbin.lib.zsh"
 
 function usage() {
     printf "${YELLOW}%s${NORMAL}\n" "usage: sandbin [upgrade] [-v | --version] [-h | --help]"
@@ -9,7 +9,7 @@ function usage() {
 if [ $# = 0 ]; then
     printf "${RED}%s${NORMAL}\n" "Sorry! I need a sandbin command to continue :("
     usage;
-    exit 0;
+    exit 1;
 fi
 
 while [[ $# > 0 ]];  do
@@ -27,15 +27,16 @@ while [[ $# > 0 ]];  do
         ;;
         -h|--help)
             usage
-            exit 1
+            exit 0
         ;;
         *)
             printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
             usage
-            exit 0
+            exit 1
         ;;
     esac
     shift;
 done
 
 eval $command
+exit $?
