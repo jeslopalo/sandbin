@@ -1,5 +1,5 @@
 
-for file in $SANDBIN_HOME/scripts/*/_*; do
+for file in $SANDBIN_HOME/scripts/**/_*; do
     directory=$(dirname "$file")
 
     # Load all of the autocomplete files in sandbin home directory

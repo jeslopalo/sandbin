@@ -1,6 +1,6 @@
 #!/usr/bin/env sandbash
 
-source "$SANDBIN_HOME/scripts/sandbin/sandbin.lib.zsh"
+source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.lib.zsh"
 
 function usage() {
     printf "${YELLOW}%s${NORMAL}\n" "usage: sandbin [upgrade] [-v | --version] [-h | --help]"
