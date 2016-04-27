@@ -6,13 +6,14 @@ source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.version.zsh"
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.upgrade.zsh"
 
 function usage() {
+    printf "It provides several utilities to configure sandbin\n"
     printf "${YELLOW}%s${NORMAL}\n" "usage: sandbin [upgrade] [-v | --version] [-h | --help]"
 }
 
 function sandbin() {
 
     if [ $# = 0 ]; then
-        printf "${RED}%s${NORMAL}\n" "Sorry! I need a sandbin command to continue :("
+        printf "${RED}Sorry! I need a sandbin subcommand to continue :(${NORMAL}\n"
         usage;
         exit 1;
     fi
@@ -41,7 +42,7 @@ function sandbin() {
                 exit 0
             ;;
             *)
-                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
                 usage
                 exit 1
             ;;
