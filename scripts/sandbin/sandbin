@@ -1,42 +1,56 @@
 #!/usr/bin/env sandbash
 
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.lib.zsh"
+source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.reload.zsh"
+source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.version.zsh"
+source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.upgrade.zsh"
 
 function usage() {
+    printf "It provides several utilities to configure sandbin\n"
     printf "${YELLOW}%s${NORMAL}\n" "usage: sandbin [upgrade] [-v | --version] [-h | --help]"
 }
 
-if [ $# = 0 ]; then
-    printf "${RED}%s${NORMAL}\n" "Sorry! I need a sandbin command to continue :("
-    usage;
-    exit 1;
-fi
+function sandbin() {
 
-while [[ $# > 0 ]];  do
-    key="$1"
+    if [ $# = 0 ]; then
+        printf "${RED}Sorry! I need a sandbin subcommand to continue :(${NORMAL}\n"
+        usage;
+        exit 1;
+    fi
 
-    case $key in
-        upgrade)
-            command="sandbin_upgrade"
-        ;;
-        reload)
-            command="sandbin_reload"
-        ;;
-        -v|--version)
-            command="sandbin_version"
-        ;;
-        -h|--help)
-            usage
-            exit 0
-        ;;
-        *)
-            printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
-            usage
-            exit 1
-        ;;
-    esac
-    shift;
-done
+    while [[ $# > 0 ]];  do
+        key="$1"
 
-eval $command
-exit $?
+        case $key in
+            upgrade)
+                shift
+                sandbin_upgrade "$@"
+                exit $?
+            ;;
+            reload)
+                shift
+                sandbin_reload "$@"
+                exit $?
+            ;;
+            -v|--version)
+                shift
+                sandbin_version "$@"
+                exit $?
+            ;;
+            -h|--help)
+                usage
+                exit 0
+            ;;
+            *)
+                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                usage
+                exit 1
+            ;;
+        esac
+        shift;
+    done
+
+}
+
+sandbin "$@"
+

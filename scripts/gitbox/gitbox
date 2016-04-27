@@ -17,7 +17,7 @@ function usage() {
 function gitbox() {
 
     if [ $# = 0 ]; then
-        printf "${RED}%s${NORMAL}\n" "Sorry! I need a command to continue :("
+        printf "${RED}Sorry! I need a gitbox subcommand to continue :(${NORMAL}\n"
         usage;
         exit 1;
     fi
@@ -51,7 +51,7 @@ function gitbox() {
                 exit 0
             ;;
             *)
-                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
                 usage
                 exit 1
             ;;

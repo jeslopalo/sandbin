@@ -2,27 +2,42 @@
 
 _sandbin() {
 
-    local -a commands
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
 
-    commands=(
-        'upgrade:upgrade sandbin shell utilities.'
-        'reload:reload sandbin shell utilities.'
-    )
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
 
-    local -a options
-    options=(
-        '-v:show the used sandbin version'
-        '--version:show the used sandbin version'
-        '-h:display sandbin command help'
-        '--help:display sandbin command help'
-    )
+    case $state in
+        (command)
+            local -a subcommands;
 
-    if (( CURRENT == 2 )); then
-        _describe -t commands 'commands' commands
-        _describe options 'options'
-    fi
+            subcommands=(
+                'upgrade:upgrade sandbin shell utilities.'
+                'reload:reload sandbin shell utilities.'
+            )
 
-    return 0
+            _describe -t commands 'sandbin' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for sandbin usage]" \
+                "(-v --version)"{-v,--version}"[Show the used sandbin version]"
+        ;;
+
+        (options)
+			case $line[1] in
+
+				(upgrade)
+                    _arguments \
+                        "(-h --help)"{-h,--help}"[Show help for sandbin usage]"
+				;;
+				(reload)
+                    _arguments \
+                        "(-h --help)"{-h,--help}"[Show help for sandbin usage]"
+                ;;
+			esac
+		;;
+    esac
 }
 
 _sandbin "$@"
