@@ -26,30 +26,3 @@ sandbin_branch() {
 
     echo `git rev-parse --abbrev-ref HEAD`
 }
-
-function sandbin_version() {
-    print_sandbin_banner "$(sandbin_branch)" "${BLUE}"
-}
-
-function sandbin_upgrade() {
-
-    version=$(sandbin_branch)
-
-    printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin installation [$SANDBIN_HOME] to $version"
-
-    cd "$SANDBIN_HOME"
-    if git pull --rebase --stat origin "$version"
-    then
-        print_sandbin_banner "$version"
-        printf "${YELLOW}%s${NORMAL}\n" "Hooray! Sandbin has been updated and/or is at the current version."
-        printf "${UNDERLINE}${BRIGHT_WHITE}%s${REMOVE_UNDERLINE}${NORMAL}\n" "Remember to reload your sandbin session running 'sandbin reload' in your shell."
-
-    else
-        printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?'
-    fi
-}
-
-function sandbin_reload() {
-    source "$SANDBIN_HOME/sandbinrc"
-    printf "${WHITE}%s${NORMAL}\n" "Hooray! your sandbin session has been reloaded!"
-}
