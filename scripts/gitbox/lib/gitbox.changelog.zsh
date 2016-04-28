@@ -13,6 +13,11 @@ function usage-changelog-all() {
 
 function gitbox-changelog() {
 
+    if ! is_a_git_workspace; then
+        printf "${RED}Sorry but the '%s' directory is not a git repository!${NORMAL}\n" $(pwd)
+        exit 1
+    fi
+
     while [[ $# > 0 ]]; do
         key="$1"
 

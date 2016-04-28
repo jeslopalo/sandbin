@@ -77,7 +77,7 @@ function gitbox-setup-aliases() {
         shift;
     done
 
-    if [ ! -d .git ]; then
+    if ! is_a_git_workspace; then
         printf "${RED}Ouch! I need a git repository to work${NORMAL}\n"
         return 1;
     fi
@@ -136,7 +136,7 @@ function gitbox-setup-attributes() {
     fi
     installation_path=$directory/.gitattributes
 
-    if [ ! -d "$directory/.git" ]; then
+    if ! is_a_git_workspace $directory; then
         printf "${RED}Ouch! I need a git repository to work${NORMAL}\n"
         exit 1;
     fi

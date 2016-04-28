@@ -31,7 +31,7 @@ function gitbox-init() {
         shift;
     done
 
-    if [ -d "./.git" ]; then
+    if is_a_git_workspace; then
         printf "${YELLOW}The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
         git_flow_init $force
 

@@ -99,6 +99,30 @@ function git_exists_tag() {
 
 #
 # @parameters
+#   - $directory - a directory to check for git workspace
+#
+function is_a_git_workspace() {
+    local directory="$1"
+    local current=$(pwd)
+
+    if [ ! -z $directory ]; then
+        cd "$directory"
+    fi
+
+    if [ -d .git ]; then
+        cd $current;
+        return 0
+    elif [ "$(git rev-parse --git-dir 2> /dev/null)" != "" ]; then
+        cd $current;
+        return 0
+    fi
+
+    cd $current;
+    return 1
+}
+
+#
+# @parameters
 #   - $from - starting ref (if not set, it will be the reference to the last tag or first commit)
 #   - $to - ending ref (if not set, it will be HEAD)
 #
