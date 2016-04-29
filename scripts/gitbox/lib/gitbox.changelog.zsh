@@ -1,4 +1,5 @@
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/output.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 function usage-changelog() {
@@ -125,15 +126,10 @@ function git_changelog_by_tag_range() {
 
 function generate_tag_header() {
     local tag="$1"
-    local subject="$(git_tag_subject $1 | tr -d '\n' | awk -v len=80 '{ if (length($0) > len) print substr($0, 1, len-3) "..."; else print; }' )"
+    local subject="$(git_tag_subject $tag | sed "s/^v*$tag//" | sed 's/^[ \:-]*//')"
+    local date="$(git_tag_date $tag)"
 
-    if [[ $subject = v$tag* ]]; then
-        printf "%s" "$subject"
-    elif [[ $subject = $tag* ]]; then
-        printf "%s" "v$subject"
-    else
-        printf "v%s - %s" "$tag" "$subject"
-    fi
+    ellipsis 128 "v$tag ($date) - $subject"
 }
 
 #
