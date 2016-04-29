@@ -55,7 +55,12 @@ function git_tags() {
 
 function git_tag_subject() {
     local tag="$1"
-    git for-each-ref refs/tags --format='%(refname:short)#%(subject)' | grep $tag | cut -f 2 -d '#';
+    git for-each-ref refs/tags/$tag --format='%(refname:short)#%(subject)' | cut -f 2 -d '#';
+}
+
+function git_tag_date() {
+    local tag="$1"
+    git for-each-ref refs/tags/$tag --format='%(refname:short)#%(taggerdate:short)' | cut -f 2 -d '#';
 }
 
 function git_previous_tag_from_tag() {
