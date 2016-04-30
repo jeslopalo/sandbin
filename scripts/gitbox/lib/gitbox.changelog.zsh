@@ -218,6 +218,7 @@ function print_changelog_header() {
 
 function print_changelog_header_by_branch() {
     local release_message="$1"
+    local today="$(date +%F)"
 
     branch_name=$(git_branch_name)
     case $branch_name in
@@ -230,16 +231,16 @@ function print_changelog_header_by_branch() {
         ;;
         release/*)
             if [ -z $release_message ]; then
-                print_changelog_header "v${branch_name##release/}"
+                print_changelog_header "v${branch_name##release/} ($today)"
             else
-                print_changelog_header "v${branch_name##release/} - $release_message"
+                print_changelog_header "v${branch_name##release/} ($today) - $release_message"
             fi
         ;;
         hotfix/*)
             if [ -z $release_message ]; then
-                print_changelog_header "v${branch_name##hotfix/}"
+                print_changelog_header "v${branch_name##hotfix/} ($today)"
             else
-                print_changelog_header "v${branch_name##hotfix/} - $release_message"
+                print_changelog_header "v${branch_name##hotfix/} ($today) - $release_message"
             fi
         ;;
     esac
