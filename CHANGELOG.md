@@ -1,4 +1,9 @@
-### v0.37.0 - Minor fixes and refactorings in 'sandbin' & 'git changelog'
+### v0.37.1 (2016-04-30) - Fix 'gitbox changelog --all' generation to include the date in the current release
+
+  * [a30904e] Fix to add current date to the current release changelog
+
+
+### v0.37.0 (2016-04-30) - Minor fixes and refactorings in 'sandbin' & 'git changelog'
 
   * [78159e9] Extract sandbin subcommands to a dedicated files
   * [f302e1e] Improve serveral messages
@@ -10,6 +15,7 @@
   * [d4e41f0] Add git_tag_date() & fix git_tag_subject()
   * [218ddb2] Add 'ellipsis()' method to output.lib.sh
   * [97133fa] Modify 'generate_tag_header()' to add tag creation date
+  * [9a77eaa] Update CHANGELOG with 0.37.0 changes
 
 
 ### v0.36.0 (2016-04-27) - Minor fixes and refactorings
