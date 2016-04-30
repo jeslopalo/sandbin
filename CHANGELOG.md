@@ -1,4 +1,18 @@
-### v0.36.0 - Minor fixes and refactorings
+### v0.37.0 - Minor fixes and refactorings in 'sandbin' & 'git changelog'
+
+  * [78159e9] Extract sandbin subcommands to a dedicated files
+  * [f302e1e] Improve serveral messages
+  * [7642fb0] Remove unnecesary zstyle command
+  * [3529099] Improve sandbin command completions
+  * [eac11a1] Remove unnecesary comment
+  * [3ff6637] Add a is_a_git_workspace() method & use it
+  * [c43c430] Fix 'git tag-subject' alias matching unwanted tags
+  * [d4e41f0] Add git_tag_date() & fix git_tag_subject()
+  * [218ddb2] Add 'ellipsis()' method to output.lib.sh
+  * [97133fa] Modify 'generate_tag_header()' to add tag creation date
+
+
+### v0.36.0 (2016-04-27) - Minor fixes and refactorings
 
   * [5a8daf1] Update README.md
   * [08d856f] Add 'colors.lib.zsh' to 'git-functions.lib.zsh'
@@ -9,16 +23,17 @@
   * [b150751] Remove scripts directory from PATH
   * [4871ace] Move zstyle configuration to .completions file
   * [5f58e56] Refactor command libs to a dedicated folders
+  * [8b7e659] Update CHANGELOG.md with 0.36.0 changes
 
 
-### v0.35.1 - Fix changelog generation without tags
+### v0.35.1 (2016-04-24) - Fix changelog generation without tags
 
   * [e74b6c6] Check whether there are tags
   * [5e55d7e] Fix changelog generation
   * [27c1208] Update CHANGELOG with 0.35.1 changes
 
 
-### v0.35.0 - Add 'git changelog ranking' command
+### v0.35.0 (2016-04-24) - Add 'git changelog ranking' command
 
   * [fddc641] Modify CHANGELOG.md
   * [49bc55f] Add 'gitbox ranking' to get the position in github ranking
@@ -28,7 +43,7 @@
   * [0113ae3] Update CHANGELOG with 0.35.0 changes
 
 
-### v0.34.0 - Add new 'gitbox changelog --all' command
+### v0.34.0 (2016-04-22) - Add new 'gitbox changelog --all' command
 
   * [c63d808] Add 'strip_color_codes()' function
   * [39054ea] Add basic support to generate a complete changelog (--all)
@@ -38,7 +53,7 @@
   * [6de4801] Update CHANGELOG for v0.34.0
 
 
-### v0.33.0 - Improve 'gitbox changelog' command
+### v0.33.0 (2016-04-20) - Improve 'gitbox changelog' command
 
   * [4e8122e] Modify 'git distance-from-tag' to exclude --no-merges
   * [d32fb3d] Add new git alias: git tag-subject
@@ -46,7 +61,7 @@
   * [a36c6e8] Update CHANGELOG with 0.33.0 changes
 
 
-### v0.32.0 - New aliases & new 'gitbox changelog [--tag <tagname>]' command
+### v0.32.0 (2016-04-20) - New aliases & new 'gitbox changelog [--tag <tagname>]' command
 
   * [74e78fe] New git alias 'git first-commit-id'
   * [922e1b2] Modify 'git changelog' alias to work with first commits
@@ -62,7 +77,7 @@
   * [66560ff] Update CHANGELOG with 0.32.0 changes
 
 
-### v0.31.0 - Git server initialization & minor refactoring
+### v0.31.0 (2016-04-14) - Git server initialization & minor refactoring
 
   * [66f6f80] Refactor gitbox subcommands to independent files
   * [3d993b3] Apply minor changes in gitbox init
@@ -70,7 +85,7 @@
   * [ea8c572] Update CHANGELOG with 0.31.0 changes
 
 
-### v0.30.0 - New 'gitbox setup attributes' command
+### v0.30.0 (2016-04-12) - New 'gitbox setup attributes' command
 
   * [c9a8a0e] Add return codes to 'new_alias()' function
   * [ce7a3e1] Fix error codes in gitbox
@@ -81,12 +96,12 @@
   * [081bab4] Update CHANGELOG with 0.30.0 changes
 
 
-### v0.29.1 - Fix 'gitbox-setup-attibute()' control of errors
+### v0.29.1 (2016-04-12) - Fix 'gitbox-setup-attibute()' control of errors
 
   * [29a7802] Fix 'gitbox-setup-attribute()' control of errors
 
 
-### v0.29.0 - Fix git aliases, New git aliases & new gitbox command
+### v0.29.0 (2016-04-11) - Fix git aliases, New git aliases & new gitbox command
 
   * [2b0e4f9] Modify sandbin.lib extension from bash to zsh
   * [2734d26] Rename colors.lib extension to zsh
@@ -113,14 +128,14 @@
   * [026bb33] Update CHANGELOG with 0.29.0 changes
 
 
-### v0.28.0 - Automatic load of autocompletion scripts & install from local direc...
+### v0.28.0 (2016-04-08) - Automatic load of autocompletion scripts & install from local directory
 
   * [07e7dd0] Load all of autocompletion files in SANDBIN_HOME/scripts
   * [2a72cf7] Add a feature to install from a local directory (development mode)
   * [ae3075a] Update CHANGELOG with 0.28.0 changes
 
 
-### v0.27.0 - Command completions
+### v0.27.0 (2016-04-07) - Command completions
 
   * [06d1a1f] Add color to an error message
   * [d0d0b41] Remove SANDBIN_HOME of the dinamically calculated value. Export is in sandbin.conf
@@ -132,7 +147,7 @@
   * [bb06b6b] Update CHANGELOG with 0.27.0 changes
 
 
-### v0.26.0 - Refactor 'sandbin' commands
+### v0.26.0 (2016-04-06) - Refactor 'sandbin' commands
 
   * [9127f23] Update .functions doc
   * [420742e] New command 'sandbin upgrade'
@@ -160,13 +175,13 @@
   * [99ce888] Update CHANGELOG with 0.26.0 changes
 
 
-### v0.25.1 - Fix a bug in SANDBIN_HOME resolution
+### v0.25.1 (2016-04-05) - Fix a bug in SANDBIN_HOME resolution
 
   * [480de7c] Fix a bug in SANDBIN_HOME resolution
   * [0cd8e32] Update CHANGELOG with 0.25.1 changes
 
 
-### v0.25.0 - Break up sandbin configuration and sandbin bootstrap
+### v0.25.0 (2016-04-05) - Break up sandbin configuration and sandbin bootstrap
 
   * [541a526] Split PATH declaration
   * [4fb9990] Add system commands to PATH
@@ -180,7 +195,7 @@
   * [f328d9e] Update CHANGELOG with 0.25.0 changes
 
 
-### v0.24.0 - Extract git alias definitions to a dotfile
+### v0.24.0 (2016-04-04) - Extract git alias definitions to a dotfile
 
   * [fe4d24a] Modify 'git status-short' to add untracked & ignored
   * [eaec94f] Modify sandbash to add output.lib.bash
@@ -189,7 +204,7 @@
   * [9dd8f64] Update CHANGELOG with 0.24.0 changes
 
 
-### v0.23.0 New git aliases
+### v0.23.0 (2016-04-03) - New git aliases
 
   * [2481f1d] Add new git alias: 'git status-short'
   * [1cb3b44] Add new git alias: 'git workspace'
@@ -201,7 +216,7 @@
   * [cace34f] Update CHANGELOG with 0.23.0 changes
 
 
-### v0.22.0 Revision in banner, sandbinrc.template & clean/update sandbin bootstr...
+### v0.22.0 (2016-04-03) - Revision in banner, sandbinrc.template & clean/update sandbin bootstrap from shells
 
   * [6464f1b] Move colors configuration at the top of the script
   * [b887a81] Add revision in installation banner
@@ -215,7 +230,7 @@
   * [6388fde] Update CHANGELOG with 0.22.0 changes
 
 
-### v0.21.0 Improve the colors of messages in scripts
+### v0.21.0 (2016-04-02) - Improve the colors of messages in scripts
 
   * [c2d38ba] Modify attribution to https://github.com/Danimoth/gitattributes
   * [ad68ffd] Modify git-init colors
@@ -224,20 +239,20 @@
   * [b8e461b] Update CHANGELOG with 0.21.0 changes
 
 
-### v0.20.2 Fix 'sandbash' bug with parameters
+### v0.20.2 (2016-04-02) - Fix 'sandbash' bug with parameters
 
   * [e27712c] Fix 'sandbash' bug when passing parameters with spaces
   * [6b352a1] Update CHANGELOG with 0.20.2 changes
 
 
-### v0.20.1 Fix a problem with parameters calculation in sandbash launcher
+### v0.20.1 (2016-04-02) - Fix a problem with parameters calculation in sandbash launcher
 
   * [dfd1c92] Modify .gitignore to include .sandbinrc
   * [2fbe817] Fix sandbash parameters calculation
   * [889b6ef] Update CHANGELOG with 0.20.1 changes
 
 
-### v0.20.0 .gitattributes, git-setup-attributes command, script colors, ignore ....
+### v0.20.0 (2016-04-02) - .gitattributes, git-setup-attributes command, script colors, ignore .sandbinrc & sandbash launcher
 
   * [7c7e8ce] Add default.gitattributes
   * [67cf982] Modify usage() in git scripts
@@ -256,7 +271,7 @@
   * [ba6d5c5] Update CHANGELOG with 0.20.0 changes
 
 
-### v0.19.0 sandbin settings
+### v0.19.0 (2016-04-01) - sandbin settings
 
   * [69bc095] Modify README.md
   * [6588599] Modify README.md
@@ -277,7 +292,7 @@
   * [84cd561] Update CHANGELOG with 0.19.0 changes
 
 
-### v0.18.0 Minor changes & new system commands group
+### v0.18.0 (2016-03-29) - Minor changes & new system commands group
 
   * [501d28b] Change format in 'history' git aliases
   * [a5f0212] Move 'kill-by-port' & 'system-update' to system directory
@@ -285,7 +300,7 @@
   * [6e3d8af] Update CHANGELOG for v0.18.0
 
 
-### v0.17.0 Prettifying things
+### v0.17.0 (2016-03-29) - Prettifying things
 
   * [531c2c2] Remove original scripts
   * [6c61027] Change message in install.sh script
@@ -297,7 +312,7 @@
   * [2b40032] Update changelog for v0.17.0
 
 
-### v0.16.0 New aliases for diff, assume-unchanged & branches operations
+### v0.16.0 (2016-03-25) - New aliases for diff, assume-unchanged & branches operations
 
   * [95489eb] New 'changed-words' & 'changed-files' aliases
   * [8cc8eb7] New 'changes-staged' alias
@@ -315,7 +330,7 @@
   * [d291621] Edit CHANGELOG.md with 0.16.0 changes
 
 
-### v0.15.0 New 'refs' git aliases & changes in 'branches' & 'history'
+### v0.15.0 (2016-03-24) - New 'refs' git aliases & changes in 'branches' & 'history'
 
   * [41f2833] Refactor of 'refs' aliases
   * [00bd5be] Change history messages separator
@@ -324,12 +339,12 @@
   * [f542eb0] Update changelog for v0.15.0
 
 
-### v0.14.1: Fix 'last-commit' git alias
+### v0.14.1 (2016-03-23) - Fix 'last-commit' git alias
 
   * [cb4183e] Fix 'last-commit' alias
 
 
-### v0.14.0 New alias 'last-tag-id' and bug fixes
+### v0.14.0 (2016-03-22) - New alias 'last-tag-id' and bug fixes
 
   * [ea441bb] Add/modify 'last-tag-id' & 'last-tag' alias
   * [7e6ac0e] Rewrite 'tags' alias to show the subject
@@ -338,13 +353,13 @@
   * [b612be5] Edit CHANGELOG.md with 0.14.0 changes
 
 
-### v0.13.1 Rename 'git-alias' script
+### v0.13.1 (2016-03-21) - Rename 'git-alias' script
 
   * [880ce32] Rename from git-aliases to gti-setup-aliases
   * [fe08898] Modify CHANGELOG.md to complente version changes
 
 
-### v0.13.0 Alias for tags and refs
+### v0.13.0 (2016-03-20) - Alias for tags and refs
 
   * [2ed71d7] Add new alias 'history-refs'
   * [275b75b] Add new alias 'history-all-refs'
@@ -352,7 +367,7 @@
   * [d7bb227] Modify CHANGELOG.md for the new version
 
 
-### v0.12.0 New aliases
+### v0.12.0 (2016-03-18) - New aliases
 
   * [cb6335d] Add aliases to manage filemode setting
   * [d77cf29] New alias 'history-of <brach|tag|ref>'
@@ -369,21 +384,21 @@
   * [4b922d7] Update changelog for v0.12.0
 
 
-### v0.11.0 - New 'git branch-last-commit' alias
+### v0.11.0 (2015-11-05) - New 'git branch-last-commit' alias
 
   * [95cd210] Move branch aliases to a new script section
   * [88a6c3f] Add alias to show branch-last-commit
   * [cf1d8b4] Update changelog
 
 
-### v0.10.0 - New history-all alias
+### v0.10.0 (2015-10-26) - New history-all alias
 
   * [5abaad9] Add 'git history-all' alias
   * [ee8eeef] Refactor creation of new aliases in a bash function: 'new_alias'
   * [d6dfadb] Update CHANGELOG.md
 
 
-### v0.9.0 - New aliases & refactorings
+### v0.9.0 (2015-10-21) - New aliases & refactorings
 
   * [d53b354] Rename git alias 'aliases' to 'list-alias' to fix cygwin bug
   * [79fc53b] Rename git alias 'aliases' to 'list-alias' to fix cygwin bug
@@ -397,13 +412,13 @@
   * [c7f5f8d] Add changelog info for 0.9.0 version
 
 
-### v0.8.0 - New aliase
+### v0.8.0 (2015-10-19) - New aliase
 
   * [c36fb7b] New alias: git push-all
   * [45264c5] Complete 0.8.0 changelog
 
 
-### v0.7.0 - New aliases
+### v0.7.0 (2015-10-19) - New aliases
 
   * [b352e08] Rename 'create-git-repository' to 'git-create-repository'
   * [1f7f638] New alias: 'git aliases' to list alias
@@ -412,7 +427,7 @@
   * [049011d] Extract changelog section to a dedicated file: CHANGELOG.md
 
 
-### v0.6.0 - New aliases and fixes
+### v0.6.0 (2015-10-18) - New aliases and fixes
 
   * [eff64ec] New diff aliases: diffstat & changes
   * [e604fe0] Separate git-init into two scripts
@@ -425,7 +440,7 @@
   * [ba4805a] Complete README.md with changelog
 
 
-### v0.5.1 - Minor fixes and changes
+### v0.5.1 (2015-10-15) - Minor fixes and changes
 
   * [50ae328] Update 'git lol' alias to show author and date
   * [a02fd4d] Revmove '--left-right' flag from alias.lol
@@ -433,7 +448,7 @@
   * [c5d9ebb] Add 0.5.1 commits to changelog
 
 
-### v0.5.0 - Scripts renaming & scope definition
+### v0.5.0 (2015-10-14) - Scripts renaming & scope definition
 
   * [f68fca3] Add 'Thanks' section in README.md
   * [b6ab90b] Rename 'create-repository' script
@@ -442,13 +457,13 @@
   * [229cbcd] Complete changelog in README
 
 
-### v0.4.0: Refactored git scripts
+### v0.4.0 (2015-10-06) - Refactored git scripts
 
   * [f4415ac] Move git scripts to a new folder
   * [390f975] Add version changelog
 
 
-### v0.3.0: git authors & git changelog aliases
+### v0.3.0 (2015-10-06) - git authors & git changelog aliases
 
   * [ae1d3d8] Remove unused git-changelog script
   * [d4f560c] Update version in README.md
@@ -458,7 +473,7 @@
   * [509caa9] Add version 0.3.0 changelog to README.md
 
 
-### v0.2.0: New Git & system scripts
+### v0.2.0 (2015-10-06) - New Git & system scripts
 
   * [135208c] Next development version 0.2.0-snapshot
   * [3c5639b] .gitignore and install.sh
@@ -473,7 +488,7 @@
   * [f83d111] Add new version and changelog to README.md
 
 
-### v0.1.0 - Initial version 0.1.0
+### v0.1.0 (2015-03-04) - Initial version 0.1.0
 
   * [ce8f728] Original scripts to be migrated
   * [4529873] Original oh-my-zsh plugins to be migrated

@@ -259,6 +259,4 @@ __gitbox-ranking() {
         "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
-#_gitbox "$@"
-
-zstyle ':completion:*' user-commands gitbox:'provide high-level repository operations'
+_gitbox "$@"

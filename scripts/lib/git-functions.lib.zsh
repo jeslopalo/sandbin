@@ -55,7 +55,12 @@ function git_tags() {
 
 function git_tag_subject() {
     local tag="$1"
-    git for-each-ref refs/tags --format='%(refname:short)#%(subject)' | grep $tag | cut -f 2 -d '#';
+    git for-each-ref refs/tags/$tag --format='%(refname:short)#%(subject)' | cut -f 2 -d '#';
+}
+
+function git_tag_date() {
+    local tag="$1"
+    git for-each-ref refs/tags/$tag --format='%(refname:short)#%(taggerdate:short)' | cut -f 2 -d '#';
 }
 
 function git_previous_tag_from_tag() {
@@ -95,6 +100,30 @@ function git_distance_from_last_tag() {
 function git_exists_tag() {
     local tag="$1"
     git show-ref --tags --quiet --verify -- "refs/tags/$tag"
+}
+
+#
+# @parameters
+#   - $directory - a directory to check for git workspace
+#
+function is_a_git_workspace() {
+    local directory="$1"
+    local current=$(pwd)
+
+    if [ ! -z $directory ]; then
+        cd "$directory"
+    fi
+
+    if [ -d .git ]; then
+        cd $current;
+        return 0
+    elif [ "$(git rev-parse --git-dir 2> /dev/null)" != "" ]; then
+        cd $current;
+        return 0
+    fi
+
+    cd $current;
+    return 1
 }
 
 #
