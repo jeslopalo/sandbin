@@ -1,8 +1,8 @@
 ## Colorize the ls output ##
-alias ls='ls -h'
+alias ls='ls -lh'
 
 ## Use a long listing format ##
-alias ll='ls -la'
+alias ll='ls -lha'
 
 ## Show hidden files ##
 alias l.='ls -d .*'
