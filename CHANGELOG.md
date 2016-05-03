@@ -1,6 +1,15 @@
+### v0.38.0 (2016-05-03) - Add shell aliases to .alias file
+
+  * [9f3a448] New .alias dotfile
+  * [6937671] Remove wrong aliases
+  * [8173c14] Make zsh know about hosts already accessed by SSH
+  * [304c37a] Add -h flag to ls aliases
+
+
 ### v0.37.1 (2016-04-30) - Fix 'gitbox changelog --all' generation to include the date in the current release
 
   * [a30904e] Fix to add current date to the current release changelog
+  * [5f67d9f] Update CHANGELOG with 0.37.1 changes
 
 
 ### v0.37.0 (2016-04-30) - Minor fixes and refactorings in 'sandbin' & 'git changelog'

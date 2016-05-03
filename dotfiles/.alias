@@ -1,0 +1,19 @@
+## Colorize the ls output ##
+alias ls='ls -lh'
+
+## Use a long listing format ##
+alias ll='ls -lha'
+
+## Show hidden files ##
+alias l.='ls -d .*'
+
+## Show path
+alias path='echo -e ${PATH//:/\\n}'
+
+# Time aliases
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%Y-%m-%d"'
+
+## this one saved by butt so many times ##
+alias wget='wget -c'
