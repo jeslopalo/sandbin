@@ -216,7 +216,8 @@ __gitbox-changelog() {
             subcommands=(
                 "-t:Tag to generate changelog"
                 "--tag:Tag to generate changelog"
-                "--all:Generate changelog for every tag"
+                "--publish:Publish a changelog of every tag"
+                "--all:Generate changelog of every tag"
             )
             _describe -t commands 'gitbox changelog' subcommands
             _arguments \
@@ -228,10 +229,13 @@ __gitbox-changelog() {
                 (-t|--tag)
                     _arguments ":tag name:__gitbox-tag-names"
                 ;;
-                (--all)
+                (--publish)
                     _arguments \
                         ':Release message:()' \
-                        '--to-file[File to write]:filename:_files'
+                        '--to-file[File to write]:filename:_files' \
+                        '--no-commit[Do not commit changes]'
+                ;;
+                (--all)
                 ;;
                 *)
                    _arguments \

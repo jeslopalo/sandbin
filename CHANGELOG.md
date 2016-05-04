@@ -1,9 +1,16 @@
+### v0.39.0 (2016-05-05) - Add 'gitbox changelog --publish' suboption
+
+  * [0d379d5] Add new 'git changelog --publish <message>' command
+  * [30c6e47] Update gitbox changelog completions with --publish options
+
+
 ### v0.38.0 (2016-05-03) - Add shell aliases to .alias file
 
   * [9f3a448] New .alias dotfile
   * [6937671] Remove wrong aliases
   * [8173c14] Make zsh know about hosts already accessed by SSH
   * [304c37a] Add -h flag to ls aliases
+  * [ad12747] Update CHANGELOG with 0.38.0 changes
 
 
 ### v0.37.1 (2016-04-30) - Fix 'gitbox changelog --all' generation to include the date in the current release

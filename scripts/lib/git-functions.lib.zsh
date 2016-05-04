@@ -72,6 +72,22 @@ function git_branch_name() {
     git rev-parse --abbrev-ref HEAD
 }
 
+function git_branch_version() {
+
+    branch_name=$(git_branch_name)
+    case $branch_name in
+        release/*)
+            echo "${branch_name##release/}"
+        ;;
+        hotfix/*)
+            echo "${branch_name##hotfix/}"
+        ;;
+        *)
+            echo "WIP"
+        ;;
+    esac
+}
+
 function git_tag_commit_id() {
     local tag="$1"
     git rev-list -n 1 $tag

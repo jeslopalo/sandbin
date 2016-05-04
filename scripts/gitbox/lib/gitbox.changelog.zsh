@@ -4,12 +4,17 @@ source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 function usage-changelog() {
     printf "'${YELLOW}gitbox changelog${NORMAL}' updates changelog information\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog [ -t, --tag <tagname> | --all <release message> | -h, --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog [ -t, --tag <tagname> | --all | --publish <release message> | -h, --help]"
 }
 
 function usage-changelog-all() {
     printf "'${YELLOW}gitbox changelog --all${NORMAL}' generates a complete changelog for every tag\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --all <release message> [ --to-file <filename> | -h, --help]"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --all [-h, --help]"
+}
+
+function usage-changelog-publish() {
+    printf "'${YELLOW}gitbox changelog --publish${NORMAL}' write a complete changelog and commit to repository\n"
+    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --publish <release message> [ --to-file <filename> | --no-commit | -h, --help]"
 }
 
 function gitbox-changelog() {
@@ -26,6 +31,11 @@ function gitbox-changelog() {
             -t|--tag)
                 shift
                 git_changelog_by_tag "$@" | less -FRX
+                exit $?
+            ;;
+            --publish)
+                shift
+                git_changelog_publish "$@"
                 exit $?
             ;;
             --all)
@@ -136,7 +146,8 @@ function generate_tag_header() {
 # @parameters
 #   - $release_message - Message to include in the most recents changes in changelog
 #
-function git_changelog_all() {
+function git_changelog_publish() {
+
     while [[ $# > 0 ]]; do
         key="$1"
 
@@ -144,36 +155,92 @@ function git_changelog_all() {
             --to-file)
                 if [ $# -lt 2 ]; then
                     printf "${YELLOW}I need a filename! Maybe the next time?${NORMAL}\n\n"
-                    usage-changelog-all
+                    usage-changelog-publish
                     exit 1
                 fi
                 shift
                 filename="$1"
             ;;
+            --no-commit)
+                no_commit=true
+            ;;
             -h|--help)
-                usage-changelog-all
+                usage-changelog-publish
                 exit 1
             ;;
             *)
+                if [ "$(echo $1 | grep -v '^--')" = "" ]; then
+                    printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$1"
+                    usage-changelog-all
+                    exit 1
+                fi
                 release_message="$1"
             ;;
         esac
         shift
     done
 
+    version=$(git_branch_version)
+    if [ "$version" = "WIP" ]; then
+        printf "${RED}Sorry! I need a release branch to work (a hotfix branch is also good)!${NORMAL}\n"
+        usage-changelog-publish
+        return 1
+    fi
+
     if [ -z $release_message ]; then
-        printf "${RED}Ouch! Do you forget something, don't you? I need a release message!${NORMAL}\n" ""
-        usage-changelog-all
+        printf "${RED}Ouch! Do you forget something, don't you? I need a release message!${NORMAL}\n"
+        usage-changelog-publish
         return 1
     fi
 
     if [ -z $filename ]; then
-        print_changelog_all "$release_message"
-    else
-        print_changelog_all "$release_message" | strip_color_codes > $filename
+        if [ -f "CHANGELOG.md" ]; then
+            filename="CHANGELOG.md"
+        elif [ -f "CHANGELOG" ]; then
+            filename="CHANGELOG"
+        else
+            filename="CHANGELOG.md"
+        fi
     fi
 
-    exit 0
+    printf "Writing changes to ${BOLD}%s${NORMAL}\n" "$filename"
+    print_changelog_all "$release_message" | strip_color_codes > $filename
+
+    if [ -z $no_commit ]; then
+        git add "$filename"
+        git commit -m "Update $filename with $version changes"
+    else
+        printf "${YELLOW}${BOLD}--no-commit${NORMAL} ${YELLOW}is active, no changes will be commited${NORMAL}\n"
+    fi
+
+    exit $?
+}
+
+#
+# @parameters
+#   - $release_message - Message to include in the most recents changes in changelog
+#
+function git_changelog_all() {
+
+    while [[ $# > 0 ]]; do
+        key="$1"
+
+        case $key in
+            -h|--help)
+                usage-changelog-all
+                exit 1
+            ;;
+            *)
+                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                usage-changelog-all
+                exit 1
+            ;;
+        esac
+        shift
+    done
+
+    print_changelog_all
+    exit $?
 }
 
 function print_changelog_all() {
