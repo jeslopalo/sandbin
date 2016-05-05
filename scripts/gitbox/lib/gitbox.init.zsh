@@ -1,8 +1,17 @@
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 function usage-init() {
-    printf "'${YELLOW}gitbox init${NORMAL}' initialize a new git repository\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox init [-f, --force | -s, --server | -h, --help]"
+    local mode="$1"
+
+    [ "$mode" = "help" ] && printf "${CYAN}Initialize a new git repository (git & git flow)${NORMAL}\n"
+    printf "usage: ${BOLD}gitbox init${NORMAL} [init | setup | changelog | ranking] [-h, --help]\n"
+
+    if [ "$mode" = "help" ]; then
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-f, --force${NORMAL}     Force to initialize git flow\n"
+        printf "    ${BOLD}-s, --server${NORMAL}    Initialize a git bare shared repository\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
 }
 
 function gitbox-init() {
@@ -15,14 +24,20 @@ function gitbox-init() {
                 force=$key
             ;;
             -s|--server)
-                server="true"
+                if is_a_git_workspace; then
+                    printf "${RED}gitbox init: The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
+                    exit 1
+                fi
+                printf "Initializing git bare shared repository in '%s' directory...\n" $(pwd)
+                git init --bare --shared
+                exit $?
             ;;
             -h|--help)
-                usage-init
+                usage-init "help"
                 exit 0
             ;;
             *)
-                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
                 usage-init
                 exit 1
             ;;
@@ -35,12 +50,7 @@ function gitbox-init() {
         printf "${YELLOW}The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
         git_flow_init $force
 
-    elif [ "$server" = "true" ]; then
-        printf "Initializing git bare shared repository in '%s' directory...\n" $(pwd)
-        git init --bare --shared
-
     else
-        printf "Initializing git repository in '%s' directory...\n" $(pwd)
         git init
         git_flow_init $force
     fi
