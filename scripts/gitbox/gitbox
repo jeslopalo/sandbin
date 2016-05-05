@@ -10,8 +10,20 @@ source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.ranking.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.changelog.zsh"
 
 function usage() {
-    printf "It provides several utilities for working with git\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init [-f]] [setup] [changelog] [-h | --help]"
+    local mode="$1"
+
+    [ "$mode" = "help" ] && printf "${CYAN}It provides several utilities to work with git${NORMAL}\n"
+    printf "usage: ${BOLD}gitbox${NORMAL} [init | setup | changelog | ranking] [-h, --help]\n"
+
+    if [ "$mode" = "help" ]; then
+        printf "\n"
+        printf "    ${BOLD}init${NORMAL}        Initialize a new git repository (git & git flow)\n"
+        printf "    ${BOLD}setup${NORMAL}       Provide several utilities to configure git\n"
+        printf "    ${BOLD}changelog${NORMAL}   Generate changelog information\n"
+        printf "    ${BOLD}ranking${NORMAL}     Display the github committers rank for a user\n"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}        Display this help\n"
+    fi
 }
 
 function gitbox() {
@@ -47,7 +59,7 @@ function gitbox() {
                 exit $?
             ;;
             -h|--help)
-                usage
+                usage "help"
                 exit 0
             ;;
             *)
