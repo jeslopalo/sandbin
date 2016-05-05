@@ -37,7 +37,7 @@ function gitbox-init() {
                 exit 0
             ;;
             *)
-                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                printf "${RED}gitbox init: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
                 usage-init
                 exit 1
             ;;
