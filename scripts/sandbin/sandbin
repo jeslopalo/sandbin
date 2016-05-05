@@ -6,43 +6,67 @@ source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.version.zsh"
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.upgrade.zsh"
 
 function usage() {
-    printf "It provides several utilities to configure sandbin\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: sandbin [upgrade] [-v | --version] [-h | --help]"
+    local mode="$1"
+
+    [ "$mode" = "help" ] && printf "${CYAN}It provides several utilities to configure sandbin${NORMAL}\n"
+    printf "usage: ${BOLD}sandbin${NORMAL} [upgrade | reload | version] [-h, --help]\n"
+
+    if [ "$mode" = "help" ]; then
+        printf "\n"
+        printf "    ${BOLD}upgrade${NORMAL}     Upgrade sandbin installation\n"
+        printf "    ${BOLD}reload${NORMAL}      Reload sandbin installation\n"
+        printf "    ${BOLD}version${NORMAL}     Display version information\n"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}        Display this help\n"
+    fi
+}
+
+function mutually_exclusive_subcommands_error() {
+
+    printf "${RED}sandbin: Ouch! I can't execute '%s', another subcommand has been already selected${NORMAL}\n" "$1"
+    usage
 }
 
 function sandbin() {
 
     if [ $# = 0 ]; then
-        printf "${RED}Sorry! I need a sandbin subcommand to continue :(${NORMAL}\n"
-        usage;
+        printf "${RED}sandbin: Sorry! I need a sandbin subcommand to continue :(${NORMAL}\n"
+        usage
         exit 1;
     fi
 
+    local subcommand
     while [[ $# > 0 ]];  do
         key="$1"
 
         case $key in
             upgrade)
-                shift
-                sandbin_upgrade "$@"
-                exit $?
+                if [ ! -z $subcommand ]; then
+                    mutually_exclusive_subcommands_error "$key"
+                    exit 1
+                fi
+                subcommand="sandbin_upgrade"
             ;;
             reload)
-                shift
-                sandbin_reload "$@"
-                exit $?
+                if [ ! -z $subcommand ]; then
+                    mutually_exclusive_subcommands_error "$key"
+                    exit 1
+                fi
+                subcommand="sandbin_reload"
             ;;
-            -v|--version)
-                shift
-                sandbin_version "$@"
-                exit $?
+            version)
+                if [ ! -z $subcommand ]; then
+                    mutually_exclusive_subcommands_error "$key"
+                    exit 1
+                fi
+                subcommand="sandbin_version"
             ;;
             -h|--help)
-                usage
+                usage "help"
                 exit 0
             ;;
             *)
-                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                printf "${RED}sandbin: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
                 usage
                 exit 1
             ;;
@@ -50,6 +74,9 @@ function sandbin() {
         shift;
     done
 
+    # execute subcommand
+    exec $subcommand
+    exit $?
 }
 
 sandbin "$@"
