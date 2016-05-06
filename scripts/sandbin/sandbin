@@ -1,23 +1,26 @@
 #!/usr/bin/env sandbash
 
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
+
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.lib.zsh"
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.reload.zsh"
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.version.zsh"
 source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.upgrade.zsh"
 
 function usage() {
-    local mode="$1"
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
 
-    [ "$mode" = "help" ] && printf "${CYAN}It provides several utilities to configure sandbin${NORMAL}\n"
-    printf "usage: ${BOLD}sandbin${NORMAL} [upgrade | reload | version] [-h, --help]\n"
+    $(usage_show_description $mode) && printf "${color}It provides several utilities to configure sandbin${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}sandbin${NORMAL} [upgrade | reload | version] [-h, --help]\n"
 
-    if [ "$mode" = "help" ]; then
+    if usage_show_detailed $mode; then
         printf "\n"
-        printf "    ${BOLD}upgrade${NORMAL}     Upgrade sandbin installation\n"
-        printf "    ${BOLD}reload${NORMAL}      Reload sandbin installation\n"
-        printf "    ${BOLD}version${NORMAL}     Display version information\n"
+        printf "    ${BOLD}upgrade${NORMAL}         Upgrade sandbin installation\n"
+        printf "    ${BOLD}reload${NORMAL}          Reload sandbin installation\n"
+        printf "    ${BOLD}version${NORMAL}         Display version information\n"
         printf "\nOptions:\n"
-        printf "    ${BOLD}-h, --help${NORMAL}        Display this help\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
     fi
 }
 
