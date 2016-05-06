@@ -1,10 +1,10 @@
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
-function usage-init() {
+function usage-initialize() {
     local mode="$1"
 
     [ "$mode" = "help" ] && printf "${CYAN}Initialize a new git repository (git & git flow)${NORMAL}\n"
-    printf "usage: ${BOLD}gitbox init${NORMAL} [init | setup | changelog | ranking] [-h, --help]\n"
+    printf "usage: ${BOLD}gitbox initialize${NORMAL} [-f, --force] [-s, --server] [-h, --help]\n"
 
     if [ "$mode" = "help" ]; then
         printf "\nOptions:\n"
@@ -14,7 +14,7 @@ function usage-init() {
     fi
 }
 
-function gitbox-init() {
+function gitbox-initialize() {
 
     while [[ $# > 0 ]]; do
         key="$1"
@@ -25,7 +25,7 @@ function gitbox-init() {
             ;;
             -s|--server)
                 if is_a_git_workspace; then
-                    printf "${RED}gitbox init: The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
+                    printf "${RED}gitbox initialize: The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
                     exit 1
                 fi
                 printf "Initializing git bare shared repository in '%s' directory...\n" $(pwd)
@@ -33,12 +33,12 @@ function gitbox-init() {
                 exit $?
             ;;
             -h|--help)
-                usage-init "help"
+                usage-initialize "help"
                 exit 0
             ;;
             *)
-                printf "${RED}gitbox init: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
-                usage-init
+                printf "${RED}gitbox initialize: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                usage-initialize
                 exit 1
             ;;
         esac

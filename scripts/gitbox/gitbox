@@ -4,7 +4,7 @@ source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.lib.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.init.zsh"
+source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.initialize.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.setup.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.ranking.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.changelog.zsh"
@@ -13,16 +13,16 @@ function usage() {
     local mode="$1"
 
     [ "$mode" = "help" ] && printf "${CYAN}It provides several utilities to work with git${NORMAL}\n"
-    printf "usage: ${BOLD}gitbox${NORMAL} [init | setup | changelog | ranking] [-h, --help]\n"
+    printf "usage: ${BOLD}gitbox${NORMAL} [initialize | setup | changelog | ranking] [-h, --help]\n"
 
     if [ "$mode" = "help" ]; then
         printf "\n"
-        printf "    ${BOLD}init${NORMAL}        Initialize a new git repository (git & git flow)\n"
-        printf "    ${BOLD}setup${NORMAL}       Provide several utilities to configure git\n"
-        printf "    ${BOLD}changelog${NORMAL}   Generate changelog information\n"
-        printf "    ${BOLD}ranking${NORMAL}     Display the github committers rank for a user\n"
+        printf "    ${BOLD}initialize${NORMAL}   Initialize a new git repository (git & git flow)\n"
+        printf "    ${BOLD}setup${NORMAL}        Provide several utilities to configure git\n"
+        printf "    ${BOLD}changelog${NORMAL}    Generate changelog information\n"
+        printf "    ${BOLD}ranking${NORMAL}      Display the github committers rank for a user\n"
         printf "\nOptions:\n"
-        printf "    ${BOLD}-h, --help${NORMAL}        Display this help\n"
+        printf "    ${BOLD}-h, --help${NORMAL}   Display this help\n"
     fi
 }
 
@@ -38,9 +38,9 @@ function gitbox() {
         key="$1"
 
         case $key in
-            init)
+            initialize)
                 shift
-                gitbox-init "$@"
+                gitbox-initialize "$@"
                 exit $?
             ;;
             setup)
