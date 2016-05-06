@@ -1,3 +1,4 @@
+source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 function usage-initialize() {

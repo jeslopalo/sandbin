@@ -2,8 +2,19 @@ source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 function usage-ranking() {
-    printf "'${YELLOW}gitbox ranking${NORMAL}' prints the github committers rank for a user\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox ranking [--madrid | --spain | -h, --help] <username>"
+    local mode="$1"
+
+    [ "$mode" = "help" ] && printf "${CYAN}Display the position of a username in the Github committers rank${NORMAL}\n"
+    printf "usage: ${BOLD}gitbox ranking${NORMAL} [--madrid] [--spain] <username> [-h, --help]\n"
+
+    if [ "$mode" = "help" ]; then
+        printf "\n"
+        printf "    ${BOLD}<username>${NORMAL}      A Github username to search in ranking\n"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}--madrid${NORMAL}        Search <username> in the ranking of Madrid (defaults to all)\n"
+        printf "    ${BOLD}--spain${NORMAL}         Search <username> in the ranking of Spain (defaults to all)\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
 }
 
 function gitbox-ranking() {
@@ -16,13 +27,13 @@ function gitbox-ranking() {
 
         case $key in
             --madrid)
-                locations="madrid$locations"
+                locations="madrid $locations"
             ;;
             --spain)
-                locations="spain$locations"
+                locations="spain $locations"
             ;;
             -h|--help)
-                usage-ranking
+                usage-ranking "help"
                 exit 0
             ;;
             *)
@@ -34,13 +45,11 @@ function gitbox-ranking() {
     done
 
     if [ "$locations" = "" ]; then
-        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters!, I need a location."
-        usage-ranking
-        exit 1
+        locations="madrid spain"
     fi
 
     if [ "$username" = "" ]; then
-        printf "${RED}%s${NORMAL}\n" "Ouch! There is not enough parameters!, I need a username."
+        printf "${RED}gitbox ranking: Ouch! There is not enough parameters!, I need a username.${NORMAL}\n"
         usage-ranking
         exit 1
     fi
@@ -53,7 +62,7 @@ function gitbox-ranking() {
         git_ranking_by_madrid "$username"
     fi
 
-    exit 0
+    exit $?
 }
 
 git_ranking () {
@@ -62,7 +71,7 @@ git_ranking () {
     local location="$3"
 
     if [ -z $username ]; then
-        printf "${RED}Sorry, I need to know your username to proceed${NORMAL}\n"
+        printf "${RED}gitbox ranking: Sorry, I need to know your username to proceed${NORMAL}\n"
         usage-ranking
     else
         content=$(wget --no-check-certificate $url -q -O -)
@@ -71,7 +80,7 @@ git_ranking () {
         position=$(echo $content | grep "\[$username\]" | cut -d '|' -f 2 | cut -d ' ' -f 2)
 
         if [ "$position" = "" ]; then
-            printf "${RED}Ouch! I can't find ${BOLD}%s$NORMAL$RED in the ranking of $BOLD%s${NORMAL}\n" "$username" "$location"
+            printf "${RED}gitbox ranking: Ouch! I can't find ${BOLD}%s$NORMAL$RED in the ranking of $BOLD%s${NORMAL}\n" "$username" "$location"
         else
             printf "(${YELLOW}%s${NORMAL} - ${YELLOW}%s${NORMAL}): ${BOLD}%s${NORMAL} has been the ${GREEN}%s${NORMAL}th committer in ${GREEN}%s${NORMAL}\n" \
             "$from_date" "$to_date" "$username" "$position" "$location"
@@ -89,7 +98,6 @@ git_ranking_by_madrid() {
 
 git_ranking_by_spain() {
     local url="https://raw.githubusercontent.com/JJ/top-github-users-data/master/formatted/top-Espa%C3%B1a.md"
-
     local username="$1"
     local location="Spain"
 
