@@ -1,13 +1,15 @@
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
-function usage-ranking() {
-    local mode="$1"
+function usage_ranking() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
 
-    [ "$mode" = "help" ] && printf "${CYAN}Display the position of a username in the Github committers rank${NORMAL}\n"
-    printf "usage: ${BOLD}gitbox ranking${NORMAL} [--madrid] [--spain] <username> [-h, --help]\n"
+    $(usage_show_description $mode) && printf "${color}Display the position of a username in the Github committers rank${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox ranking${NORMAL} [--madrid] [--spain] <username> [-h, --help]\n"
 
-    if [ "$mode" = "help" ]; then
+    if usage_show_detailed $mode; then
         printf "\n"
         printf "    ${BOLD}<username>${NORMAL}      A Github username to search in ranking\n"
         printf "\nOptions:\n"
@@ -17,7 +19,7 @@ function usage-ranking() {
     fi
 }
 
-function gitbox-ranking() {
+function gitbox_ranking() {
 
     local locations;
     local username;
@@ -33,7 +35,7 @@ function gitbox-ranking() {
                 locations="spain $locations"
             ;;
             -h|--help)
-                usage-ranking "help"
+                usage_ranking "help"
                 exit 0
             ;;
             *)
@@ -50,7 +52,7 @@ function gitbox-ranking() {
 
     if [ "$username" = "" ]; then
         printf "${RED}gitbox ranking: Ouch! There is not enough parameters!, I need a username.${NORMAL}\n"
-        usage-ranking
+        usage_ranking
         exit 1
     fi
 
@@ -72,7 +74,7 @@ git_ranking () {
 
     if [ -z $username ]; then
         printf "${RED}gitbox ranking: Sorry, I need to know your username to proceed${NORMAL}\n"
-        usage-ranking
+        usage_ranking
     else
         content=$(wget --no-check-certificate $url -q -O -)
         from_date=$(echo $content | grep "\*\*" | cut -d '*' -f 3)

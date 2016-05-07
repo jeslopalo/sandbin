@@ -1,13 +1,15 @@
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
-function usage-initialize() {
-    local mode="$1"
+function usage_initialize() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
 
-    [ "$mode" = "help" ] && printf "${CYAN}Initialize a new git repository (git & git flow)${NORMAL}\n"
-    printf "usage: ${BOLD}gitbox initialize${NORMAL} [-f, --force] [-s, --server] [-h, --help]\n"
+    $(usage_show_description $mode) && printf "${color}Initialize a new git repository (git & git flow)${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox initialize${NORMAL} [-f, --force] [-s, --server] [-h, --help]\n"
 
-    if [ "$mode" = "help" ]; then
+    if usage_show_detailed $mode; then
         printf "\nOptions:\n"
         printf "    ${BOLD}-f, --force${NORMAL}     Force to initialize git flow\n"
         printf "    ${BOLD}-s, --server${NORMAL}    Initialize a git bare shared repository\n"
@@ -15,7 +17,7 @@ function usage-initialize() {
     fi
 }
 
-function gitbox-initialize() {
+function gitbox_initialize() {
 
     while [[ $# > 0 ]]; do
         key="$1"
@@ -34,12 +36,12 @@ function gitbox-initialize() {
                 exit $?
             ;;
             -h|--help)
-                usage-initialize "help"
+                usage_initialize "help"
                 exit 0
             ;;
             *)
                 printf "${RED}gitbox initialize: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
-                usage-initialize
+                usage_initialize
                 exit 1
             ;;
         esac

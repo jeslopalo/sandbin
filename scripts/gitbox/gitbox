@@ -1,6 +1,6 @@
 #!/usr/bin/env sandbash
 
-source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.lib.zsh"
@@ -10,19 +10,20 @@ source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.ranking.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.changelog.zsh"
 
 function usage() {
-    local mode="$1"
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
 
-    [ "$mode" = "help" ] && printf "${CYAN}It provides several utilities to work with git${NORMAL}\n"
-    printf "usage: ${BOLD}gitbox${NORMAL} [initialize | setup | changelog | ranking] [-h, --help]\n"
+    $(usage_show_description $mode) && printf "${color}It provides several utilities to work with git${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox${NORMAL} [initialize | setup | changelog | ranking] [-h, --help]\n"
 
-    if [ "$mode" = "help" ]; then
+    if usage_show_detailed $mode; then
         printf "\n"
-        printf "    ${BOLD}initialize${NORMAL}   Initialize a new git repository (git & git flow)\n"
-        printf "    ${BOLD}setup${NORMAL}        Provide several utilities to configure git\n"
-        printf "    ${BOLD}changelog${NORMAL}    Generate changelog information\n"
-        printf "    ${BOLD}ranking${NORMAL}      Display the github committers rank for a user\n"
+        printf "    ${BOLD}initialize${NORMAL}      %s\n" "$(usage_initialize description)"
+        printf "    ${BOLD}setup${NORMAL}           %s\n" "$(usage_setup description)"
+        printf "    ${BOLD}changelog${NORMAL}       %s\n" "$(usage_changelog description)"
+        printf "    ${BOLD}ranking${NORMAL}         %s\n" "$(usage_ranking description)"
         printf "\nOptions:\n"
-        printf "    ${BOLD}-h, --help${NORMAL}   Display this help\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
     fi
 }
 
@@ -40,22 +41,22 @@ function gitbox() {
         case $key in
             initialize)
                 shift
-                gitbox-initialize "$@"
+                gitbox_initialize "$@"
                 exit $?
             ;;
             setup)
                 shift
-                gitbox-setup "$@"
+                gitbox_setup "$@"
                 exit $?
             ;;
             changelog)
                 shift
-                gitbox-changelog "$@"
+                gitbox_changelog "$@"
                 exit $?
             ;;
             ranking)
                 shift
-                gitbox-ranking "$@"
+                gitbox_ranking "$@"
                 exit $?
             ;;
             -h|--help)
