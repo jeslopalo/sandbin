@@ -1,26 +1,45 @@
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/output.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
-function usage-changelog() {
-    printf "'${YELLOW}gitbox changelog${NORMAL}' updates changelog information\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog [ -t, --tag <tagname> | --all | --publish <release message> | -h, --help]"
+function usage_changelog() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}Generate changelog information${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox changelog${NORMAL} [ -t, --tag <tagname> | --all | --publish <release message>] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\nOptions:\n"
+        printf "    ${BOLD}--all${NORMAL}                               %s\n" "Generate a complete changelog for every tag"
+        printf "    ${BOLD}--publish <release message>${NORMAL}         %s\n" "$(usage_changelog_publish description)"
+        printf "    ${BOLD}-t, --tag <tagname>${NORMAL}                 %s\n" "Generate changelog information for a tag"
+        printf "    ${BOLD}-h, --help${NORMAL}                          %s\n" "Display this help"
+    fi
 }
 
-function usage-changelog-all() {
-    printf "'${YELLOW}gitbox changelog --all${NORMAL}' generates a complete changelog for every tag\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --all [-h, --help]"
+function usage_changelog_publish() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}Generate and commit a complete changelog to a git repository. Only works in hotfix or release branches.${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox changelog --publish${NORMAL} <release message> [--to-file <filename>] [--no-commit] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\n"
+        printf "    <release message>           %s\n" "Release message for the next version"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}--to-file <filename>${NORMAL}        %s\n" "Write changelog to <filename> file. It defaults to CHANGELOG.md or CHANGELOG"
+        printf "    ${BOLD}--no-commit${NORMAL}                 %s\n" "Doesn't commit changes in the changelog file"
+        printf "    ${BOLD}-h, --help${NORMAL}                  %s\n" "Display this help"
+    fi
 }
 
-function usage-changelog-publish() {
-    printf "'${YELLOW}gitbox changelog --publish${NORMAL}' write a complete changelog and commit to repository\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox changelog --publish <release message> [ --to-file <filename> | --no-commit | -h, --help]"
-}
-
-function gitbox-changelog() {
+function gitbox_changelog() {
 
     if ! is_a_git_workspace; then
-        printf "${RED}Sorry but the '%s' directory is not a git repository!${NORMAL}\n" $(pwd)
+        printf "${RED}gitbox changelog: Sorry but the '%s' directory is not a git repository!${NORMAL}\n" $(pwd)
         exit 1
     fi
 
@@ -33,23 +52,23 @@ function gitbox-changelog() {
                 git_changelog_by_tag "$@" | less -FRX
                 exit $?
             ;;
-            --publish)
-                shift
-                git_changelog_publish "$@"
-                exit $?
-            ;;
             --all)
                 shift
                 git_changelog_all "$@";
                 exit $?
             ;;
+            --publish)
+                shift
+                git_changelog_publish "$@"
+                exit $?
+            ;;
             -h|--help)
-                usage-changelog
+                usage_changelog "help"
                 exit 0
             ;;
             *)
-                printf "${RED}Ouch! Unknown option '$key'. Please try agan!${NORMAL}\n"
-                usage-changelog
+                printf "${RED}gitbox changelog: Ouch! Unknown option '$key'. Please try agan!${NORMAL}\n"
+                usage_changelog
                 exit 1
             ;;
         esac
@@ -76,7 +95,7 @@ function git_changelog_wip() {
         if [ "$release_message" != "" ]; then
             print_changelog_header_by_branch "$release_message"
         else
-            printf "${RED}There aren't commits yet since the last tag${NORMAL}\n"
+            printf "${RED}git changelog: There aren't commits yet since the last tag${NORMAL}\n"
         fi
         return 1
     fi
@@ -88,15 +107,29 @@ function git_changelog_wip() {
 #
 function git_changelog_by_tag() {
 
-    if [ $# -lt 1 ]; then
-        printf "${RED}Ouch! Do you forget something, don't you? I need a tag name!${NORMAL}\n"
-        usage-changelog
+    while [[ $# > 0 ]]; do
+        key="$1"
+
+        case $key in
+            -h|--help)
+                usage_changelog "help"
+                exit 0
+            ;;
+            *)
+                local tag="$key"
+            ;;
+        esac
+        shift
+    done
+
+    if [ -z $tag ]; then
+        printf "${RED}gitbox changelog tag: Ouch! Do you forget something, don't you? I need a tag name!${NORMAL}\n"
+        usage_changelog
         return 1
     fi
 
-    local tag="$1"
     if ! git_exists_tag $tag; then
-        printf "${RED}Sorry but '%s' tag does not exist!${NORMAL}\n" "$tag"
+        printf "${RED}gitbox changelog tag: Sorry but '%s' tag does not exist!${NORMAL}\n" "$tag"
         return 1
     fi
 
@@ -116,12 +149,12 @@ function git_changelog_by_tag_range() {
     local start_tag="$2"
 
     if ! git_exists_tag $start_tag; then
-        printf "${RED}Sorry but '%s' tag does not exist!${NORMAL}\n" "$start_tag"
+        printf "${RED}gitbox changelog: Sorry but '%s' tag does not exist!${NORMAL}\n" "$start_tag"
         return 1
     fi
 
     if ! git_exists_tag $tag; then
-        printf "${RED}Sorry but '%s' tag does not exist!${NORMAL}\n" "$tag"
+        printf "${RED}gitbox changelog: Sorry but '%s' tag does not exist!${NORMAL}\n" "$tag"
         return 1
     fi
 
@@ -154,8 +187,8 @@ function git_changelog_publish() {
         case $key in
             --to-file)
                 if [ $# -lt 2 ]; then
-                    printf "${YELLOW}I need a filename! Maybe the next time?${NORMAL}\n\n"
-                    usage-changelog-publish
+                    printf "${RED}gitbox changelog publish: I need a filename! Maybe the next time?${NORMAL}\n\n"
+                    usage_changelog_publish
                     exit 1
                 fi
                 shift
@@ -165,13 +198,13 @@ function git_changelog_publish() {
                 no_commit=true
             ;;
             -h|--help)
-                usage-changelog-publish
-                exit 1
+                usage_changelog_publish "help"
+                exit 0
             ;;
             *)
                 if [ "$(echo $1 | grep -v '^--')" = "" ]; then
-                    printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$1"
-                    usage-changelog-all
+                    printf "${RED}gitbox changelog publish: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$1"
+                    usage_changelog_publish
                     exit 1
                 fi
                 release_message="$1"
@@ -182,14 +215,14 @@ function git_changelog_publish() {
 
     version=$(git_branch_version)
     if [ "$version" = "WIP" ]; then
-        printf "${RED}Sorry! I need a release branch to work (a hotfix branch is also good)!${NORMAL}\n"
-        usage-changelog-publish
+        printf "${RED}gitbox changelog publish: Sorry! I need a release branch to work (a hotfix branch is also good)!${NORMAL}\n"
+        usage_changelog_publish
         return 1
     fi
 
     if [ -z $release_message ]; then
-        printf "${RED}Ouch! Do you forget something, don't you? I need a release message!${NORMAL}\n"
-        usage-changelog-publish
+        printf "${RED}gitbox changelog publish: Ouch! Do you forget something, don't you? I need a release message!${NORMAL}\n"
+        usage_changelog_publish
         return 1
     fi
 
@@ -227,12 +260,12 @@ function git_changelog_all() {
 
         case $key in
             -h|--help)
-                usage-changelog-all
-                exit 1
+                usage_changelog "help"
+                exit 0
             ;;
             *)
-                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
-                usage-changelog-all
+                printf "${RED}gitbox changelog all: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                usage_changelog
                 exit 1
             ;;
         esac

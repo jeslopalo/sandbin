@@ -14,9 +14,9 @@ _gitbox() {
             local -a subcommands;
 
             subcommands=(
-                'init:Execute \"git init\" & \"git flow init\"'
-                'changelog:Calculate changelog of a git repository'
+                'initialize:Execute \"git init\" & \"git flow init\"'
                 'setup:Several git configurations'
+                'changelog:Calculate changelog of a git repository'
                 'ranking:Show the position of a user in github ranking'
             )
             _describe -t commands 'gitbox' subcommands
@@ -27,8 +27,8 @@ _gitbox() {
         (options)
 			case $line[1] in
 
-				(init)
-				    __gitbox-init
+				(initialize)
+				    __gitbox-initialize
 				;;
 
 				(setup)
@@ -46,7 +46,7 @@ _gitbox() {
     esac
 }
 
-__gitbox-init() {
+__gitbox-initialize() {
     _arguments \
         "(-f --force)"{-f,--force}'[Force setting of gitflow branches, even if already configured]' \
         "(-s --server)"{-s,--server}'[Initialize a bare shared repository]' \
