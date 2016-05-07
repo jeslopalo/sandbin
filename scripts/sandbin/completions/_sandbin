@@ -16,25 +16,21 @@ _sandbin() {
             subcommands=(
                 'upgrade:upgrade sandbin shell utilities.'
                 'reload:reload sandbin shell utilities.'
+                'version:display the used sandbin version'
             )
 
             _describe -t commands 'sandbin' subcommands
-            _arguments \
-                "(-h --help)"{-h,--help}"[Show help for sandbin usage]" \
-                "(-v --version)"{-v,--version}"[Show the used sandbin version]"
+            _arguments "(-h --help)"{-h,--help}"[Show help for sandbin usage]"
         ;;
 
         (options)
 			case $line[1] in
 
-				(upgrade)
+				(upgrade|reload|version)
                     _arguments \
                         "(-h --help)"{-h,--help}"[Show help for sandbin usage]"
 				;;
-				(reload)
-                    _arguments \
-                        "(-h --help)"{-h,--help}"[Show help for sandbin usage]"
-                ;;
+
 			esac
 		;;
     esac

@@ -18,3 +18,6 @@ source "$SANDBIN_HOME/dotfiles/.completions"
 
 # source aliases
 source "$SANDBIN_HOME/dotfiles/.alias"
+
+# source exports
+source "$SANDBIN_HOME/dotfiles/.exports"

@@ -1,7 +1,22 @@
+### v0.40.0 (2016-05-07) - Improve docuemntation of commands
+
+  * [ac7ad6d] Add colors to 'ls' in both Linux & MacOs
+  * [0f58aac] Improve sandbin help information
+  * [445e3c3] Improve gitbox help information
+  * [e1e0a90] Modify error messages in gitbox command
+  * [a76567a] Improve 'gitbox init' help information
+  * [824a2d6] Fix 'gitbox init' error messages
+  * [453b946] Rename 'gitbox init' to 'gitbox initialize'
+  * [2521540] Improve 'gitbox ranking' help information
+  * [f135a8c] Refactor usage functions to a dedicated lib
+  * [a49641a] Improve 'gitbox' help information
+
+
 ### v0.39.0 (2016-05-05) - Add 'gitbox changelog --publish' suboption
 
   * [0d379d5] Add new 'git changelog --publish <message>' command
   * [30c6e47] Update gitbox changelog completions with --publish options
+  * [b1304b9] Update CHANGELOG.md with 0.39.0 changes
 
 
 ### v0.38.0 (2016-05-03) - Add shell aliases to .alias file

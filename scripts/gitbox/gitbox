@@ -1,23 +1,36 @@
 #!/usr/bin/env sandbash
 
-source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
 source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
 
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.lib.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.init.zsh"
+source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.initialize.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.setup.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.ranking.zsh"
 source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.changelog.zsh"
 
 function usage() {
-    printf "It provides several utilities for working with git\n"
-    printf "${YELLOW}%s${NORMAL}\n" "usage: gitbox [init [-f]] [setup] [changelog] [-h | --help]"
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}It provides several utilities to work with git${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox${NORMAL} [initialize | setup | changelog | ranking] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\n"
+        printf "    ${BOLD}initialize${NORMAL}      %s\n" "$(usage_initialize description)"
+        printf "    ${BOLD}setup${NORMAL}           %s\n" "$(usage_setup description)"
+        printf "    ${BOLD}changelog${NORMAL}       %s\n" "$(usage_changelog description)"
+        printf "    ${BOLD}ranking${NORMAL}         %s\n" "$(usage_ranking description)"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
 }
 
 function gitbox() {
 
     if [ $# = 0 ]; then
-        printf "${RED}Sorry! I need a gitbox subcommand to continue :(${NORMAL}\n"
+        printf "${RED}gitbox: Sorry! I need a gitbox subcommand to continue :(${NORMAL}\n"
         usage;
         exit 1;
     fi
@@ -26,32 +39,32 @@ function gitbox() {
         key="$1"
 
         case $key in
-            init)
+            initialize)
                 shift
-                gitbox-init "$@"
+                gitbox_initialize "$@"
                 exit $?
             ;;
             setup)
                 shift
-                gitbox-setup "$@"
+                gitbox_setup "$@"
                 exit $?
             ;;
             changelog)
                 shift
-                gitbox-changelog "$@"
+                gitbox_changelog "$@"
                 exit $?
             ;;
             ranking)
                 shift
-                gitbox-ranking "$@"
+                gitbox_ranking "$@"
                 exit $?
             ;;
             -h|--help)
-                usage
+                usage "help"
                 exit 0
             ;;
             *)
-                printf "${RED}Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                printf "${RED}gitbox: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
                 usage
                 exit 1
             ;;
