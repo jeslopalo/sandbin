@@ -56,16 +56,16 @@ fi
 printf "Installing sandbin in '%s' directory...\n" "$SANDBIN_HOME"
 
 if [ -d "$SANDBIN_HOME" ]; then
-	echo "You already have sandbin installed. You'll need to remove $SANDBIN_HOME if you want to reinstall"
-    exit
+	echo "You already have sandbin installed. You'll need to remove $SANDBIN_HOME if you want to reinstall" 1>&2
+    exit 1
 fi
 
 if [ -z $install_from_dir ]; then
 
     echo "Cloning sandbin..."
     hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.git $SANDBIN_HOME || {
-      echo "git not installed"
-      exit
+      echo "git not installed" 1>&2
+      exit 1
     }
 
     if [ -z "$revision" ]; then

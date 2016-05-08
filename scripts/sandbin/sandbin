@@ -26,14 +26,14 @@ function usage() {
 
 function mutually_exclusive_subcommands_error() {
 
-    printf "${RED}sandbin: Ouch! I can't execute '%s', another subcommand has been already selected${NORMAL}\n" "$1"
+    printf "${RED}sandbin: Ouch! I can't execute '%s', another subcommand has been already selected${NORMAL}\n" "$1" 1>&2
     usage
 }
 
 function sandbin() {
 
     if [ $# = 0 ]; then
-        printf "${RED}sandbin: Sorry! I need a sandbin subcommand to continue :(${NORMAL}\n"
+        printf "${RED}sandbin: Sorry! I need a sandbin subcommand to continue :(${NORMAL}\n" 1>&2
         usage
         exit 1;
     fi
@@ -69,7 +69,7 @@ function sandbin() {
                 exit 0
             ;;
             *)
-                printf "${RED}sandbin: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                printf "${RED}sandbin: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
                 usage
                 exit 1
             ;;

@@ -28,7 +28,7 @@ function gitbox_initialize() {
             ;;
             -s|--server)
                 if is_a_git_workspace; then
-                    printf "${RED}gitbox initialize: The '%s' directory is already a git repository!${NORMAL}\n" $(pwd)
+                    printf "${RED}gitbox initialize: The '%s' directory is already a git repository!${NORMAL}\n" $(pwd) 1>&2
                     exit 1
                 fi
                 printf "Initializing git bare shared repository in '%s' directory...\n" $(pwd)
@@ -40,7 +40,7 @@ function gitbox_initialize() {
                 exit 0
             ;;
             *)
-                printf "${RED}gitbox initialize: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                printf "${RED}gitbox initialize: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
                 usage_initialize
                 exit 1
             ;;
