@@ -1,4 +1,10 @@
-### v0.40.0 (2016-05-07) - Improve docuemntation of commands
+### v0.41.0 (2016-05-08) - Cleaning the code
+
+  * [0595c17] Redirect error messages to stderr
+  * [ae17ff3] Remove unused scripts & libs
+
+
+### v0.40.0 (2016-05-07) - Improve documentation of commands
 
   * [ac7ad6d] Add colors to 'ls' in both Linux & MacOs
   * [0f58aac] Improve sandbin help information
@@ -10,6 +16,7 @@
   * [2521540] Improve 'gitbox ranking' help information
   * [f135a8c] Refactor usage functions to a dedicated lib
   * [a49641a] Improve 'gitbox' help information
+  * [6b2a7ca] Update CHANGELOG.md with 0.40.0 changes
 
 
 ### v0.39.0 (2016-05-05) - Add 'gitbox changelog --publish' suboption
