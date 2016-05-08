@@ -51,7 +51,7 @@ function gitbox_ranking() {
     fi
 
     if [ "$username" = "" ]; then
-        printf "${RED}gitbox ranking: Ouch! There is not enough parameters!, I need a username.${NORMAL}\n"
+        printf "${RED}gitbox ranking: Ouch! There is not enough parameters!, I need a username.${NORMAL}\n" 1>&2
         usage_ranking
         exit 1
     fi
@@ -73,7 +73,7 @@ git_ranking () {
     local location="$3"
 
     if [ -z $username ]; then
-        printf "${RED}gitbox ranking: Sorry, I need to know your username to proceed${NORMAL}\n"
+        printf "${RED}gitbox ranking: Sorry, I need to know your username to proceed${NORMAL}\n" 1>&2
         usage_ranking
     else
         content=$(wget --no-check-certificate $url -q -O -)
@@ -82,7 +82,7 @@ git_ranking () {
         position=$(echo $content | grep "\[$username\]" | cut -d '|' -f 2 | cut -d ' ' -f 2)
 
         if [ "$position" = "" ]; then
-            printf "${RED}gitbox ranking: Ouch! I can't find ${BOLD}%s$NORMAL$RED in the ranking of $BOLD%s${NORMAL}\n" "$username" "$location"
+            printf "${RED}gitbox ranking: Ouch! I can't find ${BOLD}%s$NORMAL$RED in the ranking of $BOLD%s${NORMAL}\n" "$username" "$location" 1>&2
         else
             printf "(${YELLOW}%s${NORMAL} - ${YELLOW}%s${NORMAL}): ${BOLD}%s${NORMAL} has been the ${GREEN}%s${NORMAL}th committer in ${GREEN}%s${NORMAL}\n" \
             "$from_date" "$to_date" "$username" "$position" "$location"

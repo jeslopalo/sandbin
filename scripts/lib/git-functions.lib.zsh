@@ -10,7 +10,7 @@ function new_alias() {
         git config $scope alias.${alias_name} "${alias_command}"
         return $?;
     else
-        printf "New alias: scope, name or command not found\n"
+        printf "New alias: scope, name or command not found\n" 1>&2
         return 1;
     fi
 }
@@ -24,7 +24,7 @@ function set_git_attribute() {
         git config $scope $attribute "$value"
         return $?;
     else
-        printf "${RED}set_git_attribute: scope or '%s' not found${NORMAL}\n" "$attribute"
+        printf "${RED}set_git_attribute: scope or '%s' not found${NORMAL}\n" "$attribute" 1>&2
         return 1;
     fi
 }
@@ -44,7 +44,7 @@ function git_flow_init() {
         git flow init $force
         exit $?
     else
-        printf "Sorry! I need a git repository to work :(\n"
+        printf "Sorry! I need a git repository to work :(\n" 1>&2
         exit 1
     fi
 }

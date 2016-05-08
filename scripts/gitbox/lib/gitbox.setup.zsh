@@ -80,7 +80,7 @@ function usage_setup_attribute() {
 function gitbox_setup() {
 
     if [ $# = 0 ]; then
-        printf "${RED}gitbox setup: Ouch! There is not enough parameters 'gitbox setup [subcommand]'${NORMAL}\n"
+        printf "${RED}gitbox setup: Ouch! There is not enough parameters 'gitbox setup [subcommand]'${NORMAL}\n" 1>&2
         usage_setup
         exit 1
     fi
@@ -114,7 +114,7 @@ function gitbox_setup() {
                 exit 0
             ;;
             *)
-                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!"
+                printf "${RED}%s${NORMAL}\n" "Ouch! Unknown option '$key'. Please try agan!" 1>&2
                 usage_setup
                 exit 1
             ;;
@@ -149,13 +149,13 @@ function gitbox_setup_aliases() {
     done
 
     if ! is_a_git_workspace; then
-        printf "${RED}gitbox setup aliases: Ouch! I need a git repository to work${NORMAL}\n"
+        printf "${RED}gitbox setup aliases: Ouch! I need a git repository to work${NORMAL}\n" 1>&2
         usage_setup_aliases
         return 1;
     fi
 
     if [ -z $scope ]; then
-        printf "${RED}gitbox setup aliases: Ouch! I need a scope (ie. --system, --global, --local) to setup aliases${NORMAL}\n"
+        printf "${RED}gitbox setup aliases: Ouch! I need a scope (ie. --system, --global, --local) to setup aliases${NORMAL}\n" 1>&2
         usage_setup_aliases
         return 1;
     fi
@@ -180,7 +180,7 @@ function gitbox_setup_gitattributes() {
         case $key in
             --to-dir)
                 if [ ! -d "$2" ]; then
-                    printf "${RED}gitbox setup attributes: Ouch! '%s' doesn't seem to be a valid directory.${NORMAL}\n" "$2"
+                    printf "${RED}gitbox setup attributes: Ouch! '%s' doesn't seem to be a valid directory.${NORMAL}\n" "$2" 1>&2
                     exit 1
                 fi
                 directory="$2"
@@ -206,7 +206,7 @@ function gitbox_setup_gitattributes() {
     installation_path=$directory/.gitattributes
 
     if ! is_a_git_workspace $directory; then
-        printf "${RED}gitbox setup attributes: Ouch! I need a git repository to work${NORMAL}\n"
+        printf "${RED}gitbox setup attributes: Ouch! I need a git repository to work${NORMAL}\n" 1>&2
         exit 1;
     fi
 
@@ -215,7 +215,7 @@ function gitbox_setup_gitattributes() {
     fi
     template_path="$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.gitattributes"
     if [ ! -f $template_path ]; then
-        printf "${RED}gitbox setup attributes: Ouch! I need a .gitattributes template and '%s' doesn't exists${NORMAL}\n" "$attributes_file_prefix.gitattributes"
+        printf "${RED}gitbox setup attributes: Ouch! I need a .gitattributes template and '%s' doesn't exists${NORMAL}\n" "$attributes_file_prefix.gitattributes" 1>&2
         exit 1
     fi
 
@@ -228,10 +228,10 @@ function gitbox_setup_gitattributes() {
 
         printf "${GREEN}Creating .gitattributes file ['%s'] from %s.gitattributes template.${NORMAL}\n" "${installation_path#./}" "$attributes_file_prefix"
         cp "$template_path" "$installation_path"
-        return $?
+        exit $?
     else
-        printf "${RED}gitbox setup attributes: The file '%s' already exists! (use -F, --force to rewrite)${NORMAL}\n" "${installation_path#./}"
-        return 1
+        printf "${RED}gitbox setup attributes: The file '%s' already exists! (use -F, --force to rewrite)${NORMAL}\n" "${installation_path#./}" 1>&2
+        exit 1
     fi
 }
 
@@ -261,14 +261,14 @@ function gitbox_setup_attribute() {
     done
 
     if [ -z $value ] || [ -z $scope ]; then
-        printf "${RED}gitbox setup $attribute_name: Ouch! There is not enough parameters.${NORMAL}\n"
+        printf "${RED}gitbox setup $attribute_name: Ouch! There is not enough parameters.${NORMAL}\n" 1>&2
         usage_setup_attribute $attribute $attribute_name
         exit 1
     fi
 
     set_git_attribute "$attribute" "$scope" "$value"
     if (( $? )); then
-        printf "${RED}gitbox setup $attribute_name: Ouch! '$BOLD%s$NORMAL$RED' has not been configured as $BOLD%s$NORMAL$RED in %s scope. It's '%s' a git repository?${NORMAL}\n" "$value" "$attribute" "$scope" "$(pwd)";
+        printf "${RED}gitbox setup $attribute_name: Ouch! '$BOLD%s$NORMAL$RED' has not been configured as $BOLD%s$NORMAL$RED in %s scope. It's '%s' a git repository?${NORMAL}\n" "$value" "$attribute" "$scope" "$(pwd)" 1>&2
     else
         printf "${GREEN}Great! '$BOLD%s$NORMAL$GREEN' has been configured as $BOLD%s$NORMAL$GREEN in %s scope ${NORMAL}\n" "$(get_git_attribute $attribute $scope)" "$attribute" "$scope";
     fi

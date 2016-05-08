@@ -15,6 +15,6 @@ function sandbin_upgrade() {
         printf "${UNDERLINE}${BRIGHT_WHITE}%s${REMOVE_UNDERLINE}${NORMAL}\n" "Remember to reload your sandbin session running 'sandbin reload' in your shell."
 
     else
-        printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?'
+        printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?' 1>&2
     fi
 }

@@ -30,7 +30,7 @@ function usage() {
 function gitbox() {
 
     if [ $# = 0 ]; then
-        printf "${RED}gitbox: Sorry! I need a gitbox subcommand to continue :(${NORMAL}\n"
+        printf "${RED}gitbox: Sorry! I need a gitbox subcommand to continue :(${NORMAL}\n" 1>&2
         usage;
         exit 1;
     fi
@@ -64,7 +64,7 @@ function gitbox() {
                 exit 0
             ;;
             *)
-                printf "${RED}gitbox: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key"
+                printf "${RED}gitbox: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
                 usage
                 exit 1
             ;;
