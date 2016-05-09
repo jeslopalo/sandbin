@@ -29,6 +29,7 @@ function gitbox_initialize() {
             -s|--server)
                 if is_a_git_workspace; then
                     printf "${RED}gitbox initialize: The '%s' directory is already a git repository!${NORMAL}\n" $(pwd) 1>&2
+                    usage_initialize
                     exit 1
                 fi
                 printf "Initializing git bare shared repository in '%s' directory...\n" $(pwd)

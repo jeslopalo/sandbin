@@ -181,6 +181,7 @@ function gitbox_setup_gitattributes() {
             --to-dir)
                 if [ ! -d "$2" ]; then
                     printf "${RED}gitbox setup attributes: Ouch! '%s' doesn't seem to be a valid directory.${NORMAL}\n" "$2" 1>&2
+                    usage_setup_gitattributes
                     exit 1
                 fi
                 directory="$2"
@@ -207,6 +208,7 @@ function gitbox_setup_gitattributes() {
 
     if ! is_a_git_workspace $directory; then
         printf "${RED}gitbox setup attributes: Ouch! I need a git repository to work${NORMAL}\n" 1>&2
+        usage_setup_gitattributes
         exit 1;
     fi
 
@@ -216,6 +218,7 @@ function gitbox_setup_gitattributes() {
     template_path="$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.gitattributes"
     if [ ! -f $template_path ]; then
         printf "${RED}gitbox setup attributes: Ouch! I need a .gitattributes template and '%s' doesn't exists${NORMAL}\n" "$attributes_file_prefix.gitattributes" 1>&2
+        usage_setup_gitattributes
         exit 1
     fi
 
@@ -231,6 +234,7 @@ function gitbox_setup_gitattributes() {
         exit $?
     else
         printf "${RED}gitbox setup attributes: The file '%s' already exists! (use -F, --force to rewrite)${NORMAL}\n" "${installation_path#./}" 1>&2
+        usage_setup_gitattributes
         exit 1
     fi
 }
