@@ -1,7 +1,17 @@
+### v0.42.0 (2016-05-09) - Add some art to the installation
+
+  * [9fccc7e] Add usage information for errors
+  * [eabab75] Add selection of random ASCII arts for sandbin 'version & reload'
+  * [2ae53c0] Add function keyword
+  * [ad4b3e9] Add ASCII art, sandbin_script
+  * [9b736a3] Extract installing functions into sandbin.lib.zsh
+
+
 ### v0.41.0 (2016-05-08) - Cleaning the code
 
   * [0595c17] Redirect error messages to stderr
   * [ae17ff3] Remove unused scripts & libs
+  * [f01c9b0] Update CHANGELOG.md with 0.41.0 changes
 
 
 ### v0.40.0 (2016-05-07) - Improve documentation of commands
