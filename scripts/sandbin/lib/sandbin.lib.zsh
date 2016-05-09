@@ -46,7 +46,7 @@ function print_sandbin_banner() {
     fi
 }
 
-sandbin_version() {
+function sandbin_version() {
     cd "$SANDBIN_HOME"
 
     echo $(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
