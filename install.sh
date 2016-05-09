@@ -147,15 +147,9 @@ generate_sandbin_config_file "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
 
-printf '%s' "$GREEN"
-printf '%s\n' ''
-printf '%s\n' '                                          oooo oooo       o88'
-printf '%s\n' ' oooooooo8    ooooooo   oo oooooo    ooooo888   888ooooo  oooo  oo oooooo'
-printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   888   888'
-printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
-printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
-printf '%s\n' ''
-printf "%s\n" "${RED}                                                           revision: $revision${NORMAL}"
+source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
+
+print_sandbin_banner "$(sandbin_version)" "${GREEN}${BOLD}" "sandbin"
 printf "%s\n" "${BLUE}Hooray! Sandbin has been installed.${NORMAL}"
 printf "%s\n" "${YELLOW}Please, reload your shell session!${NORMAL}"
 

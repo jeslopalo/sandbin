@@ -62,7 +62,7 @@ function sandbin() {
                     mutually_exclusive_subcommands_error "$key"
                     exit 1
                 fi
-                subcommand="sandbin_version"
+                subcommand="print_sandbin_version"
             ;;
             -h|--help)
                 usage "help"

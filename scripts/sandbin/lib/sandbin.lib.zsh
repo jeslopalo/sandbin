@@ -1,28 +1,53 @@
+function random_file_name() {
+    local directory="$1"
+
+    file_name=$(find $directory  -maxdepth 1 -type f | \
+        perl -we'rand($.) < 1 && ($pick = $_) while <>; print $pick' | \
+        xargs -n 1 -I {} basename {})
+
+    echo ${file_name%.*}
+}
+
+function random_graph_name() {
+    random_file_name "$SANDBIN_HOME/scripts/sandbin/assets/graphs/"
+}
+
+function random_banner_name() {
+    random_file_name "$SANDBIN_HOME/scripts/sandbin/assets/banner/"
+}
+
+function print_acii_art() {
+    local filename=$1
+    local color=$2
+    printf "\n${color}%s${NORMAL}\n\n" "$(cat ${filename})"
+}
+
+function print_banner() {
+    print_acii_art "$SANDBIN_HOME/scripts/sandbin/assets/banner/${1}.txt" "$2"
+}
+
+function print_graph() {
+    print_acii_art "$SANDBIN_HOME/scripts/sandbin/assets/graphs/${1}.txt" "$2"
+}
 
 function print_sandbin_banner() {
-    local branch=$1;
+    local version=$1;
     local banner_color=$2;
+    local banner_name=$([ $# -ge 3 ] && echo $3 || echo $(random_banner_name))
 
     if [ -z "$banner_color" ]; then
         banner_color="${GREEN}"
     fi
 
-    printf '%s' "$banner_color"
-    printf '%s\n' ''
-    printf '%s\n' '                                          oooo oooo       o88'
-    printf '%s\n' ' oooooooo8    ooooooo   oo oooooo    ooooo888   888ooooo  oooo  oo oooooo'
-    printf '%s\n' '888ooooooo    ooooo888   888   888 888    888   888    888 888   888   888'
-    printf '%s\n' '        888 888    888   888   888 888    888   888    888 888   888   888 '
-    printf '%s\n' '88oooooo88   88ooo88 8o o888o o888o  88ooo888o o888ooo88  o888o o888o o888o '
-    printf '%s\n' ''
-    if [ ! -z "$branch" ]; then
-        printf "%s\n" "${RED}                                                           revision: $branch"
+    print_banner ${banner_name} $banner_color
+
+    if [ ! -z "$version" ]; then
+        printf "${RED}%s${NORMAL}\n" "                                                           revision: $version"
     fi
-    printf "${NORMAL}\n"
 }
 
-sandbin_branch() {
+sandbin_version() {
     cd "$SANDBIN_HOME"
 
-    echo `git rev-parse --abbrev-ref HEAD`
+    echo $(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
 }
