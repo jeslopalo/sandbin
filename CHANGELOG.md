@@ -5,6 +5,8 @@
   * [2ae53c0] Add function keyword
   * [ad4b3e9] Add ASCII art, sandbin_script
   * [9b736a3] Extract installing functions into sandbin.lib.zsh
+  * [c1599be] Update CHANGELOG.md with 0.42.0 changes
+  * [20684b8] Add latest version changelog to sandbin version command
 
 
 ### v0.41.0 (2016-05-08) - Cleaning the code
