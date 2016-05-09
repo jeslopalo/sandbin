@@ -131,6 +131,7 @@ function git_changelog_by_tag() {
 
     if ! git_exists_tag $tag; then
         printf "${RED}gitbox changelog tag: Sorry but '%s' tag does not exist!${NORMAL}\n" "$tag" 1>&2
+        usage_changelog
         return 1
     fi
 
@@ -151,11 +152,13 @@ function git_changelog_by_tag_range() {
 
     if ! git_exists_tag $start_tag; then
         printf "${RED}gitbox changelog: Sorry but '%s' tag does not exist!${NORMAL}\n" "$start_tag" 1>&2
+        usage_changelog
         return 1
     fi
 
     if ! git_exists_tag $tag; then
         printf "${RED}gitbox changelog: Sorry but '%s' tag does not exist!${NORMAL}\n" "$tag" 1>&2
+        usage_changelog
         return 1
     fi
 

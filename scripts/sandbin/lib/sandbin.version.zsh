@@ -2,6 +2,10 @@ source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
 
 
-function sandbin_version() {
-    print_sandbin_banner "$(sandbin_branch)" "${BLUE}"
+function print_sandbin_version() {
+    local version="$(sandbin_version)"
+
+    print_sandbin_banner "$version" "${WHITE}${BOLD}"
+    printf "\n"
+    gitbox changelog --tag "$version"
 }
