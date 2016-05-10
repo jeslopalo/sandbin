@@ -7,5 +7,7 @@ function print_sandbin_version() {
 
     print_sandbin_banner "$version" "${WHITE}${BOLD}"
     printf "\n"
+
+    cd "$SANDBIN_HOME"
     gitbox changelog --tag "$version"
 }

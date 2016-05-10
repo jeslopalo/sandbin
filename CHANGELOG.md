@@ -1,3 +1,10 @@
+### v0.42.1 (2016-05-10) - Fix several bugs with sandbin commands
+
+  * [5e30f7d] Fix a bug with a renamed function in sandbin upgrade
+  * [a5d138d] Fix 'sandbin version' command to change to SANDBIN_HOME directory
+  * [dc772ee] Add a left space in ASCII banners
+
+
 ### v0.42.0 (2016-05-09) - Add some art to the installation
 
   * [9fccc7e] Add usage information for errors
@@ -7,6 +14,7 @@
   * [9b736a3] Extract installing functions into sandbin.lib.zsh
   * [c1599be] Update CHANGELOG.md with 0.42.0 changes
   * [20684b8] Add latest version changelog to sandbin version command
+  * [8a55c71] Update CHANGELOG.md with 0.42.0 changes
 
 
 ### v0.41.0 (2016-05-08) - Cleaning the code
