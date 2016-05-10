@@ -97,7 +97,7 @@ function print_sandbin_banner() {
     print_banner ${banner_name} $banner_color
 
     if [ ! -z "$version" ]; then
-        printf "${RED}%s${NORMAL}\n" "                                                           revision: $version"
+        printf "${RED}%s${NORMAL}\n" "                                                               revision: $version"
     fi
 }
 
