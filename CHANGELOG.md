@@ -1,8 +1,18 @@
+### v0.43.0 (2016-05-11) - Fetch before upgrade & other minor changes
+
+  * [eaf7e9b] Add 'cardboard_box.txt' ascii art
+  * [f03977b] Add .editorconfig configuration file
+  * [32fe428] Modify README.md with more accurate installation instructions
+  * [fbd742f] Prettify README.md
+  * [9344db6] Fetch from remote repository before upgrade
+
+
 ### v0.42.1 (2016-05-10) - Fix several bugs with sandbin commands
 
   * [5e30f7d] Fix a bug with a renamed function in sandbin upgrade
   * [a5d138d] Fix 'sandbin version' command to change to SANDBIN_HOME directory
   * [dc772ee] Add a left space in ASCII banners
+  * [69de3a5] Update CHANGELOG.md with 0.42.1 changes
 
 
 ### v0.42.0 (2016-05-09) - Add some art to the installation
