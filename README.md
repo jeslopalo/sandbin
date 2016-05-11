@@ -1,21 +1,22 @@
 # sandbin
 
-Just my own shell scripts for everyday work
+Just my own shell scripts for everyday work. Please, use at your own risk!
 
-# Changelog
+## Changelog
 
 See version changes in [CHANGELOG.md](CHANGELOG.md)
 
-# Installation
+## Installation
 
-Download and execute ```install.sh``` from repository
+Download and execute ```install.sh``` directly from remote repository...
+
 ```zsh
 » wget --no-check-certificate https://raw.githubusercontent.com/jeslopalo/sandbin/master/install.sh -O - | zsh
 ```
 
-Then the latests version will be installed
+...then the latests version will be installed:
+
 ```zsh
-» wget --no-check-certificate https://raw.githubusercontent.com/jeslopalo/sandbin/master/install.sh -O - | zsh
 --2016-05-11 17:13:16--  https://raw.githubusercontent.com/jeslopalo/sandbin/master/install.sh
 Resolving raw.githubusercontent.com... 185.31.17.133
 Connecting to raw.githubusercontent.com|185.31.17.133|:443... connected.
@@ -49,4 +50,28 @@ The sandbin bootstrap is already configured in '/Users/jeslopalo/.zshrc'
                                                                revision: 0.42.1
 Hooray! Sandbin has been installed.
 Please, reload your shell session!
+```
+
+```
+                      _____
+                     /_____\
+                ____[\`---'/]____
+               /\ #\ \_____/ /# /\
+              /  \# \_.---._/ #/  \
+             /   /|\  |   |  /|\   \
+            /___/ | | |   | | | \___\
+            |  |  | | |---| | |  |  |
+            |__|  \_| |_#_| |_/  |__|
+            //\\  <\ _//^\\_ />  //\\
+            \||/  |\//// \\\\/|  \||/
+                  |   |   |   |
+                  |---|   |---|
+                  |---|   |---|
+                  |   |   |   |
+                  |___|   |___|
+                  /   \   /   \
+                 |_____| |_____|
+                 |HHHHH| |HHHHH|
+
+Hooray! sandbin has been installed!
 ```
