@@ -104,5 +104,6 @@ function print_sandbin_banner() {
 function sandbin_version() {
     cd "$SANDBIN_HOME"
 
+    git fetch >/dev/null 2>&1
     echo $(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
 }
