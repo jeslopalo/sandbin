@@ -82,7 +82,7 @@ new_alias "$scope" "stage" "add"
 new_alias "$scope" "unstage" "reset HEAD --"
 
 say "Configuring aliases for push changes..."
-new_alias "$scope" "push-all" "!git push --all && git push --tags"
+new_alias "$scope" "push-all" "!git checkout master && git push && git checkout develop && git push && git push --tags"
 
 say "Configuring aliases for remotes..."
 new_alias "$scope" "show-origin" "remote show origin"
