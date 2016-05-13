@@ -47,7 +47,7 @@ new_alias "$scope" "branch-unpublish" "!git push origin --delete \$(git branch-n
 new_alias "$scope" "branch-name" "rev-parse --abbrev-ref HEAD"
 new_alias "$scope" "branch-rename" "branch -m"
 new_alias "$scope" "branch-delete" "!f() { git branch -D \$1; git push origin --delete \$1; }; f"
-new_alias "$scope" "branches" "for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads"
+new_alias "$scope" "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads | column -s \$'\\t' -t"
 new_alias "$scope" "branches-last-commit" "branch -vv -a"
 
 say "Configuring aliases for tags..."
