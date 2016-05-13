@@ -22,10 +22,10 @@ new_alias "$scope" "today-all" "!git history-all --since='12am'"
 
 say "Configuring aliases for authors..."
 new_alias "$scope" "me" "config user.name"
-new_alias "$scope" "author" "!printf \"%s <%s>\n\" \"\$(git config user.name)\" \"\$(git config user.email)\""
-new_alias "$scope" "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
-new_alias "$scope" "committers" "!git log --pretty=format:\"%C(red)%aN%C(reset)\" | sort | uniq -c | sort -rn"
-new_alias "$scope" "mergers" "!git log --pretty=format:\"%C(red)%aN%C(reset)\" --merges | sort | uniq -c | sort -rn"
+new_alias "$scope" "author" "!printf \"%s <%s>\\n\" \"\$(git config user.name)\" \"\$(git config user.email)\""
+new_alias "$scope" "authors" '!git log --all --format="%C(bold yellow)%an%Creset - %C(dim white)<%ae>%Creset" | sort -u | column -s \$'-' -t'
+new_alias "$scope" "committers" "!git log --pretty=format:\"%C(red)%ae%C(reset)\" | sort | uniq -c | sort -rn"
+new_alias "$scope" "mergers" "!git log --pretty=format:\"%C(red)%ae%C(reset)\" --merges | sort | uniq -c | sort -rn"
 
 say "Configuring aliases for workspace info..."
 # find the workspace of current repository
