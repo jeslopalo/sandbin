@@ -80,12 +80,13 @@ git_ranking () {
         from_date=$(echo $content | grep "\*\*" | cut -d '*' -f 3)
         to_date=$(echo $content | grep "\*\*" | cut -d '*' -f 7)
         position=$(echo $content | grep "\[$username\]" | cut -d '|' -f 2 | cut -d ' ' -f 2)
+        contributions=$(echo $content | grep "\[$username\]" | cut -d '|' -f 4 | sed 's/ //g')
 
         if [ "$position" = "" ]; then
             printf "${RED}gitbox ranking: Ouch! I can't find ${BOLD}%s$NORMAL$RED in the ranking of $BOLD%s${NORMAL}\n" "$username" "$location" 1>&2
         else
-            printf "(${YELLOW}%s${NORMAL} - ${YELLOW}%s${NORMAL}): ${BOLD}%s${NORMAL} has been the ${GREEN}%s${NORMAL}th committer in ${GREEN}%s${NORMAL}\n" \
-            "$from_date" "$to_date" "$username" "$position" "$location"
+            printf "(${YELLOW}%s${NORMAL} - ${YELLOW}%s${NORMAL}): ${BOLD}%s${NORMAL} has been the ${GREEN}%s${NORMAL}th committer in ${GREEN}%s${NORMAL} with ${BOLD}%s${NORMAL} contributions\n" \
+            "$from_date" "$to_date" "$username" "$position" "$location" "$contributions"
         fi
     fi
 }
