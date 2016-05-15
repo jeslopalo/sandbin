@@ -1,6 +1,7 @@
 
 say "Configuring aliases for aliases..."
-new_alias "$scope" "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/= /' | sed 's/^[a-z\-]*=/- $(tput bold)&$(tput sgr0)/'"
+new_alias "$scope" "aliases" "!git config --get-regexp 'alias.*' | grep -v alias.aliases | grep -v \"^[^alias]\" | colrm 1 6 | sed 's/[ ]/=\\
+    /' | sed 's/^[a-z\-]*=/- $(tput bold)&$(tput sgr0)/' | less -FRX"
 new_alias "$scope" "clean-aliases" "config $scope --remove-section alias"
 
 say "Configuring aliases for history..."
@@ -22,10 +23,10 @@ new_alias "$scope" "today-all" "!git history-all --since='12am'"
 
 say "Configuring aliases for authors..."
 new_alias "$scope" "me" "config user.name"
-new_alias "$scope" "author" "!printf \"%s <%s>\n\" \"\$(git config user.name)\" \"\$(git config user.email)\""
-new_alias "$scope" "authors" '!git log --all --format="%C(bold yellow)%an%Creset %C(dim white)<%ae>%Creset" | sort -u'
-new_alias "$scope" "committers" "!git log --pretty=format:\"%C(red)%aN%C(reset)\" | sort | uniq -c | sort -rn"
-new_alias "$scope" "mergers" "!git log --pretty=format:\"%C(red)%aN%C(reset)\" --merges | sort | uniq -c | sort -rn"
+new_alias "$scope" "author" "!printf \"%s <%s>\\n\" \"\$(git config user.name)\" \"\$(git config user.email)\""
+new_alias "$scope" "authors" '!git log --all --format="%C(bold yellow)%an%Creset - %C(dim white)<%ae>%Creset" | sort -u | column -s \$'-' -t'
+new_alias "$scope" "committers" "!git log --pretty=format:\"%C(red)%ae%C(reset)\" | sort | uniq -c | sort -rn"
+new_alias "$scope" "mergers" "!git log --pretty=format:\"%C(red)%ae%C(reset)\" --merges | sort | uniq -c | sort -rn"
 
 say "Configuring aliases for workspace info..."
 # find the workspace of current repository
@@ -47,7 +48,7 @@ new_alias "$scope" "branch-unpublish" "!git push origin --delete \$(git branch-n
 new_alias "$scope" "branch-name" "rev-parse --abbrev-ref HEAD"
 new_alias "$scope" "branch-rename" "branch -m"
 new_alias "$scope" "branch-delete" "!f() { git branch -D \$1; git push origin --delete \$1; }; f"
-new_alias "$scope" "branches" "for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads"
+new_alias "$scope" "branches" "!git for-each-ref --sort='-authordate' --format='%(authordate:iso) | %(color:bold green)%(refname:short)%(color:reset)%09- %(color:dim white)%(authoremail)%(color:reset)' refs/heads | column -s \$'\\t' -t"
 new_alias "$scope" "branches-last-commit" "branch -vv -a"
 
 say "Configuring aliases for tags..."
@@ -82,7 +83,7 @@ new_alias "$scope" "stage" "add"
 new_alias "$scope" "unstage" "reset HEAD --"
 
 say "Configuring aliases for push changes..."
-new_alias "$scope" "push-all" "!git push --all && git push --tags"
+new_alias "$scope" "push-all" "!git checkout master && git push && git checkout develop && git push && git push --tags"
 
 say "Configuring aliases for remotes..."
 new_alias "$scope" "show-origin" "remote show origin"
