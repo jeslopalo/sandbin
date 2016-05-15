@@ -1,6 +1,7 @@
 
 say "Configuring aliases for aliases..."
-new_alias "$scope" "aliases" "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/= /' | sed 's/^[a-z\-]*=/- $(tput bold)&$(tput sgr0)/'"
+new_alias "$scope" "aliases" "!git config --get-regexp 'alias.*' | grep -v alias.aliases | grep -v \"^[^alias]\" | colrm 1 6 | sed 's/[ ]/=\\
+    /' | sed 's/^[a-z\-]*=/- $(tput bold)&$(tput sgr0)/' | less -FRX"
 new_alias "$scope" "clean-aliases" "config $scope --remove-section alias"
 
 say "Configuring aliases for history..."
