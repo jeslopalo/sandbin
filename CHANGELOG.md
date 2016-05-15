@@ -1,3 +1,13 @@
+### v0.44.0 (2016-05-15) - Modify several git aliases
+
+  * [14d352b] Add 'sandbin_cosmic' banner
+  * [feccd51] Add sandbin_defleppard ascii banner
+  * [e93f791] Modify git authoring aliases to prettify the output
+  * [19ec5ce] Columnize 'git branches' alias
+  * [5bf6b69] Modify 'git push-all' to only push develop, master & tags
+  * [63475a2] Modify 'git aliases' to display command in a new line
+
+
 ### v0.43.0 (2016-05-11) - Fetch before upgrade & other minor changes
 
   * [eaf7e9b] Add 'cardboard_box.txt' ascii art
@@ -5,6 +15,7 @@
   * [32fe428] Modify README.md with more accurate installation instructions
   * [fbd742f] Prettify README.md
   * [9344db6] Fetch from remote repository before upgrade
+  * [5591d01] Update CHANGELOG.md with 0.43.0 changes
 
 
 ### v0.42.1 (2016-05-10) - Fix several bugs with sandbin commands
