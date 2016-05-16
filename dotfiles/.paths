@@ -1,3 +1,4 @@
+export PATH=~/bin:$PATH;
 export PATH=$SANDBIN_HOME/scripts/gitbox:$PATH;
 export PATH=$SANDBIN_HOME/scripts/system:$PATH;
 export PATH=$SANDBIN_HOME/scripts/sandbin:$PATH;
