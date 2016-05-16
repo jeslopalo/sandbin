@@ -258,6 +258,7 @@ __gitbox-tag-names() {
 __gitbox-ranking() {
     _arguments \
         ":username:()" \
+        "(-c --columnize)"{-c,--columnize}"[Display raning in columns]" \
         --madrid'[Madrid ranking]' \
         --spain'[Spain ranking]' \
         --alt-spain'[Spain alternative ranking]' \
