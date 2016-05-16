@@ -1,3 +1,11 @@
+### v0.45.0 (2016-05-16) - Improve 'gitbox ranking' to save evolution in columns
+
+  * [1644048] Add contributions count in 'gitbox ranking' result
+  * [d451ce1] Add spain alterantive ranking
+  * [765caab] Add --columnize option in 'gitbox ranking'
+  * [031dd2c] Add the possibility to have custom scripts in $HOME/bin
+
+
 ### v0.44.0 (2016-05-15) - Modify several git aliases
 
   * [14d352b] Add 'sandbin_cosmic' banner
@@ -6,6 +14,7 @@
   * [19ec5ce] Columnize 'git branches' alias
   * [5bf6b69] Modify 'git push-all' to only push develop, master & tags
   * [63475a2] Modify 'git aliases' to display command in a new line
+  * [6be02d1] Update CHANGELOG.md with 0.44.0 changes
 
 
 ### v0.43.0 (2016-05-11) - Fetch before upgrade & other minor changes
