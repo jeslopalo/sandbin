@@ -15,6 +15,7 @@ function usage_ranking() {
         printf "\nOptions:\n"
         printf "    ${BOLD}--madrid${NORMAL}        Search <username> in the ranking of Madrid (defaults to all)\n"
         printf "    ${BOLD}--spain${NORMAL}         Search <username> in the ranking of Spain (defaults to all)\n"
+        printf "    ${BOLD}--alt-spain${NORMAL}     Search <username> in the alternative ranking of Spain (defaults to all)\n"
         printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
     fi
 }
@@ -34,6 +35,9 @@ function gitbox_ranking() {
             --spain)
                 locations="spain $locations"
             ;;
+            --alt-spain)
+                locations="alt $locations"
+            ;;
             -h|--help)
                 usage_ranking "help"
                 exit 0
@@ -47,13 +51,17 @@ function gitbox_ranking() {
     done
 
     if [ "$locations" = "" ]; then
-        locations="madrid spain"
+        locations="madrid spain alt"
     fi
 
     if [ "$username" = "" ]; then
         printf "${RED}gitbox ranking: Ouch! There is not enough parameters!, I need a username.${NORMAL}\n" 1>&2
         usage_ranking
         exit 1
+    fi
+
+    if [ "${locations/alt/}" != "${locations}" ]; then
+        git_ranking_by_alt_spain "$username"
     fi
 
     if [ "${locations/spain/}" != "${locations}" ]; then
@@ -103,6 +111,14 @@ git_ranking_by_spain() {
     local url="https://raw.githubusercontent.com/JJ/top-github-users-data/master/formatted/top-Espa%C3%B1a.md"
     local username="$1"
     local location="Spain"
+
+    git_ranking "$url" "$username" "$location"
+}
+
+git_ranking_by_alt_spain() {
+    local url="https://raw.githubusercontent.com/JJ/top-github-users-data/master/formatted/top-alt-Spain.md"
+    local username="$1"
+    local location="Spain (alt)"
 
     git_ranking "$url" "$username" "$location"
 }

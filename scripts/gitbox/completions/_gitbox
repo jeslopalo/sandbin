@@ -260,6 +260,7 @@ __gitbox-ranking() {
         ":username:()" \
         --madrid'[Madrid ranking]' \
         --spain'[Spain ranking]' \
+        --alt-spain'[Spain alternative ranking]' \
         "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
