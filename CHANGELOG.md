@@ -1,9 +1,15 @@
+### v0.45.1 (2016-05-17) - Fix 'sandbin version' command (#15)
+
+  * [93202a7] Fix 'sandbin version' command
+
+
 ### v0.45.0 (2016-05-16) - Improve 'gitbox ranking' to save evolution in columns
 
   * [1644048] Add contributions count in 'gitbox ranking' result
   * [d451ce1] Add spain alterantive ranking
   * [765caab] Add --columnize option in 'gitbox ranking'
   * [031dd2c] Add the possibility to have custom scripts in $HOME/bin
+  * [30c18c7] Update CHANGELOG.md with 0.45.0 changes
 
 
 ### v0.44.0 (2016-05-15) - Modify several git aliases

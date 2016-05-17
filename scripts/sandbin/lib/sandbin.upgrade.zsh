@@ -3,7 +3,7 @@ source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
 
 function sandbin_upgrade() {
 
-    version=$(sandbin_version)
+    version=$(sandbin_latest_version)
 
     printf "${BLUE}%s${NORMAL}\n" "Upgrading sandbin installation [$SANDBIN_HOME] to $version"
 
