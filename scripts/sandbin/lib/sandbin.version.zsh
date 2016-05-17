@@ -8,6 +8,6 @@ function print_sandbin_version() {
     print_sandbin_banner "$version" "${WHITE}${BOLD}"
     printf "\n"
 
-    cd "$SANDBIN_HOME"
+    cd "$SANDBIN_HOME" || exit 1
     gitbox changelog --tag "$version"
 }

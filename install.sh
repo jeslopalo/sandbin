@@ -68,12 +68,6 @@ if [ -z $install_from_dir ]; then
       exit 1
     }
 
-    if [ -z "$revision" ]; then
-        revision="master"
-    else
-        cd "$SANDBIN_HOME"
-        git checkout "$revision"
-    fi
 else
     echo "Installing from local directory $install_from_dir to $SANDBIN_HOME"
     cp -R "$install_from_dir" $SANDBIN_HOME
@@ -81,11 +75,18 @@ fi
 
 source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
 
+if [ -z "$revision" ]; then
+    revision="$(sandbin_latest_version)"
+else
+    cd "$SANDBIN_HOME"
+    git checkout "$revision"
+fi
+
 generate_sandbin_config_file "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.bashrc "$SANDBIN_HOME"
 configure_sandbin_bootstrap ~/.zshrc "$SANDBIN_HOME"
 
-print_sandbin_banner "$(sandbin_version)" "${GREEN}${BOLD}" "sandbin"
+print_sandbin_banner "$revision" "${GREEN}${BOLD}" "sandbin"
 printf "%s\n" "${BLUE}Hooray! Sandbin has been installed.${NORMAL}"
 printf "%s\n" "${YELLOW}Please, reload your shell session!${NORMAL}"
 
