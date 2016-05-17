@@ -101,9 +101,15 @@ function print_sandbin_banner() {
     fi
 }
 
-function sandbin_version() {
-    cd "$SANDBIN_HOME"
+function sandbin_latest_version() {
+    cd "$SANDBIN_HOME" || exit 1
 
     git fetch >/dev/null 2>&1
+    echo $(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
+}
+
+function sandbin_version() {
+    cd "$SANDBIN_HOME" || exit 1
+
     echo $(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
 }
