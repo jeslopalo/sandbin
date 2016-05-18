@@ -1,5 +1,8 @@
 # sandbin
 
+[![Issue Count](https://codeclimate.com/github/jeslopalo/sandbin/badges/issue_count.svg)](https://codeclimate.com/github/jeslopalo/sandbin)
+[![Code Climate](https://codeclimate.com/github/jeslopalo/sandbin/badges/gpa.svg)](https://codeclimate.com/github/jeslopalo/sandbin)
+
 Just my own shell scripts for everyday work. Please, use at your own risk!
 
 ## Changelog
