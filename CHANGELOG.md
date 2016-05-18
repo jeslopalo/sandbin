@@ -1,6 +1,15 @@
-### v0.45.1 (2016-05-17) - Fix 'sandbin version' command (#15)
+### v0.46.0 (2016-05-18) - Add codeclimate analysis configuration
+
+  * [8964824] Configure codeclimate to run ShellCheck with every commit
+  * [fb5a54c] Modify tab width in codeclimate configuration file
+  * [6b956f7] Add *.yml configuration in editorConfig
+  * [92030ec] Enable 'fixme' engine in codeclimate
+
+
+### v0.45.1 (2016-05-17) - Fix 'sandbin version' command
 
   * [93202a7] Fix 'sandbin version' command
+  * [274af5b] Update CHANGELOG.md with 0.45.1 changes
 
 
 ### v0.45.0 (2016-05-16) - Improve 'gitbox ranking' to save evolution in columns
