@@ -154,7 +154,7 @@ function gitbox_setup_aliases() {
         return 1;
     fi
 
-    if [ -z $scope ]; then
+    if [ -z "$scope" ]; then
         printf "${RED}gitbox setup aliases: Ouch! I need a scope (ie. --system, --global, --local) to setup aliases${NORMAL}\n" 1>&2
         usage_setup_aliases
         return 1;
@@ -165,7 +165,7 @@ function gitbox_setup_aliases() {
         git config $scope --remove-section alias 2> /dev/null
     fi
 
-    if [ -z $aliases_file_prefix ]; then
+    if [ -z "$aliases_file_prefix" ]; then
         aliases_file_prefix="default"
     fi
 
@@ -212,7 +212,7 @@ function gitbox_setup_gitattributes() {
         exit 1;
     fi
 
-    if [ -z $attributes_file_prefix ]; then
+    if [ -z "$attributes_file_prefix" ]; then
         attributes_file_prefix="default"
     fi
     template_path="$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.gitattributes"
@@ -264,7 +264,7 @@ function gitbox_setup_attribute() {
         shift;
     done
 
-    if [ -z $value ] || [ -z $scope ]; then
+    if [ -z "$value" ] || [ -z "$scope" ]; then
         printf "${RED}gitbox setup $attribute_name: Ouch! There is not enough parameters.${NORMAL}\n" 1>&2
         usage_setup_attribute $attribute $attribute_name
         exit 1

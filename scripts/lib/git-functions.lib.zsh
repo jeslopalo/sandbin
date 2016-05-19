@@ -151,10 +151,10 @@ function git_changelog_by_ref_range() {
     local from="$1"
     local to="$2"
 
-    if [ -z $from ]; then
+    if [ -z "$from" ]; then
         from="$(git_last_tag_id)"
 
-        if [ -z $from ]; then
+        if [ -z "$from" ]; then
             from="$(git_first_commit_id)";
         fi
     fi

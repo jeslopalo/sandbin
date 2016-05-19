@@ -123,7 +123,7 @@ function git_changelog_by_tag() {
         shift
     done
 
-    if [ -z $tag ]; then
+    if [ -z "$tag" ]; then
         printf "${RED}gitbox changelog tag: Ouch! Do you forget something, don't you? I need a tag name!${NORMAL}\n" 1>&2
         usage_changelog
         return 1
@@ -136,7 +136,7 @@ function git_changelog_by_tag() {
     fi
 
     local previous_tag=$(git_previous_tag_from_tag $tag)
-    if [ -z $previous_tag ]; then
+    if [ -z "$previous_tag" ]; then
         print_changelog_header "$(generate_tag_header $tag)"
         git_changelog_by_ref_range $(git_first_commit_id) $tag
     else
@@ -162,7 +162,7 @@ function git_changelog_by_tag_range() {
         return 1
     fi
 
-    if [ -z $start_tag ]; then
+    if [ -z "$start_tag" ]; then
         print_changelog_header "$(generate_tag_header $tag)"
         git_changelog_by_ref_range $(git_first_commit_id) $tag
     else
@@ -224,13 +224,13 @@ function git_changelog_publish() {
         return 1
     fi
 
-    if [ -z $release_message ]; then
+    if [ -z "$release_message" ]; then
         printf "${RED}gitbox changelog publish: Ouch! Do you forget something, don't you? I need a release message!${NORMAL}\n" 1>&2
         usage_changelog_publish
         return 1
     fi
 
-    if [ -z $filename ]; then
+    if [ -z "$filename" ]; then
         if [ -f "CHANGELOG.md" ]; then
             filename="CHANGELOG.md"
         elif [ -f "CHANGELOG" ]; then
@@ -243,7 +243,7 @@ function git_changelog_publish() {
     printf "Writing changes to ${BOLD}%s${NORMAL}\n" "$filename"
     print_changelog_all "$release_message" | strip_color_codes > $filename
 
-    if [ -z $no_commit ]; then
+    if [ -z "$no_commit" ]; then
         git add "$filename"
         git commit -m "Update $filename with $version changes"
     else
@@ -313,7 +313,7 @@ function contains_not_released_commits() {
 function print_changelog_header() {
     local release_message="$1"
 
-    if [ -z $release_message ]; then
+    if [ -z "$release_message" ]; then
         printf "### CHANGELOG\n\n"
     else
         printf "### %s\n\n" "$release_message"
@@ -327,21 +327,21 @@ function print_changelog_header_by_branch() {
     branch_name=$(git_branch_name)
     case $branch_name in
         feature/* | develop | master)
-            if [ -z $release_message ]; then
+            if [ -z "$release_message" ]; then
                 print_changelog_header "WIP(branch:${branch_name##feature/})"
             else
                 print_changelog_header "WIP(branch:${branch_name##feature/}) - $release_message"
             fi
         ;;
         release/*)
-            if [ -z $release_message ]; then
+            if [ -z "$release_message" ]; then
                 print_changelog_header "v${branch_name##release/} ($today)"
             else
                 print_changelog_header "v${branch_name##release/} ($today) - $release_message"
             fi
         ;;
         hotfix/*)
-            if [ -z $release_message ]; then
+            if [ -z "$release_message" ]; then
                 print_changelog_header "v${branch_name##hotfix/} ($today)"
             else
                 print_changelog_header "v${branch_name##hotfix/} ($today) - $release_message"

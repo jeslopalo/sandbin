@@ -86,7 +86,7 @@ git_ranking () {
     local location="$3"
     local columnize="$4"
 
-    if [ -z $username ]; then
+    if [ -z "$username" ]; then
         printf "${RED}gitbox ranking: Sorry, I need to know your username to proceed${NORMAL}\n" 1>&2
         usage_ranking
     else

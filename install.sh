@@ -60,7 +60,7 @@ if [ -d "$SANDBIN_HOME" ]; then
     exit 1
 fi
 
-if [ -z $install_from_dir ]; then
+if [ -z "$install_from_dir" ]; then
 
     echo "Cloning sandbin..."
     hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.git $SANDBIN_HOME || {

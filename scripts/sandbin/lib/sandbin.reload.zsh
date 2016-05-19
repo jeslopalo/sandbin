@@ -2,7 +2,7 @@ source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
 
 function sandbin_reload() {
-    if [ -z $SHELL ]; then
+    if [ -z "$SHELL" ]; then
         exec $SHELL;
     fi
 

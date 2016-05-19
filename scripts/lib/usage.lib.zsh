@@ -10,7 +10,7 @@ function usage_description_color() {
     local mode="$1"
     local color="$2"
 
-    [ -z $color ] && [ "$mode" != "description" ] && echo "${CYAN}" || echo "$color"
+    [ -z "$color" ] && [ "$mode" != "description" ] && echo "${CYAN}" || echo "$color"
 }
 
 function usage_show_description() {
