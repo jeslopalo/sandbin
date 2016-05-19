@@ -1,10 +1,20 @@
 engines:
-    shellcheck:
-        enabled: true
-    fixme:
-        enabled: true
+  shellcheck:
+    enabled: true
+  fixme:
+    enabled: true
+  duplication:
+    enabled: true
 
 ratings:
-    paths: []
+  paths:
+  - "dotfiles/.*"
+  - "scripts/**"
+  - "scripts/**/**"
+  - "scripts/**/**/*"
+  - "**.sh"
+  - "**.zsh"
+  - "**.yml"
+  - "**.md"
 
 exclude_paths: []
