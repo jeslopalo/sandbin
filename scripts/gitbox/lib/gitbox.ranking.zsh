@@ -27,7 +27,7 @@ function gitbox_ranking() {
     local username;
     local columnize;
 
-    while [[ $# > 0 ]]; do
+    while [[ $# -gt 0 ]]; do
         key="$1"
 
         case $key in
@@ -86,7 +86,7 @@ git_ranking () {
     local location="$3"
     local columnize="$4"
 
-    if [ -z $username ]; then
+    if [ -z "$username" ]; then
         printf "${RED}gitbox ranking: Sorry, I need to know your username to proceed${NORMAL}\n" 1>&2
         usage_ranking
     else
