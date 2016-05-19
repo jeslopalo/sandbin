@@ -85,7 +85,7 @@ function gitbox_setup() {
         exit 1
     fi
 
-    while [[ $# > 0 ]];  do
+    while [[ $# -gt 0 ]];  do
         key="$1"
 
         case $key in
@@ -126,7 +126,7 @@ function gitbox_setup() {
 
 function gitbox_setup_aliases() {
 
-    while [[ $# > 0 ]];  do
+    while [[ $# -gt 0 ]];  do
         key="$1"
 
         case $key in
@@ -174,7 +174,7 @@ function gitbox_setup_aliases() {
 
 function gitbox_setup_gitattributes() {
 
-    while [[ $# > 0 ]];  do
+    while [[ $# -gt 0 ]];  do
         key="$1"
 
         case $key in
@@ -246,7 +246,7 @@ function gitbox_setup_attribute() {
 
     shift;
     shift;
-    while [[ $# > 0 ]];  do
+    while [[ $# -gt 0 ]];  do
         key="$1"
 
         case $key in

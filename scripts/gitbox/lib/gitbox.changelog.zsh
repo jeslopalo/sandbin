@@ -44,7 +44,7 @@ function gitbox_changelog() {
         exit 1
     fi
 
-    while [[ $# > 0 ]]; do
+    while [[ $# -gt 0 ]]; do
         key="$1"
 
         case $key in
@@ -108,7 +108,7 @@ function git_changelog_wip() {
 #
 function git_changelog_by_tag() {
 
-    while [[ $# > 0 ]]; do
+    while [[ $# -gt 0 ]]; do
         key="$1"
 
         case $key in
@@ -185,7 +185,7 @@ function generate_tag_header() {
 #
 function git_changelog_publish() {
 
-    while [[ $# > 0 ]]; do
+    while [[ $# -gt 0 ]]; do
         key="$1"
 
         case $key in
@@ -259,7 +259,7 @@ function git_changelog_publish() {
 #
 function git_changelog_all() {
 
-    while [[ $# > 0 ]]; do
+    while [[ $# -gt 0 ]]; do
         key="$1"
 
         case $key in
