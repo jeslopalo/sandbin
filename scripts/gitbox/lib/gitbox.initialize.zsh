@@ -19,7 +19,7 @@ function usage_initialize() {
 
 function gitbox_initialize() {
 
-    while [[ $# > 0 ]]; do
+    while [[ $# -gt 0 ]]; do
         key="$1"
 
         case $key in

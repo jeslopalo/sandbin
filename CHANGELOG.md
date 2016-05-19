@@ -1,9 +1,19 @@
+### v0.46.1 (2016-05-19) - Apply corrections to the source code after passing ShellCheck linter
+
+  * [106a5c5] Substitute '$# > 0' for '$# -gt 0'
+  * [1362d9b] Add double quote to prevent globbing and word splitting.
+  * [f446b11] Remove unnecesary color declarations
+  * [0cb43f9] Reduce 'indent_size' to 2 in .editorconfig
+  * [a173d44] Add paths to ratings in .codeclimate.yml
+
+
 ### v0.46.0 (2016-05-18) - Add codeclimate analysis configuration
 
   * [8964824] Configure codeclimate to run ShellCheck with every commit
   * [fb5a54c] Modify tab width in codeclimate configuration file
   * [6b956f7] Add *.yml configuration in editorConfig
   * [92030ec] Enable 'fixme' engine in codeclimate
+  * [409dc5b] Update CHANGELOG.md with 0.46.0 changes
 
 
 ### v0.45.1 (2016-05-17) - Fix 'sandbin version' command

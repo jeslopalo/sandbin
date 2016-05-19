@@ -1,6 +1,6 @@
 #@IgnoreInspection AddShebangLine
 
-while [[ $# > 0 ]];  do
+while [[ $# -gt 0 ]];  do
     key="$1"
 
     case $key in
@@ -25,26 +25,6 @@ done
 
 set -e
 
-# Use colors, but only if connected to a terminal, and that terminal
-# supports them.
-tput=$(which tput)
-if [ -n "$tput" ]; then
-    ncolors=$(tput colors)
-fi
-if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
-    RED="$(tput setaf 1)"
-    GREEN="$(tput setaf 2)"
-    YELLOW="$(tput setaf 3)"
-    BLUE="$(tput setaf 4)"
-    NORMAL="$(tput sgr0)"
-else
-    RED=""
-    GREEN=""
-    YELLOW=""
-    BLUE=""
-    NORMAL=""
-fi
-
 if [ ! -n "$SANDBIN_HOME" ]; then
 	SANDBIN_HOME=~/.sandbin
 fi
@@ -60,7 +40,7 @@ if [ -d "$SANDBIN_HOME" ]; then
     exit 1
 fi
 
-if [ -z $install_from_dir ]; then
+if [ -z "$install_from_dir" ]; then
 
     echo "Cloning sandbin..."
     hash git >/dev/null 2>&1 && env git clone https://github.com/jeslopalo/sandbin.git $SANDBIN_HOME || {
@@ -73,6 +53,7 @@ else
     cp -R "$install_from_dir" $SANDBIN_HOME
 fi
 
+source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
 
 if [ -z "$revision" ]; then
