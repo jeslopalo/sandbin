@@ -1,5 +1,9 @@
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 
+function is_a_maven_project() {
+    [ -f "pom.xml" ]
+}
+
 function set_version_in_pom() {
     local version="$1"
 
