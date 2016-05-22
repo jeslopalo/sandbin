@@ -1,0 +1,56 @@
+#!/usr/bin/env sandbash
+
+source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
+
+source "$SANDBIN_HOME/scripts/bump/lib/bump.lib.zsh"
+source "$SANDBIN_HOME/scripts/bump/lib/bump.version.zsh"
+
+function usage() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}It provides utilities to bump the project version${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}bump${NORMAL} [maven | shell | version] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\n"
+        printf "    ${BOLD}maven${NORMAL}           Bump version in a maven project (ie. pom.xml)\n"
+        printf "    ${BOLD}shell${NORMAL}           Bump version in a shell project (ie. VERSION)\n"
+        printf "    ${BOLD}version${NORMAL}         Bump version in every descriptor found (ie. maven, VERSION, etc)\n"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
+}
+
+function bump() {
+
+    if [ $# = 0 ]; then
+        printf "${RED}bump: Sorry! I need a bump subcommand to continue :(${NORMAL}\n" 1>&2
+        usage;
+        exit 1;
+    fi
+
+    while [[ $# -gt 0 ]];  do
+        key="$1"
+
+        case $key in
+            shell|maven|version)
+                bump_version "$@"
+                exit $?
+            ;;
+            -h|--help)
+                usage "help"
+                exit 0
+            ;;
+            *)
+                printf "${RED}bump: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
+                usage
+                exit 1
+            ;;
+        esac
+
+        shift;
+    done
+}
+
+bump "$@"
