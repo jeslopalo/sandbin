@@ -25,25 +25,23 @@ _bump() {
 
         (options)
             case $line[1] in
-
                 (shell)
                     _arguments \
                         ':Version:()' \
-                        "(-h --help)"{-h,--help}"[Show help for 'bump shell' command]"
+                        "(-h --help)"{-h,--help}"[Show help for bump shell command]"
                 ;;
 
                 (maven)
                     _arguments \
                         ':Version:()' \
-                        "(-h --help)"{-h,--help}"[Show help for 'bump maven' command]"
+                        "(-h --help)"{-h,--help}"[Show help for bump maven command]"
                 ;;
 
                 (version)
                     _arguments \
                         ':Version:()' \
-                        "(-h --help)"{-h,--help}"[Show help for 'bump version' command]"
+                        "(-h --help)"{-h,--help}"[Show help for bump version command]"
                 ;;
-
             esac
         ;;
     esac
