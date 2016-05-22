@@ -1,0 +1,52 @@
+#compdef bump
+
+_bump() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                'shell:Bump version in shell VERSION descriptor'
+                'maven:Bump version in maven pom.xml descriptor'
+                'version:Bump version in every versionable file found'
+            )
+            _describe -t commands 'bump' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for bump usage]"
+        ;;
+
+        (options)
+            case $line[1] in
+
+                (shell)
+                    _arguments \
+                        ':Version:()' \
+                        "(-h --help)"{-h,--help}"[Show help for 'bump shell' command]"
+                ;;
+
+                (maven)
+                    _arguments \
+                        ':Version:()' \
+                        "(-h --help)"{-h,--help}"[Show help for 'bump maven' command]"
+                ;;
+
+                (version)
+                    _arguments \
+                        ':Version:()' \
+                        "(-h --help)"{-h,--help}"[Show help for 'bump version' command]"
+                ;;
+
+            esac
+        ;;
+    esac
+}
+
+_bump "$@"

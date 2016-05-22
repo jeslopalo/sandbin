@@ -34,6 +34,7 @@ function bump() {
         key="$1"
 
         case $key in
+
             shell|maven|version)
                 bump_version "$@"
                 exit $?
