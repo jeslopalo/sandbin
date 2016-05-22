@@ -1,6 +1,6 @@
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
 
-function is_a_maven_project() {
+function exists_pom() {
     [ -f "pom.xml" ]
 }
 
