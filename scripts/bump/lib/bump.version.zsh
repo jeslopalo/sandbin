@@ -12,7 +12,7 @@ function usage_bump_version() {
     local color=$(usage_description_color $mode $3)
 
     $(usage_show_description $mode) && printf "${color}Bump version in versionable files: ${BOLD}%s${NORMAL} ${color}file(s)${NORMAL}\n" "$file"
-    $(usage_show_usage $mode) && printf "usage: ${BOLD}bump %s${NORMAL} <version> [--no-commit] [-h, --help]\n" "$system"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}bump %s${NORMAL} <version> [--no-commit | -h, --help]\n" "$system"
 
     if usage_show_detailed $mode; then
         printf "\n"
