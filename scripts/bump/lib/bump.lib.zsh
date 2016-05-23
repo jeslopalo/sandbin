@@ -102,3 +102,23 @@ function set_version() {
 
     return "$ret"
 }
+
+
+#
+# Commit files
+#
+function commit_versionable_files() {
+    local system=$(version_system $1)
+    local version=$2
+
+    if [ "$system" = "maven" ] || [ "$system" = "version" ]; then
+        git add $(version_file "maven")
+    fi
+
+    if [ "$system" = "shell" ] || [ "$system" = "version" ]; then
+        git add $(version_file "shell")
+    fi
+
+    git commit -m "Bump version to $version"
+    return $?
+}

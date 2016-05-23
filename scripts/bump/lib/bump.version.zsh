@@ -12,12 +12,13 @@ function usage_bump_version() {
     local color=$(usage_description_color $mode $3)
 
     $(usage_show_description $mode) && printf "${color}Bump version in versionable files: ${BOLD}%s${NORMAL} ${color}file(s)${NORMAL}\n" "$file"
-    $(usage_show_usage $mode) && printf "usage: ${BOLD}bump %s${NORMAL} <version> [...] [-h, --help]\n" "$system"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}bump %s${NORMAL} <version> [--no-commit] [-h, --help]\n" "$system"
 
     if usage_show_detailed $mode; then
         printf "\n"
         printf "    ${BOLD}<version>${NORMAL}          New version of the project (Optional: If not set, try to extract it from the name of the branch)\n"
         printf "\nOptions:\n"
+        printf "    ${BOLD}--no-commit${NORMAL}        Doesn't commit changes in versionable file(s)\n"
         printf "    ${BOLD}-h, --help${NORMAL}         Display this help\n"
     fi
 }
@@ -34,7 +35,9 @@ function bump_version() {
         key="$1"
 
         case $key in
-
+            --no-commit)
+                no_commit=true
+            ;;
             -h|--help)
                 usage_bump_version "$system" "help"
                 return 0
@@ -70,5 +73,11 @@ function bump_version() {
     fi
 
     set_version "$system" "$version"
+    if [ $? = 0 ] && [ -z "$no_commit" ]; then
+        commit_versionable_files "$system" "$version"
+    else
+        printf "${YELLOW}${BOLD}--no-commit${NORMAL} ${YELLOW}is active, no changes will be commited${NORMAL}\n"
+    fi
+
     return $?
 }

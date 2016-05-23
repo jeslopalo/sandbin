@@ -28,16 +28,19 @@ _bump() {
                 (shell)
                     _arguments \
                         ':Version:()' \
+                        '--no-commit[Do not commit changes]' \
                         "(-h --help)"{-h,--help}"[Show help for bump shell command]"
                 ;;
                 (maven)
                     _arguments \
                         ':Version:()' \
+                        '--no-commit[Do not commit changes]' \
                         "(-h --help)"{-h,--help}"[Show help for bump maven command]"
                 ;;
                 (version)
                     _arguments \
                         ':Version:()' \
+                        '--no-commit[Do not commit changes]' \
                         "(-h --help)"{-h,--help}"[Show help for bump version command]"
                 ;;
             esac
