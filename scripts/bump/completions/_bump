@@ -30,13 +30,11 @@ _bump() {
                         ':Version:()' \
                         "(-h --help)"{-h,--help}"[Show help for bump shell command]"
                 ;;
-
                 (maven)
                     _arguments \
                         ':Version:()' \
                         "(-h --help)"{-h,--help}"[Show help for bump maven command]"
                 ;;
-
                 (version)
                     _arguments \
                         ':Version:()' \
