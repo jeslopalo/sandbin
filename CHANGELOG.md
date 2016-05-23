@@ -1,6 +1,24 @@
+### v0.47.0 (2016-05-23) - Add new 'bump' command to update project version
+
+  * [ade2300] Add maven.lib.zsh with serveral maven functions
+  * [b83d2bb] Add new 'is_a_maven_project()' function
+  * [ba4205d] Rename 'is_a_maven_project()' -> 'exists_pom()'
+  * [605f3d7] Add new 'bump' command to bump versionable files
+  * [d944f36] Remove the old 'system' command from path
+  * [f0a7f0b] Modify automplete 'descriptions' template
+  * [7e770b7] Add new line to the end of file
+  * [c197e2c] Add autocompletion of command arguments
+  * [545fb42] Remove single quotes (') from command help messages
+  * [69ce4cc] Remove white lines that broke the script
+  * [2521418] Add '--no-commit' option in bump version command
+  * [7488283] Improve 'bump *' help message
+  * [86d0843] Bump version to 0.47.0
+
+
 ### v0.46.2 (2016-05-19) - Remove codeclimante 'duplication' engine
 
   * [509505a] Remove codeclimate 'duplication' engine
+  * [1f5fc4b] Update CHANGELOG.md with 0.46.2 changes
 
 
 ### v0.46.1 (2016-05-19) - Apply corrections to the source code after passing ShellCheck linter
