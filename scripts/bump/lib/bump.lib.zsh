@@ -89,15 +89,20 @@ function version_file() {
 function set_version() {
     local system="$1"
     local version="$2"
+    local ret=0
 
     if [ "$system" = "maven" ] || [ "$system" = "version" ]; then
-        printf "Bumping version in pom.xml to ${BOLD}%s${NORMAL}...\n" "$version"
-        ret=$(set_version_in_pom "$version")
+        if is_a_maven_project; then
+            printf "Bumping version in pom.xml to ${BOLD}%s${NORMAL}...\n" "$version"
+            ret=$(set_version_in_pom "$version")
+        fi
     fi
 
     if [ "$system" = "shell" ] || [ "$system" = "version" ]; then
-        printf "Bumping version in VERSION to ${BOLD}%s${NORMAL}...\n" "$version"
-        ret=$(echo "$version" > VERSION)
+        if is_a_shell_project; then
+            printf "Bumping version in VERSION to ${BOLD}%s${NORMAL}...\n" "$version"
+            ret=$(echo "$version" > VERSION)
+        fi
     fi
 
     return "$ret"
@@ -112,13 +117,21 @@ function commit_versionable_files() {
     local version=$2
 
     if [ "$system" = "maven" ] || [ "$system" = "version" ]; then
-        git add $(version_file "maven")
+        if is_a_maven_project; then
+            git add $(version_file "maven")
+            commit=true
+        fi
     fi
 
     if [ "$system" = "shell" ] || [ "$system" = "version" ]; then
-        git add $(version_file "shell")
+        if is_a_shell_project; then
+            git add $(version_file "shell")
+            commit=true
+        fi
     fi
 
-    git commit -m "Bump version to $version"
-    return $?
+    if [ "$commit" = "true" ]; then
+        git commit -m "Bump version to $version"
+        return $?
+    fi
 }

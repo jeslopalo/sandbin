@@ -1,3 +1,9 @@
+### v0.47.1 (2016-05-24) - Fix a minor bug in 'bump version' command
+
+  * [b2eab2b] Fix 'bump version' when a versionable file don't exists
+  * [2a66c3f] Bump version to 0.47.1
+
+
 ### v0.47.0 (2016-05-23) - Add new 'bump' command to update project version
 
   * [ade2300] Add maven.lib.zsh with serveral maven functions
@@ -13,6 +19,7 @@
   * [2521418] Add '--no-commit' option in bump version command
   * [7488283] Improve 'bump *' help message
   * [86d0843] Bump version to 0.47.0
+  * [72cc076] Update CHANGELOG.md with 0.47.0 changes
 
 
 ### v0.46.2 (2016-05-19) - Remove codeclimante 'duplication' engine
