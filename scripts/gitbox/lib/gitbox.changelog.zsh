@@ -250,6 +250,7 @@ function git_changelog_publish() {
         printf "${YELLOW}${BOLD}--no-commit${NORMAL} ${YELLOW}is active, no changes will be commited${NORMAL}\n"
     fi
 
+    printf "\n%s\n\n\n" "$(git_changelog_wip $release_message)"
     exit $?
 }
 
