@@ -1,6 +1,6 @@
 
-for file in $SANDBIN_HOME/scripts/**/_*; do
-    directory=$(dirname "$file")
+for completion_file in $SANDBIN_HOME/scripts/**/_*; do
+    directory=$(dirname "$completion_file")
 
     # Load all of the autocomplete files in sandbin home directory
     fpath=($directory $fpath)

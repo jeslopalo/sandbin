@@ -1,13 +1,13 @@
 #!/usr/bin/env sandbash
 
-source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
+import "scripts/lib/usage.lib.zsh"
+import "scripts/lib/git-functions.lib.zsh"
 
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.lib.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.initialize.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.setup.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.ranking.zsh"
-source "${SANDBIN_HOME}/scripts/gitbox/lib/gitbox.changelog.zsh"
+import "scripts/gitbox/lib/gitbox.lib.zsh"
+import "scripts/gitbox/lib/gitbox.initialize.zsh"
+import "scripts/gitbox/lib/gitbox.setup.zsh"
+import "scripts/gitbox/lib/gitbox.ranking.zsh"
+import "scripts/gitbox/lib/gitbox.changelog.zsh"
 
 function usage() {
     local mode=$(usage_mode $1)

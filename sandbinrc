@@ -5,19 +5,25 @@ if [ -z "$SANDBIN_HOME" ]; then
 fi
 
 # Load sandbin configuration
+# shellcheck source=sandbin.conf
 source "$SANDBIN_HOME/sandbin.conf"
 
 # export sandbin paths
+# shellcheck source=dotfiles/.paths
 source "$SANDBIN_HOME/dotfiles/.paths"
 
 # source dotfiles
+# shellcheck source=dotfiles/.functions
 source "$SANDBIN_HOME/dotfiles/.functions"
 
 # source completions
+# shellcheck source=dotfiles/.completions
 source "$SANDBIN_HOME/dotfiles/.completions"
 
 # source aliases
+# shellcheck source=dotfiles/.alias
 source "$SANDBIN_HOME/dotfiles/.alias"
 
 # source exports
+# shellcheck source=dotfiles/.exports
 source "$SANDBIN_HOME/dotfiles/.exports"

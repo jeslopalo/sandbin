@@ -54,6 +54,7 @@ else
 fi
 
 source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
+source "${SANDBIN_HOME}/scripts/lib/lang.lib.zsh"
 source "${SANDBIN_HOME}/scripts/sandbin/lib/sandbin.lib.zsh"
 
 if [ -z "$revision" ]; then

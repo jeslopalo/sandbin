@@ -1,6 +1,5 @@
-source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
+import "scripts/lib/usage.lib.zsh"
+import "scripts/lib/git-functions.lib.zsh"
 
 function usage_ranking() {
     local mode=$(usage_mode $1)

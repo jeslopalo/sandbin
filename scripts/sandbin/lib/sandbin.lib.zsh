@@ -1,4 +1,4 @@
-source "$SANDBIN_HOME/scripts/lib/moustache.lib.zsh"
+import "scripts/lib/moustache.lib.zsh"
 
 function generate_sandbin_config_file() {
     local sandbin_home=$1;

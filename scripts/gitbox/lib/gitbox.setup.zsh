@@ -1,6 +1,5 @@
-source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
+import "scripts/lib/usage.lib.zsh"
+import "scripts/lib/git-functions.lib.zsh"
 
 function usage_setup() {
     local mode=$(usage_mode $1)
@@ -169,7 +168,7 @@ function gitbox_setup_aliases() {
         aliases_file_prefix="default"
     fi
 
-    source "${SANDBIN_HOME}/dotfiles/gitaliases/${aliases_file_prefix}.gitaliases"
+    import "dotfiles/gitaliases/${aliases_file_prefix}.gitaliases"
 }
 
 function gitbox_setup_gitattributes() {

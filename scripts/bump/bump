@@ -1,9 +1,9 @@
 #!/usr/bin/env sandbash
 
-source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
+import "scripts/lib/usage.lib.zsh"
 
-source "$SANDBIN_HOME/scripts/bump/lib/bump.lib.zsh"
-source "$SANDBIN_HOME/scripts/bump/lib/bump.version.zsh"
+import "scripts/bump/lib/bump.lib.zsh"
+import "scripts/bump/lib/bump.version.zsh"
 
 function usage() {
     local mode=$(usage_mode $1)
