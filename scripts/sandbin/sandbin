@@ -1,11 +1,11 @@
 #!/usr/bin/env sandbash
 
-source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
+import "scripts/lib/usage.lib.zsh"
 
-source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.lib.zsh"
-source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.reload.zsh"
-source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.version.zsh"
-source "$SANDBIN_HOME/scripts/sandbin/lib/sandbin.upgrade.zsh"
+import "scripts/sandbin/lib/sandbin.lib.zsh"
+import "scripts/sandbin/lib/sandbin.reload.zsh"
+import "scripts/sandbin/lib/sandbin.version.zsh"
+import "scripts/sandbin/lib/sandbin.upgrade.zsh"
 
 function usage() {
     local mode=$(usage_mode $1)

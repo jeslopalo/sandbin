@@ -1,5 +1,3 @@
-source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
-
 function usage_mode() {
     local mode="$1"
 

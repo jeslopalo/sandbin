@@ -1,8 +1,7 @@
-source "${SANDBIN_HOME}/scripts/lib/colors.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/usage.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
+import "scripts/lib/usage.lib.zsh"
+import "scripts/lib/git-functions.lib.zsh"
 
-source "${SANDBIN_HOME}/scripts/bump/lib/bump.lib.zsh"
+import "scripts/bump/lib/bump.lib.zsh"
 
 function usage_bump_version() {
     local system=$(version_system "$1")
