@@ -16,7 +16,7 @@ function usage() {
         printf "\n"
         printf "    ${BOLD}shell${NORMAL}           Bump version in a shell project (ie. VERSION)\n"
         printf "    ${BOLD}maven${NORMAL}           Bump version in a maven project (ie. pom.xml)\n"
-        printf "    ${BOLD}version${NORMAL}         Bump version in every descriptor found (ie. pom.xml, VERSION, etc)\n"
+        printf "    ${BOLD}version${NORMAL}         Bump version in every found descriptor (ie. pom.xml, VERSION, etc)\n"
         printf "\nOptions:\n"
         printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
     fi

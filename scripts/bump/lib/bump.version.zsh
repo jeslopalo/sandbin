@@ -16,7 +16,7 @@ function usage_bump_version() {
 
     if usage_show_detailed $mode; then
         printf "\n"
-        printf "    ${BOLD}<version>${NORMAL}          New version of the project (Optional: If not set, try to extract it from the name of the branch)\n"
+        printf "    ${BOLD}<version>${NORMAL}          New version of the project (Optional. If not set, it will try to extract it from the name of the branch)\n"
         printf "\nOptions:\n"
         printf "    ${BOLD}--no-commit${NORMAL}        Doesn't commit changes in versionable file(s)\n"
         printf "    ${BOLD}-h, --help${NORMAL}         Display this help\n"
