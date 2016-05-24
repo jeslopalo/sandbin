@@ -1,5 +1,5 @@
-source "${SANDBIN_HOME}/scripts/lib/git-functions.lib.zsh"
-source "${SANDBIN_HOME}/scripts/lib/maven.lib.zsh"
+import "scripts/lib/git-functions.lib.zsh"
+import "scripts/lib/maven.lib.zsh"
 
 
 
