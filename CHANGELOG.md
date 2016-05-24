@@ -1,9 +1,17 @@
+### v0.49.0 (2016-05-24) - Clean up the import of libraries
+
+  * [0fd0392] Refactor source of code to an import method
+  * [6874331] Add a include-all.sh script to let codeclimate discover the sources
+  * [864efc3] Bump version to 0.49.0
+
+
 ### v0.48.0 (2016-05-24) - Minor changes
 
   * [1bd9307] Print out the changes of version to copy&paste in tag message
   * [d5e0052] Read current sandbin version from VERSION file
   * [f76305f] Modify help messages of 'bump' command
   * [79ce744] Bump version to 0.48.0
+  * [b6af6bd] Update CHANGELOG.md with 0.48.0 changes
 
 
 ### v0.47.1 (2016-05-24) - Fix a minor bug in 'bump version' command
