@@ -1,7 +1,16 @@
+### v0.48.0 (2016-05-24) - Minor changes
+
+  * [1bd9307] Print out the changes of version to copy&paste in tag message
+  * [d5e0052] Read current sandbin version from VERSION file
+  * [f76305f] Modify help messages of 'bump' command
+  * [79ce744] Bump version to 0.48.0
+
+
 ### v0.47.1 (2016-05-24) - Fix a minor bug in 'bump version' command
 
   * [b2eab2b] Fix 'bump version' when a versionable file don't exists
   * [2a66c3f] Bump version to 0.47.1
+  * [5f0a82c] Update CHANGELOG.md with 0.47.1 changes
 
 
 ### v0.47.0 (2016-05-23) - Add new 'bump' command to update project version
