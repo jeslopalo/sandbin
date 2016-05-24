@@ -111,5 +111,7 @@ function sandbin_latest_version() {
 function sandbin_version() {
     cd "$SANDBIN_HOME" || exit 1
 
-    echo $(git for-each-ref refs/tags --sort=-taggerdate --format='%(refname:short)' --count=1)
+    if [ -f VERSION ]; then
+        cat VERSION
+    fi
 }
