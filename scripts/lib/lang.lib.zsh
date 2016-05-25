@@ -1,9 +1,20 @@
 
-function import {
-  local -r file="$1"
-  shift
+function hash() {
+    echo "$1" | /usr/bin/shasum | /usr/bin/cut -c 1-13 | xargs -n 1 -I {} echo {}
+}
 
-  source "$SANDBIN_HOME/$file" "$@"
+# When a source file is imported, it is also cached to be included only once
+CACHED_IMPORTS=$(hash "scripts/lib/lang.lib.zsh")
+
+function import {
+    local -r file="$1"
+    shift
+
+    local hashed=$(hash "$file")
+    if ! contains "$CACHED_IMPORTS" "$hashed"; then
+        CACHED_IMPORTS="$CACHED_IMPORTS $hashed"
+        source "$SANDBIN_HOME/$file" "$@"
+    fi
 }
 
 # contains(string, substring)
