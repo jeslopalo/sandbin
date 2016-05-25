@@ -1,8 +1,16 @@
+### v0.50.0 (2016-05-26) - Improve the performance of sourcing files
+
+  * [a3392b9] New contains() function
+  * [142dd42] Add a cache to the sourcing of libraries
+  * [db20adf] Bump version to 0.50.0
+
+
 ### v0.49.0 (2016-05-24) - Clean up the import of libraries
 
   * [0fd0392] Refactor source of code to an import method
   * [6874331] Add a include-all.sh script to let codeclimate discover the sources
   * [864efc3] Bump version to 0.49.0
+  * [7f5c2ea] Update CHANGELOG.md with 0.49.0 changes
 
 
 ### v0.48.0 (2016-05-24) - Minor changes
