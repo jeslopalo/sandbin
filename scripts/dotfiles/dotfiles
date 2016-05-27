@@ -1,0 +1,63 @@
+#!/usr/bin/env sandbash
+
+#!/usr/bin/env sandbash
+
+import "scripts/lib/usage.lib.zsh"
+#import "scripts/lib/git-functions.lib.zsh"
+
+#import "scripts/dotfiles/lib/dotfiles.lib.zsh"
+
+function usage() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}Install several dotfiles in your home directory${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}dotfiles${NORMAL} [install | list] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\n"
+        printf "    ${BOLD}install${NORMAL}         %s\n" "$(usage_install description)"
+        printf "    ${BOLD}list${NORMAL}            %s\n" "$(usage_list description)"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
+}
+
+function dotfiles() {
+
+    if [ $# = 0 ]; then
+        printf "${RED}dotfiles: Sorry! I need a dotfiles subcommand to continue :(${NORMAL}\n" 1>&2
+        usage;
+        exit 1;
+    fi
+
+    while [[ $# -gt 0 ]];  do
+        key="$1"
+
+        case $key in
+            install)
+                shift
+                dotfiles_install "$@"
+                exit $?
+            ;;
+            list)
+                shift
+                dotfiles_list "$@"
+                exit $?
+            ;;
+            -h|--help)
+                usage "help"
+                exit 0
+            ;;
+            *)
+                printf "${RED}dotfiles: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
+                usage
+                exit 1
+            ;;
+        esac
+
+        shift;
+    done
+}
+
+dotfiles "$@"
