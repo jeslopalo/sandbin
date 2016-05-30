@@ -8,8 +8,8 @@ function extract_version_from_branch_name() {
     version=$(git_branch_version)
     if [ ! -z "$version" ] && [ "$version" != "WIP" ]; then
         echo $version
+        exit 0
     fi
-
     return 1
 }
 
@@ -101,7 +101,7 @@ function set_version() {
     if [ "$system" = "shell" ] || [ "$system" = "version" ]; then
         if is_a_shell_project; then
             printf "Bumping version in VERSION to ${BOLD}%s${NORMAL}...\n" "$version"
-            ret=$(echo "$version" > VERSION)
+            ret=$(echo "$version" | tr -d '\n' | tr -d ' ' > VERSION)
         fi
     fi
 
