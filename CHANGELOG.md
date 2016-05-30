@@ -1,8 +1,15 @@
+### v0.50.1 (2016-05-30) - Fix 'sandbin version' calculation
+
+  * [bb0a76d] Fix sandbin version writing & calculation removing spaces
+  * [6423b23] Bump version to 0.50.1
+
+
 ### v0.50.0 (2016-05-26) - Improve the performance of sourcing files
 
   * [a3392b9] New contains() function
   * [142dd42] Add a cache to the sourcing of libraries
   * [db20adf] Bump version to 0.50.0
+  * [de56ba7] Update CHANGELOG.md with 0.50.0 changes
 
 
 ### v0.49.0 (2016-05-24) - Clean up the import of libraries
