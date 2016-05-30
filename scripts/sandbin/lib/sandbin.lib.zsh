@@ -111,7 +111,7 @@ function sandbin_latest_version() {
 function sandbin_version() {
     cd "$SANDBIN_HOME" || exit 1
 
-    if [ -f VERSION ]; then
-        cat VERSION
+    if [ -f "VERSION" ]; then
+        cat "VERSION" | tr -d '\n' | tr -d ' '
     fi
 }
