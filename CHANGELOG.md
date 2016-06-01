@@ -1,7 +1,15 @@
+### v0.50.2 (2016-06-01) - Fix gitbox completions
+
+  * [a931f50] Replace underscore in function names
+  * [39bbeb3] Remove extra white lines
+  * [bef2134] Bump version to 0.50.2
+
+
 ### v0.50.1 (2016-05-30) - Fix 'sandbin version' calculation
 
   * [bb0a76d] Fix sandbin version writing & calculation removing spaces
   * [6423b23] Bump version to 0.50.1
+  * [4b778aa] Update CHANGELOG.md with 0.50.1 changes
 
 
 ### v0.50.0 (2016-05-26) - Improve the performance of sourcing files
