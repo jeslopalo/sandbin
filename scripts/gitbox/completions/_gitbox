@@ -95,9 +95,9 @@ __gitbox_setup() {
 
 __gitbox_setup_aliases() {
     _arguments \
-        ':scopes:__gitbox-setup-scopes' \
+        ':scopes:__gitbox_setup_scopes' \
         "(-c --clean-aliases)"{-c,--clean-aliases}'[Clean aliases defined in the scope]' \
-        ':file-prefixes:__gitbox-setup-aliases-files' \
+        ':file-prefixes:__gitbox_setup_aliases_files' \
         "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
@@ -155,7 +155,7 @@ __gitbox_setup_attributes() {
     _arguments \
         --to-dir'[Installation directory]':directory:__installation_directory_prompt \
         "(-F --force)"{-F,--force}"[Rewrite original .gitattributes file if already exists.]" \
-        ":file-prefixes:__gitbox-setup-attributes-files" \
+        ":file-prefixes:__gitbox_setup_attributes_files" \
         "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
@@ -180,10 +180,9 @@ __gitbox_setup_attribute() {
                 _describe -t commands $description subcommands
 
                 _arguments \
-                    ':scopes:__gitbox-setup-scopes' \
+                    ':scopes:__gitbox_setup_scopes' \
                     "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
             ;;
-
             (options)
                 case $line[1] in
 
@@ -224,7 +223,7 @@ __gitbox_changelog() {
 		(options)
 			case $line[1] in
                 (-t|--tag)
-                    _arguments ":tag name:__gitbox-tag-names"
+                    _arguments ":tag name:__gitbox_tag_names"
                 ;;
                 (--publish)
                     _arguments \
