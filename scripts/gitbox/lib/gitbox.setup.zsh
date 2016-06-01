@@ -140,7 +140,7 @@ function gitbox_setup_aliases() {
                 return 0
             ;;
             *)
-                aliases_file_prefix=$key
+                alias_file_prefix=$key
             ;;
         esac
 
@@ -164,11 +164,11 @@ function gitbox_setup_aliases() {
         git config $scope --remove-section alias 2> /dev/null
     fi
 
-    if [ -z "$aliases_file_prefix" ]; then
-        aliases_file_prefix="default"
+    if [ -z "$alias_file_prefix" ]; then
+        alias_file_prefix="default"
     fi
 
-    import "dotfiles/gitaliases/${aliases_file_prefix}.gitaliases"
+    import "scripts/gitbox/alias/${alias_file_prefix}.alias"
 }
 
 function gitbox_setup_gitattributes() {

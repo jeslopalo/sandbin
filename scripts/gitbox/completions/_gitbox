@@ -115,7 +115,7 @@ __gitbox_setup_aliases_files() {
     declare -a file_prefixes
 
     local prefixes
-    for file in $SANDBIN_HOME/dotfiles/gitaliases/*.gitaliases; do
+    for file in $SANDBIN_HOME/scripts/gitbox/alias/*.alias; do
         filename=${file##*/}
         prefix=${filename%.*}
         prefix=${prefix// /}
