@@ -26,15 +26,12 @@ _gitbox() {
 
         (options)
 			case $line[1] in
-
 				(initialize)
 				    __gitbox_initialize
 				;;
-
 				(setup)
 				    __gitbox_setup
                 ;;
-
                 (changelog)
                     __gitbox_changelog
                 ;;
@@ -186,7 +183,6 @@ __gitbox_setup_attribute() {
                     ':scopes:__gitbox_setup_scopes' \
                     "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
             ;;
-
             (options)
                 case $line[1] in
 
