@@ -168,7 +168,7 @@ function gitbox_setup_aliases() {
         alias_file_prefix="default"
     fi
 
-    import "scripts/gitbox/alias/${alias_file_prefix}.alias"
+    import "scripts/gitbox/aliases/${alias_file_prefix}.aliases"
 }
 
 function gitbox_setup_gitattributes() {
