@@ -1,0 +1,55 @@
+#!/usr/bin/env sandbash
+
+import "scripts/lib/usage.lib.zsh"
+
+import "scripts/dotfile/lib/dotfile.lib.zsh"
+import "scripts/dotfile/lib/dotfile.list.zsh"
+
+function usage() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}Manage several dotfiles in your home directory${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}dotfile${NORMAL} [list] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\n"
+        printf "    ${BOLD}list${NORMAL}            %s\n" "$(usage_list description)"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
+}
+
+function dotfile() {
+
+    if [ $# = 0 ]; then
+        printf "${RED}dotfile: Sorry! I need a dotfile subcommand to continue :(${NORMAL}\n" 1>&2
+        usage;
+        exit 1;
+    fi
+
+    while [[ $# -gt 0 ]];  do
+        key="$1"
+
+        case $key in
+            list)
+                shift
+                dotfile_list "$@"
+                exit $?
+            ;;
+            -h|--help)
+                usage "help"
+                exit 0
+            ;;
+            *)
+                printf "${RED}dotfile: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
+                usage
+                exit 1
+            ;;
+        esac
+
+        shift;
+    done
+}
+
+dotfile "$@"
