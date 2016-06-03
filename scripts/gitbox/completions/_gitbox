@@ -112,7 +112,6 @@ __gitbox_setup_scopes() {
 
 __gitbox_setup_aliases_files() {
     local expl
-    declare -a file_prefixes
 
     local prefixes
     for file in $SANDBIN_HOME/scripts/gitbox/aliases/*.aliases; do
@@ -122,14 +121,11 @@ __gitbox_setup_aliases_files() {
         prefixes="$prefix $prefixes"
     done
 
-    file_prefixes=(${prefixes// /})
-
-    _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
+    _wanted file-prefixes expl 'file-prefix' compadd $(command echo "$prefixes" | tr ' ' '\n')
 }
 
 __gitbox_setup_attributes_files() {
     local expl
-    declare -a file_prefixes
 
     local prefixes
     for file in $SANDBIN_HOME/dotfiles/gitattributes/*.gitattributes; do
@@ -139,9 +135,7 @@ __gitbox_setup_attributes_files() {
         prefixes="$prefix $prefixes"
     done
 
-    file_prefixes=(${prefixes// /})
-
-    _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
+    _wanted file-prefixes expl 'file-prefix' compadd $(command echo "$prefixes" | tr ' ' '\n')
 }
 
 __installation_directory_prompt() {
