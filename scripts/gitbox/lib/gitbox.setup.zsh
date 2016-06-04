@@ -214,9 +214,9 @@ function gitbox_setup_gitattributes() {
     if [ -z "$attributes_file_prefix" ]; then
         attributes_file_prefix="default"
     fi
-    template_path="$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.gitattributes"
+    template_path="$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.template"
     if [ ! -f $template_path ]; then
-        printf "${RED}gitbox setup attributes: Ouch! I need a .gitattributes template and '%s' doesn't exists${NORMAL}\n" "$attributes_file_prefix.gitattributes" 1>&2
+        printf "${RED}gitbox setup attributes: Ouch! I need a .gitattributes template and '%s' doesn't exists${NORMAL}\n" "$attributes_file_prefix.template" 1>&2
         usage_setup_gitattributes
         exit 1
     fi
@@ -224,8 +224,8 @@ function gitbox_setup_gitattributes() {
     if [ ! -f "$installation_path" ] || [ $force ] ; then
 
         if [ -f "$installation_path" ]; then
-            printf "${YELLOW}Forcing to rewrite existing .gitattributes file ['%s'] (Saving a copy in %s)${NORMAL}\n" "${installation_path#./}" "${installation_path#./}.oldBackup"
-            mv "$installation_path" "$installation_path.oldBackup"
+            printf "${YELLOW}Forcing to rewrite existing .gitattributes file ['%s'] (Saving a copy in %s)${NORMAL}\n" "${installation_path#./}" "${installation_path#./}.backup"
+            mv "$installation_path" "$installation_path.backup"
         fi
 
         printf "${GREEN}Creating .gitattributes file ['%s'] from %s.gitattributes template.${NORMAL}\n" "${installation_path#./}" "$attributes_file_prefix"
