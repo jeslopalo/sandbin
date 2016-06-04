@@ -17,6 +17,7 @@ _dotfile() {
 
             subcommands=(
                 'list:List all available dotfiles'
+                'install:Install a dotfile template'
             )
             _describe -t commands 'dotfile' subcommands
             _arguments \
@@ -27,17 +28,27 @@ _dotfile() {
 			case $line[1] in
 				(list)
 				    _arguments \
-				        ':dotfile templates:__dotfile_list' \
+				        ':dotfile templates:__dotfile_list_groups' \
 				        "(-h --help)"{-h,--help}"[Show help for dotfile list usage]"
+                ;;
+                (install)
+				    _arguments \
+				        ':dotfile templates:__dotfile_list_templates' \
+				        "(-h --help)"{-h,--help}"[Show help for dotfile install usage]"
                 ;;
 			esac
 		;;
     esac
 }
 
-__dotfile_list() {
+__dotfile_list_groups() {
     local expl
-    _wanted dotfile-prefixes expl 'dotfile-prefix' compadd $(available_dotfiles | sed 's/\/.*//' | tr ' ' '\n')
+    _wanted dotfile-prefixes expl 'dotfile template groups' compadd $(available_dotfiles | sed 's/\/.*//' | tr ' ' '\n')
+}
+
+__dotfile_list_templates() {
+    local expl
+    _wanted dotfile-prefixes expl 'dotfile templates' compadd $(available_dotfiles | tr ' ' '\n')
 }
 
 _dotfile "$@"
