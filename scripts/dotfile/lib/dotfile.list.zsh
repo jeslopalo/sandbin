@@ -7,7 +7,7 @@ function usage_list() {
     local mode=$(usage_mode $1)
     local color=$(usage_description_color $mode $2)
 
-    $(usage_show_description $mode) && printf "${color}List all available dotfiles${NORMAL}\n"
+    $(usage_show_description $mode) && printf "${color}List all available dotfile templates${NORMAL}\n"
     $(usage_show_usage $mode) && printf "usage: ${BOLD}dotfile list${NORMAL} [<dotfiles group>] [-h, --help]\n"
 
     if usage_show_detailed $mode; then
@@ -42,7 +42,7 @@ function dotfile_list() {
     fi
 
     format_dotfile_list "$dotfiles"
-    exit 0
+    exit $?
 }
 
 function format_dotfile_list() {

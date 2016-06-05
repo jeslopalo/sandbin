@@ -128,7 +128,7 @@ __gitbox_setup_attributes_files() {
     local expl
 
     local prefixes
-    for file in $SANDBIN_HOME/dotfiles/gitattributes/*.gitattributes; do
+    for file in $SANDBIN_HOME/dotfiles/gitattributes/*.template; do
         filename=${file##*/}
         prefix=${filename%.*}
         prefix=${prefix// /}
