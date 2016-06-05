@@ -8,7 +8,7 @@ function usage_install() {
     local color=$(usage_description_color $mode $2)
 
     $(usage_show_description $mode) && printf "${color}Install a dotfile template${NORMAL}\n"
-    $(usage_show_usage $mode) && printf "usage: ${BOLD}dotfile install${NORMAL} <dotfile template> [-h, --help]\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}dotfile install${NORMAL} <dotfile template> [--to-dir <directory>] [-h, --help]\n"
 
     if usage_show_detailed $mode; then
         printf "\n"
