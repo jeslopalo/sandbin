@@ -19,13 +19,17 @@ function available_dotfiles() {
 
 function install_dotfile() {
     local name="$1"
+    local directory="$(echo $2 | sed 's/\/*$//')"
     local template="$SANDBIN_HOME/dotfiles/$name.template"
-    local directory=~
     local group=$(echo $name | sed 's/\/.*//')
 
     if [ -z "$name" ]; then
         printf "I need a dotfile name to be installed\n" 1>&2
         return 1
+    fi
+
+    if [ -z "$directory" ]; then
+        directory=~
     fi
 
     if [ ! -f "$template" ]; then
@@ -34,7 +38,7 @@ function install_dotfile() {
     fi
 
     if [ -f "$directory/.$group" ]; then
-        printf "The file already exists, creating backup [%s]..." "$directory/.$group"
+        printf "The file already exists, creating backup [%s]...\n" "$directory/.$group.backup"
         mv "$directory/.$group" "$directory/.$group.backup"
     fi
 

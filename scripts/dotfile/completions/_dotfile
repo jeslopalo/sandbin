@@ -34,6 +34,7 @@ _dotfile() {
                 (install)
 				    _arguments \
 				        ':dotfile templates:__dotfile_list_templates' \
+				        --to-dir'[Installation directory]':directory:__installation_directory_prompt \
 				        "(-h --help)"{-h,--help}"[Show help for dotfile install usage]"
                 ;;
 			esac
@@ -49,6 +50,10 @@ __dotfile_list_groups() {
 __dotfile_list_templates() {
     local expl
     _wanted dotfile-prefixes expl 'dotfile templates' compadd $(available_dotfiles | tr ' ' '\n')
+}
+
+__installation_directory_prompt() {
+    _path_files -/ -W "(~)"
 }
 
 _dotfile "$@"
