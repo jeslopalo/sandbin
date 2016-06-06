@@ -37,6 +37,11 @@ function install_dotfile() {
         return 1
     fi
 
+    if [ -d "$directory/.$group" ]; then
+        printf "${RED}Sorry! There is a directory (${BOLD}%s${NORMAL}${RED}) with the same name.${NORMAL}\n" "$directory/.$group" 1>&2
+        return 1
+    fi
+
     if [ -f "$directory/.$group" ]; then
         printf "The file already exists, creating backup [%s]...\n" "$directory/.$group.backup"
         mv "$directory/.$group" "$directory/.$group.backup"
