@@ -1,8 +1,28 @@
+### v0.52.0 (2016-06-06) - Add a new dotfile command
+
+  * [7658f73] Rename gitbox functions to use underscore (_)
+  * [7dac575] Change editorConfig properties
+  * [3650d46] Refactor sandbin.conf.template location
+  * [cfc2c4e] Move git aliases templates to a new location
+  * [26e8abc] Rename git aliases file template
+  * [eece508] Fix gitbox completions with multiple templates
+  * [8b879b7] Fix gitbox completions with multiple templates
+  * [a4be7e9] Start to code 'dotfile' command
+  * [2004f23] Add dotfile list command
+  * [0f9d492] Add command to install dotfiles in home directory
+  * [555164c] Modify 'gitbox setup attributes' to change extension of templates
+  * [f4c6cbe] Add the ability to set the installation directory in 'dotfile install'
+  * [361054a] Improve 'dotfile install' help message
+  * [40b4977] Check whether a destination name collides with an existing directory name
+  * [1f07be7] Bump version to 0.52.0
+
+
 ### v0.50.2 (2016-06-01) - Fix gitbox completions
 
   * [a931f50] Replace underscore in function names
   * [39bbeb3] Remove extra white lines
   * [bef2134] Bump version to 0.50.2
+  * [3fe6361] Update CHANGELOG.md with 0.50.2 changes
 
 
 ### v0.50.1 (2016-05-30) - Fix 'sandbin version' calculation
