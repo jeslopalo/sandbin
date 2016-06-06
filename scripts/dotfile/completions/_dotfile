@@ -1,0 +1,59 @@
+#compdef dotfile
+
+source "$SANDBIN_HOME/scripts/dotfile/lib/dotfile.lib.zsh"
+
+_dotfile() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                'list:List all available dotfiles'
+                'install:Install a dotfile template'
+            )
+            _describe -t commands 'dotfile' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for dotfile usage]"
+        ;;
+
+        (options)
+			case $line[1] in
+				(list)
+				    _arguments \
+				        ':dotfile templates:__dotfile_list_groups' \
+				        "(-h --help)"{-h,--help}"[Show help for dotfile list usage]"
+                ;;
+                (install)
+				    _arguments \
+				        ':dotfile templates:__dotfile_list_templates' \
+				        --to-dir'[Installation directory]':directory:__installation_directory_prompt \
+				        "(-h --help)"{-h,--help}"[Show help for dotfile install usage]"
+                ;;
+			esac
+		;;
+    esac
+}
+
+__dotfile_list_groups() {
+    local expl
+    _wanted dotfile-prefixes expl 'dotfile template groups' compadd $(available_dotfiles | sed 's/\/.*//' | tr ' ' '\n')
+}
+
+__dotfile_list_templates() {
+    local expl
+    _wanted dotfile-prefixes expl 'dotfile templates' compadd $(available_dotfiles | tr ' ' '\n')
+}
+
+__installation_directory_prompt() {
+    _path_files -/ -W "(~)"
+}
+
+_dotfile "$@"

@@ -14,7 +14,7 @@ _gitbox() {
             local -a subcommands;
 
             subcommands=(
-                'initialize:Execute \"git init\" & \"git flow init\"'
+                'initialize:Execute git init & git flow init'
                 'setup:Several git configurations'
                 'changelog:Calculate changelog of a git repository'
                 'ranking:Show the position of a user in github ranking'
@@ -112,36 +112,30 @@ __gitbox_setup_scopes() {
 
 __gitbox_setup_aliases_files() {
     local expl
-    declare -a file_prefixes
 
     local prefixes
-    for file in $SANDBIN_HOME/dotfiles/gitaliases/*.gitaliases; do
+    for file in $SANDBIN_HOME/scripts/gitbox/aliases/*.aliases; do
         filename=${file##*/}
         prefix=${filename%.*}
         prefix=${prefix// /}
         prefixes="$prefix $prefixes"
     done
 
-    file_prefixes=(${prefixes// /})
-
-    _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
+    _wanted file-prefixes expl 'file-prefix' compadd $(command echo "$prefixes" | tr ' ' '\n')
 }
 
 __gitbox_setup_attributes_files() {
     local expl
-    declare -a file_prefixes
 
     local prefixes
-    for file in $SANDBIN_HOME/dotfiles/gitattributes/*.gitattributes; do
+    for file in $SANDBIN_HOME/dotfiles/gitattributes/*.template; do
         filename=${file##*/}
         prefix=${filename%.*}
         prefix=${prefix// /}
         prefixes="$prefix $prefixes"
     done
 
-    file_prefixes=(${prefixes// /})
-
-    _wanted file-prefixes expl file-prefix compadd $* - $file_prefixes
+    _wanted file-prefixes expl 'file-prefix' compadd $(command echo "$prefixes" | tr ' ' '\n')
 }
 
 __installation_directory_prompt() {

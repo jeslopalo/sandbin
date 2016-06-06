@@ -29,14 +29,17 @@ if [ ! -n "$SANDBIN_HOME" ]; then
 	SANDBIN_HOME=~/.sandbin
 fi
 
+NORMAL="$(tput sgr0)"
+BOLD="$(tput bold)"
+
 if [ $force_reinstall ]; then
-    printf "Uninstalling sandbin from '%s' directory...\n" "$SANDBIN_HOME"
+    printf "${BOLD}Uninstalling sandbin${NORMAL} from '%s' directory...\n" "$SANDBIN_HOME"
     rm -rf $SANDBIN_HOME
 fi
-printf "Installing sandbin in '%s' directory...\n" "$SANDBIN_HOME"
+printf "${BOLD}Installing sandbin${NORMAL} in '%s' directory...\n" "$SANDBIN_HOME"
 
 if [ -d "$SANDBIN_HOME" ]; then
-	echo "You already have sandbin installed. You'll need to remove $SANDBIN_HOME if you want to reinstall" 1>&2
+	echo "${BOLD}You already have sandbin installed${NORMAL}. You'll need to remove $SANDBIN_HOME if you want to reinstall" 1>&2
     exit 1
 fi
 
@@ -49,7 +52,7 @@ if [ -z "$install_from_dir" ]; then
     }
 
 else
-    echo "Installing from local directory $install_from_dir to $SANDBIN_HOME"
+    echo "${BOLD}Installing from local directory${NORMAL} $install_from_dir to $SANDBIN_HOME"
     cp -R "$install_from_dir" $SANDBIN_HOME
 fi
 
