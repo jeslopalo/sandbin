@@ -1,3 +1,9 @@
+### v0.52.1 (2016-06-07) - Fix dotfile command
+
+  * [eaae02c] Fix dotfile to find available templates (find command)
+  * [e93e3cf] Bump version to 0.52.1
+
+
 ### v0.52.0 (2016-06-06) - Add a new dotfile command
 
   * [7658f73] Rename gitbox functions to use underscore (_)
@@ -15,6 +21,7 @@
   * [361054a] Improve 'dotfile install' help message
   * [40b4977] Check whether a destination name collides with an existing directory name
   * [1f07be7] Bump version to 0.52.0
+  * [ae70e86] Update CHANGELOG.md with 0.52.0 changes
 
 
 ### v0.50.2 (2016-06-01) - Fix gitbox completions
