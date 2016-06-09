@@ -1,7 +1,18 @@
+### v0.53.0 (2016-06-09) - New dotfile templates & defaults
+
+  * [b22512f] Add .vimrc dotfile default template
+  * [0e0915a] Add .editorconfig dotfile default template
+  * [f6cf4bb] Add dotfile scripts to include-all.sh
+  * [277134b] Add dotfile default template for gitignore files
+  * [0bdf59c] Make configurable the installation directory for every dotfile template
+  * [f90d1cb] Bump version to 0.53.0
+
+
 ### v0.52.1 (2016-06-07) - Fix dotfile command
 
   * [eaae02c] Fix dotfile to find available templates (find command)
   * [e93e3cf] Bump version to 0.52.1
+  * [f4bdfb2] Update CHANGELOG.md with 0.52.1 changes
 
 
 ### v0.52.0 (2016-06-06) - Add a new dotfile command
