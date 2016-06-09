@@ -3,6 +3,9 @@
 # \ls  -l **/**.zsh | tr -s ' ' | cut -d ' ' -f 9 | xargs -n 1 -I {} echo "source {}"
 source scripts/bump/lib/bump.lib.zsh
 source scripts/bump/lib/bump.version.zsh
+source scripts/dotfile/lib/dotfile.install.zsh
+source scripts/dotfile/lib/dotfile.lib.zsh
+source scripts/dotfile/lib/dotfile.list.zsh
 source scripts/gitbox/lib/gitbox.changelog.zsh
 source scripts/gitbox/lib/gitbox.initialize.zsh
 source scripts/gitbox/lib/gitbox.lib.zsh
