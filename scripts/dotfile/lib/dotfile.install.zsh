@@ -51,10 +51,6 @@ function dotfile_install() {
         shift
     done
 
-    if [ -z "$directory" ]; then
-        directory=~
-    fi
-
     if [ -z $name ]; then
         printf "${RED}dotfile install: Ouch! Do you forget something, don't you? I need a dotfile name!${NORMAL}\n" 1>&2
         usage_install

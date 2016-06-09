@@ -8,3 +8,6 @@
 
 # sandbin installation directory
 export SANDBIN_HOME={{sandbinhome}}
+
+# dotfiles default installation directory
+DOTFILES_DEFAULT_INSTALL_DIRECTORY=~
