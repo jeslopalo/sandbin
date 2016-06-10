@@ -65,7 +65,6 @@ __gitbox_setup() {
 
             subcommands=(
                 'aliases:Configure git aliases from a definition file'
-                'attributes:Create .gitattributes file from a template'
                 'user:Configure repository user.name'
                 'email:Configure repository user.email'
             )
@@ -78,9 +77,6 @@ __gitbox_setup() {
 			case $line[1] in
                 (aliases)
                     __gitbox_setup_aliases
-                ;;
-                (attributes)
-                    __gitbox_setup_attributes
                 ;;
                 (user)
                     __gitbox_setup_attribute 'gitbox setup user'
@@ -122,35 +118,6 @@ __gitbox_setup_aliases_files() {
     done
 
     _wanted file-prefixes expl 'file-prefix' compadd $(command echo "$prefixes" | tr ' ' '\n')
-}
-
-__gitbox_setup_attributes_files() {
-    local expl
-
-    local prefixes
-    for file in $SANDBIN_HOME/dotfiles/gitattributes/*.template; do
-        filename=${file##*/}
-        prefix=${filename%.*}
-        prefix=${prefix// /}
-        prefixes="$prefix $prefixes"
-    done
-
-    _wanted file-prefixes expl 'file-prefix' compadd $(command echo "$prefixes" | tr ' ' '\n')
-}
-
-__installation_directory_prompt() {
-    _path_files -/ -W "(~)"
-}
-
-#
-# gitbox setup attributes [--to-dir <directory>] [-F | --force] [<attributes file prefix>] [-h | --help]
-#
-__gitbox_setup_attributes() {
-    _arguments \
-        --to-dir'[Installation directory]':directory:__installation_directory_prompt \
-        "(-F --force)"{-F,--force}"[Rewrite original .gitattributes file if already exists.]" \
-        ":file-prefixes:__gitbox_setup_attributes_files" \
-        "(-h --help)"{-h,--help}"[Show help for gitbox setup command]"
 }
 
 __gitbox_setup_attribute() {
