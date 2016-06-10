@@ -6,12 +6,11 @@ function usage_setup() {
     local color=$(usage_description_color $mode $2)
 
     $(usage_show_description $mode) && printf "${color}Provides several utilities to configure git${NORMAL}\n"
-    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox setup${NORMAL} [aliases | attributes | user | email] [-h, --help]\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox setup${NORMAL} [aliases | user | email] [-h, --help]\n"
 
     if usage_show_detailed $mode; then
         printf "\n"
         printf "    ${BOLD}aliases${NORMAL}         %s\n" "$(usage_setup_aliases description)"
-        printf "    ${BOLD}attributes${NORMAL}      %s\n" "$(usage_setup_gitattributes description)"
         printf "    ${BOLD}user${NORMAL}            %s\n" "$(usage_setup_attribute user '' description)"
         printf "    ${BOLD}email${NORMAL}           %s\n" "$(usage_setup_attribute email '' description)"
         printf "\nOptions:\n"
@@ -34,23 +33,6 @@ function usage_setup_aliases() {
         printf "    ${BOLD}--global${NORMAL}                    %s\n" "Setup in global scope (all user workspaces)"
         printf "    ${BOLD}--local${NORMAL}                     %s\n" "Setup in local scope (only for current workspace)"
         printf "    ${BOLD}-c, --clean-aliases${NORMAL}         %s\n" "First clean current scope aliases"
-        printf "    ${BOLD}-h, --help${NORMAL}                  %s\n" "Display this help"
-    fi
-}
-
-function usage_setup_gitattributes() {
-    local mode=$(usage_mode $1)
-    local color=$(usage_description_color $mode $2)
-
-    $(usage_show_description $mode) && printf "${color}Setup .gitattributes file in a git repository${NORMAL}\n"
-    $(usage_show_usage $mode) && printf "usage: ${BOLD}gitbox setup attributes${NORMAL}  [--to-dir <directory>] [-F | --force] [<attributes file prefix>] [-h | --help]\n"
-
-    if usage_show_detailed $mode; then
-        printf "\n"
-        printf "    ${BOLD}<attributes file prefix>${NORMAL}    %s\n" ".gitattributes difinition file prefix (defaults to default)"
-        printf "\nOptions:\n"
-        printf "    ${BOLD}--to-dir <directory>${NORMAL}        %s\n" "Target directory to setup .gitattributes"
-        printf "    ${BOLD}-F, --force${NORMAL}                 %s\n" "Replace .gitattributes file if already exists"
         printf "    ${BOLD}-h, --help${NORMAL}                  %s\n" "Display this help"
     fi
 }
@@ -91,11 +73,6 @@ function gitbox_setup() {
             aliases)
                 shift
                 gitbox_setup_aliases "$@"
-                exit $?
-            ;;
-            attributes)
-                shift
-                gitbox_setup_gitattributes "$@"
                 exit $?
             ;;
             user)
@@ -169,73 +146,6 @@ function gitbox_setup_aliases() {
     fi
 
     import "scripts/gitbox/aliases/${alias_file_prefix}.aliases"
-}
-
-function gitbox_setup_gitattributes() {
-
-    while [[ $# -gt 0 ]];  do
-        key="$1"
-
-        case $key in
-            --to-dir)
-                if [ ! -d "$2" ]; then
-                    printf "${RED}gitbox setup attributes: Ouch! '%s' doesn't seem to be a valid directory.${NORMAL}\n" "$2" 1>&2
-                    usage_setup_gitattributes
-                    exit 1
-                fi
-                directory="$2"
-                shift
-            ;;
-            -F|--force)
-                force=true
-            ;;
-            -h|--help)
-                usage_setup_gitattributes "help"
-                exit 0
-            ;;
-            *)
-                attributes_file_prefix="$1"
-            ;;
-        esac
-        shift
-    done
-
-    if [ -z "$directory" ]; then
-        directory="."
-    fi
-    installation_path=$directory/.gitattributes
-
-    if ! is_a_git_workspace $directory; then
-        printf "${RED}gitbox setup attributes: Ouch! I need a git repository to work${NORMAL}\n" 1>&2
-        usage_setup_gitattributes
-        exit 1;
-    fi
-
-    if [ -z "$attributes_file_prefix" ]; then
-        attributes_file_prefix="default"
-    fi
-    template_path="$SANDBIN_HOME/dotfiles/gitattributes/$attributes_file_prefix.template"
-    if [ ! -f $template_path ]; then
-        printf "${RED}gitbox setup attributes: Ouch! I need a .gitattributes template and '%s' doesn't exists${NORMAL}\n" "$attributes_file_prefix.template" 1>&2
-        usage_setup_gitattributes
-        exit 1
-    fi
-
-    if [ ! -f "$installation_path" ] || [ $force ] ; then
-
-        if [ -f "$installation_path" ]; then
-            printf "${YELLOW}Forcing to rewrite existing .gitattributes file ['%s'] (Saving a copy in %s)${NORMAL}\n" "${installation_path#./}" "${installation_path#./}.backup"
-            mv "$installation_path" "$installation_path.backup"
-        fi
-
-        printf "${GREEN}Creating .gitattributes file ['%s'] from %s.gitattributes template.${NORMAL}\n" "${installation_path#./}" "$attributes_file_prefix"
-        cp "$template_path" "$installation_path"
-        exit $?
-    else
-        printf "${RED}gitbox setup attributes: The file '%s' already exists! (use -F, --force to rewrite)${NORMAL}\n" "${installation_path#./}" 1>&2
-        usage_setup_gitattributes
-        exit 1
-    fi
 }
 
 function gitbox_setup_attribute() {

@@ -24,7 +24,7 @@ function install_dotfile() {
     local group=$(echo $name | sed 's/\/.*//')
 
     if [ -z "$name" ]; then
-        printf "I need a dotfile name to be installed\n" 1>&2
+        printf "${RED}dotfile install: I need a dotfile name to be installed${NORMAL}\n" 1>&2
         return 1
     fi
 
@@ -34,12 +34,12 @@ function install_dotfile() {
     fi
 
     if [ ! -f "$template" ]; then
-        printf "'%s' dotfile template doesn't exists\n" "$name" 1>&2
+        printf "${RED}dotfile install: '%s' dotfile template doesn't exists${NORMAL}\n" "$name" 1>&2
         return 1
     fi
 
     if [ -d "$directory/.$group" ]; then
-        printf "${RED}Sorry! There is a directory (${BOLD}%s${NORMAL}${RED}) with the same name.${NORMAL}\n" "$directory/.$group" 1>&2
+        printf "${RED}dotfile install: Sorry! There is a directory (${BOLD}%s${NORMAL}${RED}) with the same name.${NORMAL}\n" "$directory/.$group" 1>&2
         return 1
     fi
 
