@@ -1,3 +1,12 @@
+### v0.54.0 (2016-06-12) - Minor changes & git aliases
+
+  * [0ebd4ae] Improve error messages in install_dotfile() function
+  * [209a302] Remove 'gitbox setup attributes' command
+  * [935409b] Simplify some git alias names
+  * [9772aec] Add 'git update' alias to get latests changes from remote
+  * [7791736] Bump version to 0.54.0
+
+
 ### v0.53.0 (2016-06-09) - New dotfile templates & defaults
 
   * [b22512f] Add .vimrc dotfile default template
@@ -6,6 +15,7 @@
   * [277134b] Add dotfile default template for gitignore files
   * [0bdf59c] Make configurable the installation directory for every dotfile template
   * [f90d1cb] Bump version to 0.53.0
+  * [4741744] Update CHANGELOG.md with 0.53.0 changes
 
 
 ### v0.52.1 (2016-06-07) - Fix dotfile command
