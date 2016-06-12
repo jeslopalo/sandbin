@@ -32,6 +32,9 @@ say "Configuring aliases for workspace info..."
 # find the workspace of current repository
 new_alias "$scope" "workspace" "!git rev-parse --show-toplevel"
 
+say "Configuring aliases for update the workspace..."
+new_alias "$scope" "update" "!git pull --rebase --prune $@ && git submodule update --init --recursive"
+
 say "Configuring aliases form status..."
 new_alias "$scope" "status-short" "status -sb -uno --ignore-submodules=untracked --untracked-files=normal --ignored"
 new_alias "$scope" "st" "!git status-short"
