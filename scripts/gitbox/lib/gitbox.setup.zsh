@@ -124,14 +124,15 @@ function gitbox_setup_aliases() {
         shift;
     done
 
-    if ! is_a_git_workspace; then
-        printf "${RED}gitbox setup aliases: Ouch! I need a git repository to work${NORMAL}\n" 1>&2
+
+    if [ -z "$scope" ]; then
+        printf "${RED}gitbox setup aliases: Ouch! I need a scope (ie. --system, --global, --local) to setup aliases${NORMAL}\n" 1>&2
         usage_setup_aliases
         return 1;
     fi
 
-    if [ -z "$scope" ]; then
-        printf "${RED}gitbox setup aliases: Ouch! I need a scope (ie. --system, --global, --local) to setup aliases${NORMAL}\n" 1>&2
+    if [ "$scope" = "--local" ] && ! is_a_git_workspace; then
+        printf "${RED}gitbox setup aliases: Ouch! I need a git repository to work${NORMAL}\n" 1>&2
         usage_setup_aliases
         return 1;
     fi
