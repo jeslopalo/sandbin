@@ -1,3 +1,7 @@
 
-#Colors for *BSD/darwin
+# Colors for *BSD/darwin
 export CLICOLOR=1
+
+# Defaults to vim editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
