@@ -1,3 +1,10 @@
+### v0.55.0 (2016-10-28) - New exports & minor bugfixes
+
+  * [66ec36f] Add 'VISUAL' and 'EDITOR' exports to .exports
+  * [9c39d29] Modify 'gitbox setup aliases --global|--system' preconditions
+  * [c4eb2c0] Complete 'Generating a new version' instructions
+
+
 ### v0.54.0 (2016-06-12) - Minor changes & git aliases
 
   * [0ebd4ae] Improve error messages in install_dotfile() function
@@ -5,6 +12,7 @@
   * [935409b] Simplify some git alias names
   * [9772aec] Add 'git update' alias to get latests changes from remote
   * [7791736] Bump version to 0.54.0
+  * [bf3c7f3] Update CHANGELOG.md with 0.54.0 changes
 
 
 ### v0.53.0 (2016-06-09) - New dotfile templates & defaults
