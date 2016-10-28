@@ -78,3 +78,13 @@ Please, reload your shell session!
 
 Hooray! sandbin has been installed!
 ```
+
+## Generating a new version
+
+```sh
+~/workspace/sandbin(branch:develop) » git flow release start <version>
+~/workspace/sandbin(branch:release/<version>) » gitbox changelog --publish "<tag version message>"
+~/workspace/sandbin(branch:release/<version>) » bump version
+~/workspace/sandbin(branch:release/<version>) » git flow finish
+~/workspace/sandbin(branch:develop) » git push-all
+```
