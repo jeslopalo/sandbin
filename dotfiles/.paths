@@ -3,4 +3,5 @@ export PATH=$SANDBIN_HOME/scripts/bump:$PATH;
 export PATH=$SANDBIN_HOME/scripts/gitbox:$PATH;
 export PATH=$SANDBIN_HOME/scripts/sandbin:$PATH;
 export PATH=$SANDBIN_HOME/scripts/dotfile:$PATH;
+export PATH=$SANDBIN_HOME/scripts/yaml:$PATH;
 export PATH=$SANDBIN_HOME/scripts/launcher:$PATH;
