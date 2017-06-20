@@ -1,0 +1,55 @@
+#!/usr/bin/env sandbash
+
+import "scripts/lib/usage.lib.zsh"
+
+import "scripts/yaml/lib/yaml.extract.zsh"
+#$ ./yaml_export ~/Development/utilities/sandbin/tests/yaml/test.yml | xargs -I {} echo "export {}"
+
+function usage() {
+    local mode=$(usage_mode $1)
+    local color=$(usage_description_color $mode $2)
+
+    $(usage_show_description $mode) && printf "${color}Utility to process yaml files${NORMAL}\n"
+    $(usage_show_usage $mode) && printf "usage: ${BOLD}yaml${NORMAL} [extract] [-h, --help]\n"
+
+    if usage_show_detailed $mode; then
+        printf "\n"
+        printf "    ${BOLD}extract${NORMAL}            %s\n" "$(usage_extract description)"
+        printf "\nOptions:\n"
+        printf "    ${BOLD}-h, --help${NORMAL}      Display this help\n"
+    fi
+}
+
+function yaml() {
+
+    if [ $# = 0 ]; then
+        printf "${RED}yaml: Sorry! I need a subcommand to continue :(${NORMAL}\n" 1>&2
+        usage;
+        exit 1;
+    fi
+
+    while [[ $# -gt 0 ]];  do
+        key="$1"
+
+        case $key in
+            extract)
+                shift
+                yaml_extract "$@"
+                exit $?
+            ;;
+            -h|--help)
+                usage "help"
+                exit 0
+            ;;
+            *)
+                printf "${RED}yaml: Ouch! Unknown option '%s'. Please try agan!${NORMAL}\n" "$key" 1>&2
+                usage
+                exit 1
+            ;;
+        esac
+
+        shift;
+    done
+}
+
+yaml "$@"
