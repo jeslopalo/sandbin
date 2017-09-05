@@ -1,0 +1,56 @@
+#compdef yaml
+
+_yaml() {
+
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        ':command:->command' \
+        '*::options:->options'
+
+    case $state in
+        (command)
+            local -a subcommands;
+
+            subcommands=(
+                'extract:Extract all variable values from a yaml input file'
+            )
+            _describe -t commands 'yaml' subcommands
+            _arguments \
+                "(-h --help)"{-h,--help}"[Show help for yaml usage]"
+        ;;
+
+        (options)
+			case $line[1] in
+				(extract)
+				    _arguments \
+				        ':yaml file:__dotfile_list_groups' \
+				        "(-h --help)"{-h,--help}"[Show help for yaml list usage]"
+                ;;
+#                (install)
+#				    _arguments \
+#				        ':dotfile templates:__dotfile_list_templates' \
+#				        --to-dir'[Installation directory]':directory:__installation_directory_prompt \
+#				        "(-h --help)"{-h,--help}"[Show help for yaml install usage]"
+#                ;;
+			esac
+		;;
+    esac
+}
+
+#__dotfile_list_groups() {
+#    local expl
+#    _wanted dotfile-prefixes expl 'dotfile template groups' compadd $(available_dotfiles | sed 's/\/.*//' | tr ' ' '\n')
+#}
+#
+#__dotfile_list_templates() {
+#    local expl
+#    _wanted dotfile-prefixes expl 'dotfile templates' compadd $(available_dotfiles | tr ' ' '\n')
+#}
+#
+#__installation_directory_prompt() {
+#    _path_files -/ -W "(~)"
+#}
+
+_yaml "$@"
